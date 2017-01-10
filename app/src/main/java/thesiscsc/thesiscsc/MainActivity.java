@@ -11,9 +11,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         System.out.print("Hei Thang");
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.out.print("HALLA");
         System.out.print("HALLA balla");
         System.out.print("Hei");
+=======
+>>>>>>> parent of 97f8ff8... First
 =======
 >>>>>>> parent of 97f8ff8... First
     }
