@@ -1,4 +1,4 @@
-package thesiscsc.thesiscsc.Splash;
+package thesiscsc.thesiscsc.splash;
 
 /**
  * Created by tphan46 on 10.01.2017.
