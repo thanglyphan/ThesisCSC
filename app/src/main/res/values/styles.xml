@@ -12,4 +12,10 @@
         <item name="android:windowBackground">@drawable/splash_draw</item>
     </style>
 
+    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/White</item>
+        <item name="android:textColorPrimary">@color/BlanchedAlmond</item>
+        <item name="android:background">@color/Red</item>
+    </style>
+
 </resources>
