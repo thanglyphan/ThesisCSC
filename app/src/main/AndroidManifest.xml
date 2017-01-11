@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
         <!-- Splash screen -->
         <activity
-            android:name=".splash.SplashScreen"
+            android:name=".splashscreen.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme" >
