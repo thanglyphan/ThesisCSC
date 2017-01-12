@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import thesiscsc.thesiscsc.splashscreen.SplashScreen;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -92,6 +93,11 @@ public class LoginActivity extends AppCompatActivity {
 
         //TODO: Send user to next activity.
         Toast.makeText(getBaseContext(), "Login successful!", Toast.LENGTH_LONG).show();
+
+        Intent i = new Intent(LoginActivity.this, MenuActivity.class);
+        startActivity(i);
+
+        finish();
 
     }
 
