@@ -12,7 +12,7 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/logo"
+        <ImageView android:src="@drawable/csc_original_logo"
             android:contentDescription="@string/csc_logo"
             android:layout_width="wrap_content"
             android:layout_height="72dp"

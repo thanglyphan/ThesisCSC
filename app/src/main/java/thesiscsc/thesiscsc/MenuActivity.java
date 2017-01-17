@@ -3,9 +3,7 @@ package thesiscsc.thesiscsc;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -130,7 +128,7 @@ public class MenuActivity extends AppCompatActivity implements ActionBar.TabList
                 .into(imgNavHeaderBg);
 
         // Loading profile image
-        Glide.with(this).load(R.drawable.logo)
+        Glide.with(this).load(R.drawable.csc_original_logo)
                 .dontAnimate()
                 .crossFade()
                 .thumbnail(0.5f)
