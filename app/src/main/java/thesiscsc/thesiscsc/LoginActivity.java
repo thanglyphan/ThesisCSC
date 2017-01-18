@@ -1,7 +1,9 @@
 package thesiscsc.thesiscsc;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,16 +12,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sicsnt.administration.ServerInformation;
+import com.sicswsadministrationentrypoint.sicswsadministrationentrypoint.SicsWsAdministrationEntryPointPort;
+import com.sicswsadministrationentrypoint.sicswsadministrationentrypoint.SicsWsAdministrationEntryPoint;
+
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.xml.rpc.ServiceException;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import thesiscsc.thesiscsc.splashscreen.SplashScreen;
-
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private SharedPreferences prefs;
 
-    @InjectView(R.id.input_email) EditText _emailText;
+    public static final String SERVER_ADDRESS = "http://20.47.10.207:8080/SwanLake/sicsxml/"; //$NON-NLS-1$
+
+    @InjectView(R.id.input_email) EditText _usernameText;
     @InjectView(R.id.input_password) EditText _passwordText;
     @InjectView(R.id.btn_login) Button _loginButton;
 
@@ -27,24 +40,69 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        prefs = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         ButterKnife.inject(this);
 
-        _loginButton.setOnClickListener(new View.OnClickListener() {
+        String username = prefs.getString("username", "");
+        String password = prefs.getString("password", "");
+        System.out.println(username);
 
+        _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
             }
         });
+
+        if(!username.equals("") && !password.equals("")) {
+            login();
+        }
+        try {
+            checkIfSicsServerIsAvaialable();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void checkIfSicsServerIsAvaialable() throws MalformedURLException, ServiceException {
+        System.out.println("Checking if SICS Server is available..."); //$NON-NLS-1$
+        SicsWsAdministrationEntryPointPort s = new SicsWsAdministrationEntryPoint(this.getServerURL("Administration")).getSicsWsAdministrationEntryPointPort();
+        try {
+            ServerInformation info = s.about(); // Feature of SICS Server, must call 'about'
+            // before any other request
+            boolean isAvailable = s.isAvailable();
+            System.out.println(isAvailable ? "SICS Server is available." //$NON-NLS-1$
+                    : "SICS Server is not available."); //$NON-NLS-1$
+        } catch (com.sicsnt.systemtypes.SicsFaultDetails_Exception SicsFaultDetails_Exception) {
+            System.out.println("Exception detected for isAvailable(): " + SicsFaultDetails_Exception.getMessage()); //$NON-NLS-1$
+        }
+    }
+
+
+    private URL getServerURL(String entryPointName) throws MalformedURLException {
+        return new URL(SERVER_ADDRESS + "SicsWs" + entryPointName + "EntryPoint.wsdl"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public void login() {
         Log.d(TAG, "Login");
 
-        if (!validate()) {
-            onLoginFailed();
-            return;
+        String username = prefs.getString("username", "");
+        String password = prefs.getString("password", "");
+
+        if(!username.equals("") && !password.equals("")) {
+            if(!validate(username, password)){
+                onLoginFailed();
+                return;
+            }
+        } else {
+            if (!validate(_usernameText.getText().toString(), _passwordText.getText().toString())) {
+                onLoginFailed();
+                return;
+            }
         }
+
 
         _loginButton.setEnabled(false);
 
@@ -52,11 +110,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
-
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
-
-        // TODO: Implement login.
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -90,8 +143,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-
-        //TODO: Send user to next activity.
         Toast.makeText(getBaseContext(), "Login successful!", Toast.LENGTH_LONG).show();
 
         Intent i = new Intent(LoginActivity.this, MenuActivity.class);
@@ -107,17 +158,24 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton.setEnabled(true);
     }
 
-    public boolean validate() {
+    public boolean validate(String usern, String pw) {
         boolean valid = true;
+        String username = "";
+        String password = "";
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        if(usern != "" && pw != ""){
+            username = usern;
+            password = pw;
+        } else {
+            username = _usernameText.getText().toString();
+            password = _passwordText.getText().toString();
+        }
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+        if (username.isEmpty() ) {
+            _usernameText.setError("enter a valid username");
             valid = false;
         } else {
-            _emailText.setError(null);
+            _usernameText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
@@ -125,6 +183,11 @@ public class LoginActivity extends AppCompatActivity {
             valid = false;
         } else {
             _passwordText.setError(null);
+        }
+
+        if(valid && usern != "" && pw != "") {
+            prefs.edit().putString("username", username).apply();
+            prefs.edit().putString("password", password).apply();
         }
 
         return valid;

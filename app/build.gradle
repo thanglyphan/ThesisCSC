@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -29,6 +29,36 @@ dependencies {
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
     testCompile 'junit:junit:4.12'
+    compile files('libs/activation.jar')
+    compile files('libs/db2jcc.jar')
+    compile files('libs/db2jcc_license_cisuz.jar')
+    compile files('libs/db2jcc_license_cu.jar')
+    compile files('libs/FastInfoset.jar')
+    compile files('libs/gmbal-api-only.jar')
+    compile files('libs/ha-api.jar')
+    compile files('libs/http.jar')
+    compile files('libs/jaxb1-impl.jar')
+    compile files('libs/jaxb-api.jar')
+    compile files('libs/jaxb-impl.jar')
+    compile files('libs/jaxrpc.jar')
+    compile files('libs/jaxws-api.jar')
+    compile files('libs/jaxws-rt.jar')
+    compile files('libs/jaxws-tools.jar')
+    compile files('libs/jsr173_1.0_api.jar')
+    compile files('libs/jsr181-api.jar')
+    compile files('libs/jsr250-api.jar')
+    compile files('libs/jtds-1.2.jar')
+    compile files('libs/management-api.jar')
+    compile files('libs/mimepull.jar')
+    compile files('libs/ojdbc14.jar')
+    compile files('libs/policy.jar')
+    compile files('libs/resolver.jar')
+    compile files('libs/saaj-api.jar')
+    compile files('libs/saaj-impl.jar')
+    compile files('libs/SicsServerJAXWSClient_pc_4.6.1.jar')
+    compile files('libs/stax-ex.jar')
+    compile files('libs/streambuffer.jar')
+    compile files('libs/woodstox.jar')
+    compile files('libs/jaxb-xjc.jar')
 }

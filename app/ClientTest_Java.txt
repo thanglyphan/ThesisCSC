@@ -1,0 +1,126 @@
+=== Java Client test ===
+
+-	Use SICS Server running in JAX-WS mode, possibly against the SICSPC database on SQL Server Express
+-	In Eclipse, import JAXWSExampleClient
+-	Edit build path of JAXWSExampleClient, set JavaSE-1.7
+-	In JAXWSExampleClient/lib, add SicsServerJAXWSClient_pc_4.6.1.jar from Q:\Datafiles\Personal\Westerdal students (this is the JAX-WS version of the client stubs)
+-	In src/java, add TaskManagementTest.java (see below)
+-	Execute TaskManagementTest
+
+SQL issued in SICS Server ==>
+SELECT ...  FROM TM_ACTIVITY t1 WHERE ((t1.FRK_STATUS IN ('READY', 'RESERVED', 'INPROGRESS') AND t1.PRODUCT = 'P') AND t1.FK_ACTUAL_OWNER IN ('591092111784234E8EEA9B25752C4354') AND t1.SUBCLASS = 3)
+
+
+
+
+package com.csc.sics.server.test.jaxws.pc.client;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.xml.rpc.ServiceException;
+
+import com.sicsnt.administration.ServerInformation;
+import com.sicsnt.domainsearch.ActualOwnerProperties;
+import com.sicsnt.domainsearch.TaskFindCriteria;
+import com.sicsnt.domainsearch.TaskProperties;
+import com.sicsnt.domainsearch.TaskSearchCriteria;
+import com.sicsnt.domainsearch.TaskSearchResultOutput;
+import com.sicsnt.domainsearch.TaskUserList;
+import com.sicsnt.referenceitems.SicsUserReference;
+import com.sicsnt.systemtypes.AuthenticationToken;
+import com.sicsnt.systemtypes.SicsFaultDetails_Exception;
+import com.sicsnt.systemtypes.SicsGenericInput;
+import com.sicswsadministrationentrypoint.sicswsadministrationentrypoint.SicsWsAdministrationEntryPoint;
+import com.sicswsadministrationentrypoint.sicswsadministrationentrypoint.SicsWsAdministrationEntryPointPort;
+import com.sicswsdomainsearchentrypoint.sicswsdomainsearchentrypoint.SicsWsDomainSearchEntryPoint;
+import com.sicswsdomainsearchentrypoint.sicswsdomainsearchentrypoint.SicsWsDomainSearchEntryPointPort;
+
+public class TaskManagementTest {
+
+  public static final String SERVER_ADDRESS = "http://20.47.10.207:8080/SwanLake/sicsxml/"; //$NON-NLS-1$
+  public static final String USER_ID = "HSVERDRU"; //$NON-NLS-1$
+  public static final boolean FIND_ONLY_OWN_TASKS = false;
+
+  public static void main(String[] args) {
+    try {
+      System.out.println("Using SICS Server address: " + SERVER_ADDRESS); //$NON-NLS-1$
+      TaskManagementTest helloSICSServer = new TaskManagementTest();
+      helloSICSServer.checkIfSicsServerIsAvaialable();
+
+      System.out.println("Search for Task Management tasks"); //$NON-NLS-1$
+      String userId = "HSVERDRU"; //$NON-NLS-1$
+      helloSICSServer.searchTask(userId);
+    } catch (Exception exception) {
+      exception.printStackTrace();
+    }
+  }
+
+  private void checkIfSicsServerIsAvaialable() throws MalformedURLException, ServiceException {
+    System.out.println("Checking if SICS Server is available..."); //$NON-NLS-1$
+    SicsWsAdministrationEntryPointPort sicsWsAdministrationEntryPointPort = new SicsWsAdministrationEntryPoint(this.getServerURL("Administration")) //$NON-NLS-1$
+        .getSicsWsAdministrationEntryPointPort();
+    try {
+      ServerInformation info = sicsWsAdministrationEntryPointPort.about(); // Feature of SICS Server, must call 'about'
+      // before any other request
+      boolean isAvailable = sicsWsAdministrationEntryPointPort.isAvailable();
+      System.out.println(isAvailable ? "SICS Server is available." //$NON-NLS-1$
+          : "SICS Server is not available."); //$NON-NLS-1$
+    } catch (SicsFaultDetails_Exception SicsFaultDetails_Exception) {
+      System.out.println("Exception detected for isAvailable(): " + SicsFaultDetails_Exception.getMessage()); //$NON-NLS-1$
+    }
+  }
+
+  private URL getServerURL(String entryPointName) throws MalformedURLException {
+    return new URL(SERVER_ADDRESS + "SicsWs" + entryPointName + "EntryPoint.wsdl"); //$NON-NLS-1$ //$NON-NLS-2$
+  }
+
+  private void searchTask(String userId) throws ServiceException, IOException {
+    try {
+      SicsWsDomainSearchEntryPointPort entryPointPort = new SicsWsDomainSearchEntryPoint(this.getServerURL("DomainSearch")) //$NON-NLS-1$
+          .getSicsWsDomainSearchEntryPointPort();
+
+      SicsGenericInput sicsGenericInput = new SicsGenericInput();
+
+      TaskSearchCriteria taskSearchCriteria = new TaskSearchCriteria();
+      TaskFindCriteria taskFindCriteria = new TaskFindCriteria();
+
+      TaskProperties taskProperties = new TaskProperties();
+      taskProperties.setFindOnlyOwnTasks(FIND_ONLY_OWN_TASKS);
+      taskFindCriteria.setTaskProperties(taskProperties);
+
+      if (FIND_ONLY_OWN_TASKS) {
+        // Need to specify the user in genericInput
+        AuthenticationToken token = new AuthenticationToken();
+        token.setUserId(USER_ID);
+        sicsGenericInput.setAuthenticationToken(token);
+      }
+
+      ActualOwnerProperties actualOwnerProperties = new ActualOwnerProperties();
+      TaskUserList taskUserList = new TaskUserList();
+      SicsUserReference userReference = new SicsUserReference();
+      userReference.setUserId(USER_ID);
+      taskUserList.getUser().add(userReference);
+      actualOwnerProperties.setActualOwnerList(taskUserList);
+      taskFindCriteria.setActualOwnerProperties(actualOwnerProperties);
+
+      taskSearchCriteria.setCriteria(taskFindCriteria);
+
+      System.out.println("Trying to search tasks for user: " + userId); //$NON-NLS-1$
+
+      TaskSearchResultOutput result = entryPointPort.executeTaskSearch(sicsGenericInput, taskSearchCriteria);
+
+      System.out.println(result.getFoundObjectsCount() + " tasks found."); //$NON-NLS-1$
+
+    } catch (SicsFaultDetails_Exception exception) {
+      System.out.println("SOAP Fault detected for task search: " + //$NON-NLS-1$
+          exception.getMessage());
+      System.out.println("\tdetails"); //$NON-NLS-1$
+      System.out.println("\t\texplanation: " + exception.getFaultInfo().getExplanation()); //$NON-NLS-1$
+      System.out.println("\t\txpath......: " + exception.getFaultInfo().getXpath()); //$NON-NLS-1$
+      System.out.println("\t\tdate......: " + exception.getFaultInfo().getDate().toString()); //$NON-NLS-1$
+      System.out.println("\t\ttime......: " + exception.getFaultInfo().getTime().toString()); //$NON-NLS-1$
+    }
+  }
+}

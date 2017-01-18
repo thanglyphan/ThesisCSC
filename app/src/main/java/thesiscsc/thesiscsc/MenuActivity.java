@@ -1,11 +1,12 @@
 package thesiscsc.thesiscsc;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -62,10 +63,14 @@ public class MenuActivity extends AppCompatActivity implements ActionBar.TabList
 
     public static String CURRENT_TAG = TAG_HOME;
 
+    private SharedPreferences prefs;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        prefs = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -108,7 +113,15 @@ public class MenuActivity extends AppCompatActivity implements ActionBar.TabList
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
-            Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+
+            prefs.edit().putString("username", null).apply();
+            prefs.edit().putString("password", null).apply();
+
+            Intent i = new Intent(MenuActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+
+            Toast.makeText(getApplicationContext(), "Logout success!", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -130,7 +143,7 @@ public class MenuActivity extends AppCompatActivity implements ActionBar.TabList
                 .into(imgNavHeaderBg);
 
         // Loading profile image
-        Glide.with(this).load(R.drawable.logo)
+        Glide.with(this).load(R.drawable.csc_original_logo)
                 .dontAnimate()
                 .crossFade()
                 .thumbnail(0.5f)
