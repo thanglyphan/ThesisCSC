@@ -1,7 +1,9 @@
 package thesiscsc.thesiscsc;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,14 +14,14 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import thesiscsc.thesiscsc.splashscreen.SplashScreen;
 
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private SharedPreferences prefs;
 
-    @InjectView(R.id.input_email) EditText _emailText;
+    @InjectView(R.id.input_email) EditText _usernameText;
     @InjectView(R.id.input_password) EditText _passwordText;
     @InjectView(R.id.btn_login) Button _loginButton;
 
@@ -27,24 +29,43 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        prefs = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         ButterKnife.inject(this);
 
-        _loginButton.setOnClickListener(new View.OnClickListener() {
+        String username = prefs.getString("username", "");
+        String password = prefs.getString("password", "");
+        System.out.println(username);
 
+        _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
             }
         });
+
+        if(!username.equals("") && !password.equals("")) {
+            login();
+        }
     }
 
     public void login() {
         Log.d(TAG, "Login");
 
-        if (!validate()) {
-            onLoginFailed();
-            return;
+        String username = prefs.getString("username", "");
+        String password = prefs.getString("password", "");
+
+        if(!username.equals("") && !password.equals("")) {
+            if(!validate(username, password)){
+                onLoginFailed();
+                return;
+            }
+        } else {
+            if (!validate(_usernameText.getText().toString(), _passwordText.getText().toString())) {
+                onLoginFailed();
+                return;
+            }
         }
+
 
         _loginButton.setEnabled(false);
 
@@ -52,12 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
-
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
-
-        // TODO: Implement login.
-
+        
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -90,8 +106,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-
-        //TODO: Send user to next activity.
         Toast.makeText(getBaseContext(), "Login successful!", Toast.LENGTH_LONG).show();
 
         Intent i = new Intent(LoginActivity.this, MenuActivity.class);
@@ -107,17 +121,24 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton.setEnabled(true);
     }
 
-    public boolean validate() {
+    public boolean validate(String usern, String pw) {
         boolean valid = true;
+        String username = "";
+        String password = "";
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        if(usern != "" && pw != ""){
+            username = usern;
+            password = pw;
+        } else {
+            username = _usernameText.getText().toString();
+            password = _passwordText.getText().toString();
+        }
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+        if (username.isEmpty() ) {
+            _usernameText.setError("enter a valid username");
             valid = false;
         } else {
-            _emailText.setError(null);
+            _usernameText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
@@ -125,6 +146,11 @@ public class LoginActivity extends AppCompatActivity {
             valid = false;
         } else {
             _passwordText.setError(null);
+        }
+
+        if(valid && usern != "" && pw != "") {
+            prefs.edit().putString("username", username).apply();
+            prefs.edit().putString("password", password).apply();
         }
 
         return valid;
