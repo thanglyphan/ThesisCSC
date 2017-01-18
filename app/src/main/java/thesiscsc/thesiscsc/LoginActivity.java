@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
-        
+
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
