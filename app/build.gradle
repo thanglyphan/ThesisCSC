@@ -61,4 +61,5 @@ dependencies {
     compile files('libs/lib/streambuffer.jar')
     compile files('libs/lib/woodstox.jar')
     compile files('libs/lib/jaxb-xjc.jar')
+    compile files('libs/lib/SicsServerJAXWSClient_pc_4.6.1.jar')
 }
