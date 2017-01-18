@@ -24,8 +24,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.SicsWsAdministrationEntryPoint.www.SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPoint;
+import com.SicsWsAdministrationEntryPoint.www.SicsWsAdministrationEntryPoint_interface.SicsWsAdministrationEntryPointPort;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.net.URL;
 
 import thesiscsc.thesiscsc.fragment.TestOneFragment;
 import thesiscsc.thesiscsc.fragment.TestThreeFragment;

@@ -12,15 +12,38 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.SicsNt.www.Administration.LoginInput;
+import com.SicsNt.www.Administration.ServerInformation;
+import com.SicsNt.www.DomainSearch.ActualOwnerProperties;
+import com.SicsNt.www.DomainSearch.TaskFindCriteria;
+import com.SicsNt.www.DomainSearch.TaskProperties;
+import com.SicsNt.www.DomainSearch.TaskSearchCriteria;
+import com.SicsNt.www.DomainSearch.TaskSearchResultOutput;
+import com.SicsNt.www.DomainSearch.TaskUserList;
+import com.SicsNt.www.ReferenceItems.SicsUserReference;
+import com.SicsNt.www.SystemTypes.AuthenticationToken;
+import com.SicsNt.www.SystemTypes.SicsFaultDetails;
+import com.SicsNt.www.SystemTypes.SicsGenericInput;
+import com.SicsWsAdministrationEntryPoint.www.SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPoint;
+import com.SicsWsAdministrationEntryPoint.www.SicsWsAdministrationEntryPoint_interface.SicsWsAdministrationEntryPointBindingStub;
+import com.SicsWsAdministrationEntryPoint.www.SicsWsAdministrationEntryPoint_interface.SicsWsAdministrationEntryPointPort;
+import com.SicsWsDomainSearchEntryPoint.www.SicsWsDomainSearchEntryPoint_interface.SicsWsDomainSearchEntryPointPort;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.xml.rpc.ServiceException;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private SharedPreferences prefs;
 
+    public static final String SERVER_ADDRESS = "http://20.47.10.207:8080/SwanLake/sicsxml/"; //$NON-NLS-1$
 
     @InjectView(R.id.input_email) EditText _usernameText;
     @InjectView(R.id.input_password) EditText _passwordText;
@@ -47,6 +70,24 @@ public class LoginActivity extends AppCompatActivity {
         if(!username.equals("") && !password.equals("")) {
             login();
         }
+    }
+    private void checkIfSicsServerIsAvaialable() throws MalformedURLException, ServiceException {
+        System.out.println("Checking if SICS Server is available..."); //$NON-NLS-1$
+        SicsWsAdministrationEntryPointPort ws = new SicsWsAdministrationEntryPointBindingStub();
+        LoginInput a = new LoginInput();
+        a.setUserId("HSVERDRU");
+        a.setPassword("");
+        try {
+            AuthenticationToken sds = ws.login(a);
+        } catch (SicsFaultDetails sicsFaultDetails) {
+            sicsFaultDetails.printStackTrace();
+        }
+
+    }
+
+
+    private URL getServerURL(String entryPointName) throws MalformedURLException {
+        return new URL(SERVER_ADDRESS + "SicsWs" + entryPointName + "EntryPoint.wsdl"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public void login() {
