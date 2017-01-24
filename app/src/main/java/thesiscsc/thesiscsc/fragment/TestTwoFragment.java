@@ -84,15 +84,15 @@ public class TestTwoFragment extends Fragment {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.green,
-                                "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg");
+                                "https://www.bodybuilding.com/images/2016/july/train-like-dwayne-the-rock-johnson-bigshot-v2-830x467.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.blue,
-                                "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg");
+                                "http://www.sanandreshoy.com/media/social/famosos/Hayden%20Panettiere/6.jpg");
                     case 2:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.cyan,
-                                "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg");
+                                "http://heightline.com/wp-content/uploads/Tom-Cruise-smile.jpg");
                 }
 
                 return null;
