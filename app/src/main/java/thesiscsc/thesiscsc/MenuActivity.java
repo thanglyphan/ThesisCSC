@@ -37,7 +37,7 @@ import thesiscsc.thesiscsc.pager.Tabsadapter;
  * Created by thang on 12.01.2017.
  */
 
-public class MenuActivity extends AppCompatActivity implements ActionBar.TabListener{
+public class MenuActivity extends DrawerActivity implements ActionBar.TabListener{
 
     private ViewPager tabsviewPager;
     private Tabsadapter mTabsAdapter;
