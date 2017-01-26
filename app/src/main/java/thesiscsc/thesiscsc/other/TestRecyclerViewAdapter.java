@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayDeque;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import thesiscsc.thesiscsc.R;
+import thesiscsc.thesiscsc.fragment.RecyclerViewFragment;
 import thesiscsc.thesiscsc.model.Task;
 
 /**
@@ -73,7 +75,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
         return null;
     }
-
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
