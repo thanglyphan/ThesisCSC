@@ -30,7 +30,7 @@ public class TestTwoFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         //View view = inflater.inflate(R.layout.testtwo_view, container, false);
         //lv = (ListView)view.findViewById(R.id.lv_channel);
         View view = inflater.inflate(R.layout.two_fragment_view, container, false);
@@ -47,13 +47,21 @@ public class TestTwoFragment extends Fragment {
 
             @Override
             public Fragment getItem(int position) {
-                switch (position % 3) {
-                    //case 0:
-                    //    return RecyclerViewFragment.newInstance();
-                    //case 1:
-                    //    return RecyclerViewFragment.newInstance();
+                switch (position) {
+                    case 0:
+                        RecyclerViewFragment during = new RecyclerViewFragment();
+                        during.addPosition(position);
+                        return during;
+                    case 1:
+                        RecyclerViewFragment intask = new RecyclerViewFragment();
+                        intask.addPosition(position);
+                        return intask;
+                    case 2:
+                        RecyclerViewFragment ended = new RecyclerViewFragment();
+                        ended.addPosition(position);
+                        return ended;
                     default:
-                        return new RecyclerViewFragment();
+                        return null;
                 }
             }
 
