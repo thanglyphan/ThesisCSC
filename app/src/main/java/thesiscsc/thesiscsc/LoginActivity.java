@@ -12,15 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sicsnt.administration.ServerInformation;
-import com.sicswsadministrationentrypoint.sicswsadministrationentrypoint.SicsWsAdministrationEntryPointPort;
-import com.sicswsadministrationentrypoint.sicswsadministrationentrypoint.SicsWsAdministrationEntryPoint;
-
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.xml.rpc.ServiceException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -30,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_SIGNUP = 0;
     private SharedPreferences prefs;
 
-    public static final String SERVER_ADDRESS = "http://20.47.10.207:8080/SwanLake/sicsxml/"; //$NON-NLS-1$
+    //public static final String SERVER_ADDRESS = "http://20.47.10.207:8080/SwanLake/sicsxml/"; //$NON-NLS-1$
 
     @InjectView(R.id.input_email) EditText _usernameText;
     @InjectView(R.id.input_password) EditText _passwordText;
@@ -57,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         if(!username.equals("") && !password.equals("")) {
             login();
         }
+        /*
         try {
             checkIfSicsServerIsAvaialable();
         } catch (MalformedURLException e) {
@@ -64,8 +60,9 @@ public class LoginActivity extends AppCompatActivity {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
+        */
     }
-
+/*
     private void checkIfSicsServerIsAvaialable() throws MalformedURLException, ServiceException {
         System.out.println("Checking if SICS Server is available..."); //$NON-NLS-1$
         SicsWsAdministrationEntryPointPort s = new SicsWsAdministrationEntryPoint(this.getServerURL("Administration")).getSicsWsAdministrationEntryPointPort();
@@ -84,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     private URL getServerURL(String entryPointName) throws MalformedURLException {
         return new URL(SERVER_ADDRESS + "SicsWs" + entryPointName + "EntryPoint.wsdl"); //$NON-NLS-1$ //$NON-NLS-2$
     }
-
+*/
     public void login() {
         Log.d(TAG, "Login");
 
