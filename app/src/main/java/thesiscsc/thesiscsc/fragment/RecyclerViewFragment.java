@@ -47,7 +47,7 @@ import static thesiscsc.thesiscsc.R.id.name_txt_small;
  * Created by thang on 24.01.2017.
  */
 public class RecyclerViewFragment extends Fragment {
-
+    private final String SERVER_ADDRESS = "88.89.218.114:8325";
     static final boolean GRID_LAYOUT = false;
     private int ITEM_COUNT = 0;
     private RecyclerView mRecyclerView;
@@ -57,7 +57,7 @@ public class RecyclerViewFragment extends Fragment {
     private List<Task> onGoingList, comingList, endedList;
     private int position;
 
-    SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, "http://192.168.43.115:8325/SwanLake/SicsWSServlet");
+    SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, "http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
     Boolean status = false;
     ArrayList<String> taskNames = new ArrayList<String>();
 
@@ -145,15 +145,7 @@ public class RecyclerViewFragment extends Fragment {
         comingList.add(yo);
         comingList.add(yo1);
 
-        ITEM_COUNT = comingList.size();
-
-
-        for (int i = 0; i < ITEM_COUNT; i++) {
-            mContentItems.add(comingList.get(i));
-            if (i > 0) {
-                taskQueue.add(comingList.get(i));
-            }
-        }
+        addToSection((ArrayList<Task>) comingList);
     }
     private void loadEndedTask(){
         endedList = new ArrayList<>();
@@ -173,17 +165,9 @@ public class RecyclerViewFragment extends Fragment {
         endedList.add(yo4);
         endedList.add(yo5);
         endedList.add(yo6);
-        ITEM_COUNT = endedList.size();
 
-
-        for (int i = 0; i < ITEM_COUNT; i++) {
-            mContentItems.add(endedList.get(i));
-            if (i > 0) {
-                taskQueue.add(endedList.get(i));
-            }
-        }
+        addToSection((ArrayList<Task>) endedList);
     }
-
 
     class CallTaskGetService extends AsyncTask<String, Void, String> {
         String taskFindCriteriaInt = "";
@@ -230,7 +214,7 @@ public class RecyclerViewFragment extends Fragment {
             actOwner.actualOwnerList = users;
             taskcrit.actualOwnerProperties = actOwner;
             param1.criteria = taskcrit;
-            SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://192.168.43.115:8325/SwanLake/SicsWSServlet");
+            SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
             String result = "";
 
             try{
