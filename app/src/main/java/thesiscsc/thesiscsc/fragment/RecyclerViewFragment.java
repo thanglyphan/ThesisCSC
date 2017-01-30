@@ -76,7 +76,7 @@ public class RecyclerViewFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         RecyclerView.LayoutManager layoutManager;
-
+        taskQueue = new ArrayDeque<>();
         switch (position){
             case 0: new CallTaskGetService().execute(); System.out.println("YO"); break;
             case 1: loadComingTask(); break;
@@ -94,10 +94,8 @@ public class RecyclerViewFragment extends Fragment {
 
         //Use this now
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
-        mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue);
-
-        //mAdapter = new RecyclerViewMaterialAdapter();
-        mRecyclerView.setAdapter(mAdapter);
+        //mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue);
+        //mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -105,19 +103,16 @@ public class RecyclerViewFragment extends Fragment {
                         //TODO: Redirect to new fragment
                         switch (position){
                             case 0:
-                                System.out.println(onGoingList.get(itemPos).getName() + " IS IN CATEGORY: " + position);
                                 TaskInfoFragment onGoing = new TaskInfoFragment();
                                 onGoing.addTaskToShow(onGoingList.get(itemPos));
                                 //nextFragment(onGoing);
                                 break;
                             case 1:
-                                System.out.println(comingList.get(itemPos).getName() + " IS IN CATEGORY: " + position);
                                 TaskInfoFragment coming = new TaskInfoFragment();
                                 coming.addTaskToShow(comingList.get(itemPos));
                                 //nextFragment(coming);
                                 break;
                             case 2:
-                                System.out.println(endedList.get(itemPos).getName() + " IS IN CATEGORY: " + position);
                                 TaskInfoFragment ended = new TaskInfoFragment();
                                 ended.addTaskToShow(endedList.get(itemPos));
                                 //nextFragment(ended);
@@ -138,35 +133,7 @@ public class RecyclerViewFragment extends Fragment {
 
     private void loadOngoingTask(ArrayList<Task> a){
         onGoingList = a;//new ArrayList<>();
-
-        taskQueue = new ArrayDeque<>();
-        /*
-        Task yo = new Task("Jeg");
-        Task yo1 = new Task("Er");
-        Task yo2 = new Task("Best");
-        Task yo3 = new Task("Og");
-        Task yo4 = new Task("Jeg");
-        Task yo5 = new Task("Heter");
-        Task yo6 = new Task("Thang");
-
-        onGoingList.add(yo);
-        onGoingList.add(yo1);
-        onGoingList.add(yo2);
-        onGoingList.add(yo3);
-        onGoingList.add(yo4);
-        onGoingList.add(yo5);
-        onGoingList.add(yo6);
-        */
-        ITEM_COUNT = onGoingList.size();
-
-        for (int i = 0; i < ITEM_COUNT; i++) {
-            mContentItems.add(onGoingList.get(i));
-            if (i > 0) {
-                taskQueue.add(onGoingList.get(i));
-            }
-        }
-        mAdapter.notifyDataSetChanged();
-
+        addToSection((ArrayList<Task>) onGoingList);
     }
     private void loadComingTask(){
         comingList = new ArrayList<>();
@@ -227,17 +194,11 @@ public class RecyclerViewFragment extends Fragment {
             List<Task> list = new ArrayList<>();
             int size = taskNames.size();
             if(size > 0) {
-                list.add(new Task(taskNames.get(0)));
-                list.add(new Task(taskNames.get(1)));
-                list.add(new Task(taskNames.get(2)));
-                list.add(new Task(taskNames.get(3)));
-                list.add(new Task(taskNames.get(4)));
+                for(int i = 0; i < size; i++) {
+                    list.add(new Task(taskNames.get(i)));
+                }
             } else {
-                list.add(new Task("Hei"));
-                list.add(new Task("På"));
-                list.add(new Task("Deg"));
-                list.add(new Task("Min"));
-                list.add(new Task("Venn"));
+                list.add(new Task("No task found for: "));
             }
             loadOngoingTask((ArrayList<Task>) list);
         }
@@ -300,6 +261,22 @@ public class RecyclerViewFragment extends Fragment {
         }
     }
 
+    private void addToSection(ArrayList<Task> list){
+        ITEM_COUNT = list.size();
+        this.taskQueue = new ArrayDeque<>();
+        {
+            for (int i = 0; i < ITEM_COUNT; i++) {
+                mContentItems.add(list.get(i));
+                System.out.println(list.get(i).getName());
+                if (i > 0) {
+                    taskQueue.add(list.get(i));
+                }
+            }
+            mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue);
+            mRecyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
 
     private void nextFragment(TaskInfoFragment a){
         System.out.println("INSIDE NEXT FRAGMENT");
