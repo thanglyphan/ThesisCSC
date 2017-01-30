@@ -1,5 +1,6 @@
 package thesiscsc.thesiscsc.fragment;
 
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import domain.ActualOwnerProperties;
+import domain.AuthenticationToken;
+import domain.SicsGenericInput;
+import domain.SicsUserReference;
+import domain.SicsWsDomainSearchEntryPointBinding;
+import domain.TaskFindCriteria;
+import domain.TaskProperties;
+import domain.TaskSearchCriteria;
+import domain.TaskSearchResultOutput;
+import domain.TaskUserList;
+import ips.SicsWsAdministrationEntryPointBinding;
 import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.model.Task;
 import thesiscsc.thesiscsc.other.RecyclerItemClickListener;
@@ -44,6 +56,9 @@ public class RecyclerViewFragment extends Fragment {
     private List<Task> onGoingList, comingList, endedList;
     private int position;
 
+    SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, "http://88.89.218.114:8325/SwanLake/SicsWSServlet");
+    Boolean status = false;
+    ArrayList<String> taskNames = new ArrayList<String>();
 
     public void addPosition(int position){
         this.position = position;
@@ -62,7 +77,7 @@ public class RecyclerViewFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager;
 
         switch (position){
-            case 0: loadOngoingTask(); break;
+            case 0: new CallTaskGetService().execute(); break;
             case 1: loadComingTask(); break;
             case 2: loadEndedTask(); break;
         }
@@ -119,9 +134,10 @@ public class RecyclerViewFragment extends Fragment {
         );
     }
 
-    private void loadOngoingTask(){
-        onGoingList = new ArrayList<>();
+    private void loadOngoingTask(List<Task> a){
+        onGoingList = a;//new ArrayList<>();
         taskQueue = new ArrayDeque<>();
+        /*
         Task yo = new Task("Jeg");
         Task yo1 = new Task("Er");
         Task yo2 = new Task("Best");
@@ -137,6 +153,7 @@ public class RecyclerViewFragment extends Fragment {
         onGoingList.add(yo4);
         onGoingList.add(yo5);
         onGoingList.add(yo6);
+        */
         ITEM_COUNT = onGoingList.size();
 
         for (int i = 0; i < ITEM_COUNT; i++) {
@@ -194,6 +211,81 @@ public class RecyclerViewFragment extends Fragment {
             }
         }
     }
+
+
+    class CallTaskGetService extends AsyncTask<String, Void, String> {
+        String taskFindCriteriaInt = "";
+
+        @Override
+        protected void onPostExecute(String s) {
+            onGoingList.add(new Task(taskNames.get(0)));
+            onGoingList.add(new Task(taskNames.get(1)));
+            onGoingList.add(new Task(taskNames.get(2)));
+            onGoingList.add(new Task(taskNames.get(3)));
+            onGoingList.add(new Task(taskNames.get(4)));
+
+            loadOngoingTask(onGoingList);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            SicsGenericInput param0 = new SicsGenericInput();
+
+            param0.sicsServerBaseVersion = "[Environment:P&amp;amp;C][Version:4.6.1][Build:461vm][XmlCompatibilityType:JAXWS]";
+            AuthenticationToken token = new AuthenticationToken();
+            token.userId = "SICSPC"; //TODO: INSERT REAL ID.
+            param0.authenticationToken = token;
+
+            TaskSearchCriteria param1 = new TaskSearchCriteria();
+
+            TaskProperties taskProp = new TaskProperties();
+            taskProp.findOnlyOwnTasks = false;
+
+            TaskFindCriteria taskcrit = new TaskFindCriteria();
+
+            taskcrit.taskProperties = taskProp;
+
+
+            SicsUserReference katt = new SicsUserReference();
+            katt.userId = "SICSPC";
+            TaskUserList users = new TaskUserList();
+            users.add(katt);
+            ActualOwnerProperties actOwner = new ActualOwnerProperties();
+            actOwner.actualOwnerList = users;
+            taskcrit.actualOwnerProperties = actOwner;
+            param1.criteria = taskcrit;
+            SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://88.89.218.114:8325/SwanLake/SicsWSServlet");
+            String result = "";
+
+            try{
+                TaskSearchResultOutput res = service.executeTaskSearch(param0,param1);
+
+                domain.TaskFindResult en = res.taskSearchResultList.get(0);
+                domain.TaskFindResult to = res.taskSearchResultList.get(1);
+                domain.TaskFindResult tre = res.taskSearchResultList.get(2);
+                domain.TaskFindResult fire = res.taskSearchResultList.get(3);
+                domain.TaskFindResult fem = res.taskSearchResultList.get(4);
+
+                taskNames.add(en.nlsName);
+                taskNames.add(to.nlsName);
+                taskNames.add(tre.nlsName);
+                taskNames.add(fire.nlsName);
+                taskNames.add(fem.nlsName);
+
+            }catch (Exception e){
+
+            }
+
+
+            try {
+                result = adminService.about().getProperty(0).toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+    }
+
 
     private void nextFragment(TaskInfoFragment a){
         System.out.println("INSIDE NEXT FRAGMENT");
