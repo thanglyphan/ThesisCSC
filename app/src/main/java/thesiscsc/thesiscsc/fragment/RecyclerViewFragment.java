@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -56,7 +57,7 @@ public class RecyclerViewFragment extends Fragment {
     private List<Task> onGoingList, comingList, endedList;
     private int position;
 
-    SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, "http://88.89.218.114:8325/SwanLake/SicsWSServlet");
+    SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, "http://192.168.43.146:8325/SwanLake/SicsWSServlet");
     Boolean status = false;
     ArrayList<String> taskNames = new ArrayList<String>();
 
@@ -134,7 +135,7 @@ public class RecyclerViewFragment extends Fragment {
         );
     }
 
-    private void loadOngoingTask(List<Task> a){
+    private void loadOngoingTask(ArrayList<Task> a){
         onGoingList = a;//new ArrayList<>();
         taskQueue = new ArrayDeque<>();
         /*
@@ -218,13 +219,25 @@ public class RecyclerViewFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            onGoingList.add(new Task(taskNames.get(0)));
-            onGoingList.add(new Task(taskNames.get(1)));
-            onGoingList.add(new Task(taskNames.get(2)));
-            onGoingList.add(new Task(taskNames.get(3)));
-            onGoingList.add(new Task(taskNames.get(4)));
+            System.out.println(taskNames.size());
+            List<Task> list = new ArrayList<>();
 
-            loadOngoingTask(onGoingList);
+            int size = taskNames.size();
+            if(size > 0) {
+                list.add(new Task(taskNames.get(0)));
+                list.add(new Task(taskNames.get(1)));
+                list.add(new Task(taskNames.get(2)));
+                list.add(new Task(taskNames.get(3)));
+                list.add(new Task(taskNames.get(4)));
+            } else {
+                list.add(new Task("Hei"));
+                list.add(new Task("På"));
+                list.add(new Task("Deg"));
+                list.add(new Task("Min"));
+                list.add(new Task("Venn"));
+            }
+
+            loadOngoingTask((ArrayList<Task>) list);
         }
 
         @Override
@@ -254,7 +267,7 @@ public class RecyclerViewFragment extends Fragment {
             actOwner.actualOwnerList = users;
             taskcrit.actualOwnerProperties = actOwner;
             param1.criteria = taskcrit;
-            SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://88.89.218.114:8325/SwanLake/SicsWSServlet");
+            SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://192.168.43.146:8325/SwanLake/SicsWSServlet");
             String result = "";
 
             try{
