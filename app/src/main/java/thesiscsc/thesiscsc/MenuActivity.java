@@ -15,7 +15,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +28,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import thesiscsc.thesiscsc.fragment.TestOneFragment;
 import thesiscsc.thesiscsc.fragment.TestThreeFragment;
-import thesiscsc.thesiscsc.fragment.TestTwoFragment;
+import thesiscsc.thesiscsc.fragment.TaskFragment;
 import thesiscsc.thesiscsc.other.CircleTransform;
 import thesiscsc.thesiscsc.pager.Tabsadapter;
 
@@ -202,7 +201,8 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                 TestOneFragment homeFragment = new TestOneFragment();
                 return homeFragment;
             case 1:
-                TestTwoFragment home2Fragment = new TestTwoFragment();
+                TaskFragment home2Fragment = new TaskFragment();
+                home2Fragment.addUsername(prefs.getString("username", ""));
                 return home2Fragment;
             case 2:
                 TestThreeFragment home3Fragment = new TestThreeFragment();

@@ -22,11 +22,12 @@ import thesiscsc.thesiscsc.R;
 /**
  * Created by thang on 16.01.2017.
  */
-public class TestTwoFragment extends Fragment {
+public class TaskFragment extends Fragment {
     public SharedPreferences prefs;
     private ListView lv;
     private MaterialViewPager mViewPager;
     private Toolbar toolbar;
+    private String username;
 
 
     @Override
@@ -51,14 +52,17 @@ public class TestTwoFragment extends Fragment {
                     case 0:
                         RecyclerViewFragment during = new RecyclerViewFragment();
                         during.addPosition(position);
+                        during.addUsername(username);
                         return during;
                     case 1:
                         RecyclerViewFragment intask = new RecyclerViewFragment();
                         intask.addPosition(position);
+                        intask.addUsername(username);
                         return intask;
                     case 2:
                         RecyclerViewFragment ended = new RecyclerViewFragment();
                         ended.addPosition(position);
+                        ended.addUsername(username);
                         return ended;
                     default:
                         return null;
@@ -157,4 +161,7 @@ public class TestTwoFragment extends Fragment {
         ft.commit();
     }
 
+    public void addUsername(String username){
+        this.username = username;
+    }
 }

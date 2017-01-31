@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import thesiscsc.thesiscsc.fragment.TestOneFragment;
 import thesiscsc.thesiscsc.fragment.TestThreeFragment;
-import thesiscsc.thesiscsc.fragment.TestTwoFragment;
+import thesiscsc.thesiscsc.fragment.TaskFragment;
 
 /**
  * Created by thang on 16.01.2017.
@@ -28,7 +28,7 @@ public class Tabsadapter  extends FragmentStatePagerAdapter {
                 return new TestOneFragment();
 
             case 1:
-                return new TestTwoFragment();
+                return new TaskFragment();
 
             case 2:
                 return new TestThreeFragment();

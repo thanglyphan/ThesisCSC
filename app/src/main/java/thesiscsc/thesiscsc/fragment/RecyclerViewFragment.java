@@ -1,5 +1,7 @@
 package thesiscsc.thesiscsc.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -56,10 +58,10 @@ public class RecyclerViewFragment extends Fragment {
     private Queue<Task> taskQueue;
     private List<Task> onGoingList, comingList, endedList;
     private int position;
+    private String username;
 
     SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, "http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
-    Boolean status = false;
-    ArrayList<String> taskNames = new ArrayList<String>();
+    ArrayList<String> taskNames = new ArrayList<>();
 
     public void addPosition(int position){
         this.position = position;
@@ -73,15 +75,23 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         RecyclerView.LayoutManager layoutManager;
         taskQueue = new ArrayDeque<>();
+
+        ArrayList<Task> list = new ArrayList<>();
+        list.add(new Task("KOMMENDE OG AVSLUTTET"));
+
+
         switch (position){
-            case 0: new CallTaskGetService().execute(); System.out.println("YO"); break;
-            case 1: loadComingTask(); break;
-            case 2: loadEndedTask(); break;
+            case 0: new CallTaskGetService().execute(); break;
+            case 1: loadComingTask(list); break;
+            case 2: loadEndedTask(list); break;
         }
+
+        //new CallTaskGetService().execute();
 
         if (GRID_LAYOUT) {
             layoutManager = new GridLayoutManager(getActivity(), 2);
@@ -132,40 +142,15 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     private void loadOngoingTask(ArrayList<Task> a){
-        onGoingList = a;//new ArrayList<>();
+        onGoingList = a;
         addToSection((ArrayList<Task>) onGoingList);
     }
-    private void loadComingTask(){
-        comingList = new ArrayList<>();
-        taskQueue = new ArrayDeque<>();
-        Task yo = new Task("YO");
-        Task yo1 = new Task("Er");
-
-
-        comingList.add(yo);
-        comingList.add(yo1);
-
+    private void loadComingTask(ArrayList<Task> a){
+        comingList = a;
         addToSection((ArrayList<Task>) comingList);
     }
-    private void loadEndedTask(){
-        endedList = new ArrayList<>();
-        taskQueue = new ArrayDeque<>();
-        Task yo = new Task("LOL");
-        Task yo1 = new Task("Er");
-        Task yo2 = new Task("LOL");
-        Task yo3 = new Task("Og");
-        Task yo4 = new Task("LOL");
-        Task yo5 = new Task("Heter");
-        Task yo6 = new Task("LOL");
-
-        endedList.add(yo);
-        endedList.add(yo1);
-        endedList.add(yo2);
-        endedList.add(yo3);
-        endedList.add(yo4);
-        endedList.add(yo5);
-        endedList.add(yo6);
-
+    private void loadEndedTask(ArrayList<Task> a){
+        endedList = a;
         addToSection((ArrayList<Task>) endedList);
     }
 
@@ -184,6 +169,10 @@ public class RecyclerViewFragment extends Fragment {
             } else {
                 list.add(new Task("No task found for: "));
             }
+            List<Task> testList = new ArrayList<>();
+
+            testList.add(new Task("PÅGÅR OG AVSLUTTET"));
+
             loadOngoingTask((ArrayList<Task>) list);
         }
 
@@ -194,6 +183,7 @@ public class RecyclerViewFragment extends Fragment {
             param0.sicsServerBaseVersion = "[Environment:P&amp;amp;C][Version:4.6.1][Build:461vm][XmlCompatibilityType:JAXWS]";
             AuthenticationToken token = new AuthenticationToken();
             token.userId = "SICSPC"; //TODO: INSERT REAL ID.
+
             param0.authenticationToken = token;
 
             TaskSearchCriteria param1 = new TaskSearchCriteria();
@@ -207,6 +197,7 @@ public class RecyclerViewFragment extends Fragment {
 
 
             SicsUserReference katt = new SicsUserReference();
+            System.out.println(username);
             katt.userId = "SICSPC";
             TaskUserList users = new TaskUserList();
             users.add(katt);
@@ -251,7 +242,6 @@ public class RecyclerViewFragment extends Fragment {
         {
             for (int i = 0; i < ITEM_COUNT; i++) {
                 mContentItems.add(list.get(i));
-                System.out.println(list.get(i).getName());
                 if (i > 0) {
                     taskQueue.add(list.get(i));
                 }
@@ -275,4 +265,7 @@ public class RecyclerViewFragment extends Fragment {
         ft.commit();
     }
 
+    public void addUsername(String username){
+        this.username = username;
+    }
 }
