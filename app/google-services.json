@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "901022639880",
+    "firebase_url": "https://thesiscsc-a32a4.firebaseio.com",
+    "project_id": "thesiscsc-a32a4",
+    "storage_bucket": "thesiscsc-a32a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901022639880:android:59508c5308d19fe1",
+        "android_client_info": {
+          "package_name": "thesiscsc.thesiscsc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901022639880-5jf76vh185l81odb5g3aqtiivlpi7cc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaaR27D0g-e6hNjFF1cO-9LqZnroHRdjw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901022639880-5jf76vh185l81odb5g3aqtiivlpi7cc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
