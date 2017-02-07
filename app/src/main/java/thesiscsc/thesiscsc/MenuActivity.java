@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -202,7 +203,11 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                 return homeFragment;
             case 1:
                 TaskFragment home2Fragment = new TaskFragment();
-                home2Fragment.addUsername(prefs.getString("username", ""));
+                home2Fragment.loadInfo(
+                        prefs.getString("username", ""),
+                        prefs.getString("login_token", ""),
+                        prefs.getLong("exp", 0)
+                );
                 return home2Fragment;
             case 2:
                 TestThreeFragment home3Fragment = new TestThreeFragment();

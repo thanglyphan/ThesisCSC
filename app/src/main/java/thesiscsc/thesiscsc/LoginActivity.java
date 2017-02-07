@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,17 +16,22 @@ import android.widget.Toast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import ips.LoginInput;
+import ips.SicsWsAdministrationEntryPointBinding;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private SharedPreferences prefs;
-
-    //public static final String SERVER_ADDRESS = "http://20.47.10.207:8080/SwanLake/sicsxml/"; //$NON-NLS-1$
+    String ip = "http://192.168.43.115:8325/SwanLake/SicsWSServlet";
+    String loginToken = "";
+    Date loginExpiration;
+    private SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, ip);
 
     @InjectView(R.id.input_email) EditText _usernameText;
     @InjectView(R.id.input_password) EditText _passwordText;
@@ -42,46 +48,22 @@ public class LoginActivity extends AppCompatActivity {
         String password = prefs.getString("password", "");
         System.out.println(username);
 
+        _usernameText.setText("SICSPC");
+        _passwordText.setText("SICSPC");
+
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+                //login();
+                new CallLoginService().execute(_usernameText.getText().toString(), _passwordText.getText().toString());
             }
         });
 
         if(!username.equals("") && !password.equals("")) {
             login();
         }
-        /*
-        try {
-            checkIfSicsServerIsAvaialable();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        */
-    }
-/*
-    private void checkIfSicsServerIsAvaialable() throws MalformedURLException, ServiceException {
-        System.out.println("Checking if SICS Server is available..."); //$NON-NLS-1$
-        SicsWsAdministrationEntryPointPort s = new SicsWsAdministrationEntryPoint(this.getServerURL("Administration")).getSicsWsAdministrationEntryPointPort();
-        try {
-            ServerInformation info = s.about(); // Feature of SICS Server, must call 'about'
-            // before any other request
-            boolean isAvailable = s.isAvailable();
-            System.out.println(isAvailable ? "SICS Server is available." //$NON-NLS-1$
-                    : "SICS Server is not available."); //$NON-NLS-1$
-        } catch (com.sicsnt.systemtypes.SicsFaultDetails_Exception SicsFaultDetails_Exception) {
-            System.out.println("Exception detected for isAvailable(): " + SicsFaultDetails_Exception.getMessage()); //$NON-NLS-1$
-        }
     }
 
-
-    private URL getServerURL(String entryPointName) throws MalformedURLException {
-        return new URL(SERVER_ADDRESS + "SicsWs" + entryPointName + "EntryPoint.wsdl"); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-*/
     public void login() {
         Log.d(TAG, "Login");
 
@@ -99,24 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
         }
-
-
-        _loginButton.setEnabled(false);
-
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        onLoginSuccess();
     }
 
 
@@ -139,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
+        System.out.println("SUCCESS!!!");
         _loginButton.setEnabled(true);
         Toast.makeText(getBaseContext(), "Login successful!", Toast.LENGTH_LONG).show();
 
@@ -159,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean valid = true;
         String username = "";
         String password = "";
+        String token = "";
 
         if(usern != "" && pw != ""){
             username = usern;
@@ -166,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             username = _usernameText.getText().toString();
             password = _passwordText.getText().toString();
+            token = ""; //TODO: GET TOKEN HERE!
         }
 
         if (username.isEmpty() ) {
@@ -185,8 +153,66 @@ public class LoginActivity extends AppCompatActivity {
         if(valid && usern != "" && pw != "") {
             prefs.edit().putString("username", username).apply();
             prefs.edit().putString("password", password).apply();
+            prefs.edit().putString("token", token).apply();
         }
 
         return valid;
+    }
+
+
+    class CallLoginService extends AsyncTask<String, Void, String> {
+        String lUsername = "";
+        String lPassword = "";
+        String lToken = "";
+        ProgressDialog progressDialog;
+        Date exp = null;
+        @Override
+        protected void onPostExecute(String s) {
+            if (s.equals("OK")){
+                _loginButton.setEnabled(true);
+                prefs.edit().putString("username", lUsername).apply();
+                prefs.edit().putString("password", lPassword).apply();
+                prefs.edit().putString("login_token", lToken).apply();
+                prefs.edit().putLong("exp", exp.getTime()).apply();
+
+                progressDialog.dismiss();
+                login();
+            } else {
+                _loginButton.setEnabled(false);
+                progressDialog.dismiss();
+            }
+        }
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Authenticating...");
+            progressDialog.show();
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            String statusText = "";
+            LoginInput param0 = new LoginInput();
+            param0.userId = params[0];
+            param0.password = params[1];
+            this.lUsername = param0.userId;
+            this.lPassword = param0.password;
+
+            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, ip);
+            try {
+                ips.AuthenticationToken res = service.login(param0);
+                loginToken = res.signature;
+                this.lToken = loginToken;
+                loginExpiration = res.expiration;
+                this.exp = loginExpiration;
+
+                statusText = "OK";
+            } catch (Exception e) {
+                Log.d("Fucked", e.toString());
+                Toast.makeText(getBaseContext(), "Servers down", Toast.LENGTH_LONG).show();
+                statusText = "ERROR";
+            }
+            return statusText;
+        }
     }
 }

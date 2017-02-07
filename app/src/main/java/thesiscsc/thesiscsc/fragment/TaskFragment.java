@@ -1,5 +1,6 @@
 package thesiscsc.thesiscsc.fragment;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
+import java.util.Date;
+
 import thesiscsc.thesiscsc.R;
 
 /**
@@ -28,6 +31,8 @@ public class TaskFragment extends Fragment {
     private MaterialViewPager mViewPager;
     private Toolbar toolbar;
     private String username;
+    private String token;
+    private Date token_exp;
 
 
     @Override
@@ -37,6 +42,7 @@ public class TaskFragment extends Fragment {
         View view = inflater.inflate(R.layout.two_fragment_view, container, false);
 
         mViewPager = (MaterialViewPager) view.findViewById(R.id.materialViewPager);
+        prefs = this.getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
 
         toolbar = mViewPager.getToolbar();
 
@@ -52,17 +58,17 @@ public class TaskFragment extends Fragment {
                     case 0:
                         RecyclerViewFragment during = new RecyclerViewFragment();
                         during.addPosition(position);
-                        during.addUsername(username);
+                        during.addUsername(username, token, token_exp);
                         return during;
                     case 1:
                         RecyclerViewFragment intask = new RecyclerViewFragment();
                         intask.addPosition(position);
-                        intask.addUsername(username);
+                        intask.addUsername(username, token, token_exp);
                         return intask;
                     case 2:
                         RecyclerViewFragment ended = new RecyclerViewFragment();
                         ended.addPosition(position);
-                        ended.addUsername(username);
+                        ended.addUsername(username, token, token_exp);
                         return ended;
                     default:
                         return null;
@@ -161,7 +167,9 @@ public class TaskFragment extends Fragment {
         ft.commit();
     }
 
-    public void addUsername(String username){
-        this.username = username;
+    public void loadInfo(String gUsername, String gToken, Long gDate) {
+        this.username = gUsername; //prefs.getString("username", "");
+        this.token = gToken; //prefs.getString("token", "");
+        this.token_exp = new Date(gDate); //new Date(prefs.getLong("exp", 0));
     }
 }

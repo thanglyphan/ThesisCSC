@@ -22,6 +22,7 @@ import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDeco
 import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -49,7 +50,7 @@ import static thesiscsc.thesiscsc.R.id.name_txt_small;
  * Created by thang on 24.01.2017.
  */
 public class RecyclerViewFragment extends Fragment {
-    private final String SERVER_ADDRESS = "88.89.218.114:8325";
+    private final String SERVER_ADDRESS = "192.168.43.115:8325"; //http://192.168.43.115:8325
     static final boolean GRID_LAYOUT = false;
     private int ITEM_COUNT = 0;
     private RecyclerView mRecyclerView;
@@ -59,6 +60,8 @@ public class RecyclerViewFragment extends Fragment {
     private List<Task> onGoingList, comingList, endedList;
     private int position;
     private String username;
+    private String loginToken;
+    private Date exp_token;
 
     SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, "http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
     ArrayList<String> taskNames = new ArrayList<>();
@@ -182,9 +185,11 @@ public class RecyclerViewFragment extends Fragment {
 
             param0.sicsServerBaseVersion = "[Environment:P&amp;amp;C][Version:4.6.1][Build:461vm][XmlCompatibilityType:JAXWS]";
             AuthenticationToken token = new AuthenticationToken();
-            token.userId = "SICSPC"; //TODO: INSERT REAL ID.
-
+            token.userId = username; //TODO: INSERT REAL ID.
+            token.signature = loginToken;
+            token.expiration = exp_token;
             param0.authenticationToken = token;
+            //System.out.println(username + " ::: " + token + " ::: " + loginToken + " :::::DONE");
 
             TaskSearchCriteria param1 = new TaskSearchCriteria();
 
@@ -197,7 +202,6 @@ public class RecyclerViewFragment extends Fragment {
 
 
             SicsUserReference katt = new SicsUserReference();
-            System.out.println(username);
             katt.userId = "SICSPC";
             TaskUserList users = new TaskUserList();
             users.add(katt);
@@ -265,7 +269,9 @@ public class RecyclerViewFragment extends Fragment {
         ft.commit();
     }
 
-    public void addUsername(String username){
+    public void addUsername(String username, String token, Date exp_date){
         this.username = username;
+        this.loginToken = token;
+        this.exp_token = exp_date;
     }
 }
