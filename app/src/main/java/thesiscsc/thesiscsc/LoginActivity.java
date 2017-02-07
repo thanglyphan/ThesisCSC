@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     String loginToken = "";
     Date loginExpiration;
     private SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, ip);
+    public static final String EXTRA_MESSAGE = "SOMETHING";
 
     @InjectView(R.id.input_email) EditText _usernameText;
     @InjectView(R.id.input_password) EditText _passwordText;
@@ -44,10 +47,24 @@ public class LoginActivity extends AppCompatActivity {
         prefs = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         ButterKnife.inject(this);
 
+        String firebaseToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, firebaseToken);
+
+        prefs.edit().putString("firebaseToken", firebaseToken);
+
         String username = prefs.getString("username", "");
         String password = prefs.getString("password", "");
         System.out.println(username);
+        if (getIntent().getExtras() != null) {
+            Log.d("FUCK", "INSIDE");
+            Intent intent = new Intent(LoginActivity.this, PaymentActivity.class);
 
+            String message = getIntent().getExtras().get("body").toString();
+            Log.d("FUCK", message);
+            intent.putExtra(EXTRA_MESSAGE, message);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
         _usernameText.setText("SICSPC");
         _passwordText.setText("SICSPC");
 
@@ -189,6 +206,7 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog.setMessage("Authenticating...");
             progressDialog.show();
         }
+
         @Override
         protected String doInBackground(String... params) {
             String statusText = "";

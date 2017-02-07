@@ -33,6 +33,7 @@ import thesiscsc.thesiscsc.fragment.TaskFragment;
 import thesiscsc.thesiscsc.other.CircleTransform;
 import thesiscsc.thesiscsc.pager.Tabsadapter;
 
+
 /**
  * Created by thang on 12.01.2017.
  */
@@ -60,7 +61,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
     private static final String TAG_HOME = "home";
     private static final String TAG_HOME2 = "home2";
     private static final String TAG_HOME3= "home3";
-
+    public static final String EXTRA_MESSAGE = "SOMETHING";
     public static String CURRENT_TAG = TAG_HOME;
 
     private SharedPreferences prefs;
@@ -87,8 +88,18 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
 
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+        /*
+        if (getIntent().getExtras() != null) {
+            Log.d("FUCK", "INSIDE");
+            Intent intent = new Intent(MenuActivity.this, PaymentActivity.class);
 
-
+            String message = getIntent().getExtras().get("body").toString();
+            Log.d("FUCK", message);
+            intent.putExtra(EXTRA_MESSAGE, message);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        */
         setUpNavigationView();
         loadNavHeader();
 

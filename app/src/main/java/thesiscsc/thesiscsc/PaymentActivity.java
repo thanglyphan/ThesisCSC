@@ -3,6 +3,7 @@ package thesiscsc.thesiscsc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,11 +23,10 @@ public class PaymentActivity extends AppCompatActivity {
         buttonDeny = (Button) findViewById(R.id.buttonDeny);
         text = (TextView) findViewById(R.id.textView);
 
-
         Intent intent = getIntent();
 
-        //String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String message = intent.getStringExtra(MenuActivity.EXTRA_MESSAGE);
 
-        text.setText("FUCK IT");
+        text.setText(message);
     }
 }
