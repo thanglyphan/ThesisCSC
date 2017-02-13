@@ -32,6 +32,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     List<Task> contents;
     Queue<Task> taskQueue;
+    private int pos;
 
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL = 1;
@@ -46,10 +47,13 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemViewType(int position) {
+
         switch (position) {
             case 0:
+                this.pos = position;
                 return TYPE_HEADER;
             default:
+                this.pos = position;
                 return TYPE_CELL;
         }
     }
@@ -110,6 +114,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
     public void showPopup(View v) {
+        System.out.println("POSITION-----" + pos);
         PopupMenu popup = new PopupMenu(this.view.getContext(), v);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_task_dots, popup.getMenu());
