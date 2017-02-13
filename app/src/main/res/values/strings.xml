@@ -12,7 +12,7 @@
 
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
-    <string name="nav_home2">Home 2</string>
+    <string name="nav_tasks">Tasks</string>
     <string name="nav_home3">Home 3</string>
 
 
