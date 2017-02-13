@@ -22,6 +22,8 @@ import java.util.Date;
 
 import thesiscsc.thesiscsc.R;
 
+import static android.view.View.GONE;
+
 /**
  * Created by thang on 16.01.2017.
  */
@@ -43,7 +45,7 @@ public class TaskFragment extends Fragment {
 
         mViewPager = (MaterialViewPager) view.findViewById(R.id.materialViewPager);
         prefs = this.getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
-
+        mViewPager.getToolbar().setVisibility(GONE);
         toolbar = mViewPager.getToolbar();
 
         if (toolbar != null) {
