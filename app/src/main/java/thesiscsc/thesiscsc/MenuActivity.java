@@ -75,6 +75,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         //Inits
         mHandler = new Handler();
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

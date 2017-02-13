@@ -65,8 +65,8 @@ public class LoginActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
-        _usernameText.setText("SICSPC");
-        _passwordText.setText("SICSPC");
+        _usernameText.setText("AHABES");
+        _passwordText.setText("AHABES");
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
