@@ -1,9 +1,15 @@
 package thesiscsc.thesiscsc.other;
 
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +19,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import domain.In;
 import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.fragment.RecyclerViewFragment;
 import thesiscsc.thesiscsc.model.Task;
@@ -29,12 +36,13 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL = 1;
     private TextView name_txt_big, name_txt_small;
-
-
+    private ImageButton btn_small, btn_big;
+    private View view;
     public TestRecyclerViewAdapter(List<Task> contents, Queue<Task> taskQueue) {
         this.contents = contents;
         this.taskQueue = taskQueue;
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -52,25 +60,39 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = null;
+    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        this.view = null;
         switch (viewType) {
             case TYPE_HEADER: {
-                view = LayoutInflater.from(parent.getContext())
+                this.view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.list_item_card_big, parent, false);
                 name_txt_big = (TextView) view.findViewById(R.id.name_txt_big);
+                btn_big = (ImageButton) view.findViewById(R.id.task_menu_btn_big);
+                btn_big.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showPopup(v);
+                    }
+                });
 
                 name_txt_big.setText(contents.get(0).getName());
-                return new RecyclerView.ViewHolder(view) {
-                };
+
+                return new RecyclerView.ViewHolder(view) {};
             }
             case TYPE_CELL: {
-                view = LayoutInflater.from(parent.getContext())
+                this.view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.list_item_card_small, parent, false);
                 name_txt_small = (TextView) view.findViewById(R.id.name_txt_small);
+                btn_small = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
+                btn_small.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showPopup(v);
+                    }
+                });
+
                 name_txt_small.setText(taskQueue.poll().getName());
-                return new RecyclerView.ViewHolder(view) {
-                };
+                return new RecyclerView.ViewHolder(view) {};
             }
         }
         return null;
@@ -84,5 +106,25 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             case TYPE_CELL:
                 break;
         }
+    }
+
+
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(this.view.getContext(), v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_task_dots, popup.getMenu());
+        popup.show();
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.first:
+                        System.out.println("EN");
+                        break;
+                    case R.id.second: System.out.println("TO"); break;
+                }
+                return true;
+            }
+        });
     }
 }

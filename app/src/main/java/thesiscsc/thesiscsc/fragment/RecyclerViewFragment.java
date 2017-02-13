@@ -86,6 +86,14 @@ public class RecyclerViewFragment extends Fragment {
 
         ArrayList<Task> list = new ArrayList<>();
         list.add(new Task("KOMMENDE OG AVSLUTTET"));
+        list.add(new Task("SUG"));
+        list.add(new Task("KUKK"));
+        list.add(new Task("SATAN"));
+        list.add(new Task("HOMSE"));
+        list.add(new Task("KUKKHORE"));
+        list.add(new Task("HALLA"));
+        list.add(new Task("BYEBYE"));
+
 
 
         switch (position){
@@ -109,11 +117,10 @@ public class RecyclerViewFragment extends Fragment {
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         //mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue);
         //mRecyclerView.setAdapter(mAdapter);
-
+        /*
         mRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int itemPos) {
-                        //TODO: Redirect to new fragment
                         switch (position){
                             case 0:
                                 TaskInfoFragment onGoing = new TaskInfoFragment();
@@ -141,7 +148,9 @@ public class RecyclerViewFragment extends Fragment {
                         }
                     }
                 })
+
         );
+        */
     }
 
     private void loadOngoingTask(ArrayList<Task> a){
