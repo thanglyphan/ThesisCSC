@@ -215,17 +215,9 @@ public class RecyclerViewFragment extends Fragment {
             try{
                 TaskSearchResultOutput res = service.executeTaskSearch(param0,param1);
 
-                domain.TaskFindResult en = res.taskSearchResultList.get(0);
-                domain.TaskFindResult to = res.taskSearchResultList.get(1);
-                domain.TaskFindResult tre = res.taskSearchResultList.get(2);
-                domain.TaskFindResult fire = res.taskSearchResultList.get(3);
-                domain.TaskFindResult fem = res.taskSearchResultList.get(4);
-
-                taskNames.add(en.nlsName);
-                taskNames.add(to.nlsName);
-                taskNames.add(tre.nlsName);
-                taskNames.add(fire.nlsName);
-                taskNames.add(fem.nlsName);
+                for(domain.TaskFindResult a: res.taskSearchResultList) {
+                    taskNames.add(a.nlsName);
+                }
 
             }catch (Exception e){
 

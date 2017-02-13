@@ -56,11 +56,9 @@ public class LoginActivity extends AppCompatActivity {
         String password = prefs.getString("password", "");
         System.out.println(username);
         if (getIntent().getExtras() != null) {
-            Log.d("FUCK", "INSIDE");
             Intent intent = new Intent(LoginActivity.this, PaymentActivity.class);
 
             String message = getIntent().getExtras().get("body").toString();
-            Log.d("FUCK", message);
             intent.putExtra(EXTRA_MESSAGE, message);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
