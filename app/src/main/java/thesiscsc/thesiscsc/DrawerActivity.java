@@ -14,9 +14,6 @@ import android.os.Bundle;
 
 
 
-/**
- * Created by florentchampigny on 27/05/2016.
- */
 public class DrawerActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawer;
