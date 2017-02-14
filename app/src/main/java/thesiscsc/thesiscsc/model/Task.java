@@ -6,12 +6,12 @@ package thesiscsc.thesiscsc.model;
 
 public class Task {
     String name;
-
-    public Task(String name) {
+    int position;
+    public Task(String name, int position) {
         this.name = name;
+        this.position = position;
     }
 
-    public String getName(){
-        return name;
-    }
+    public String getName(){ return name; }
+    public int getPosition() { return position; }
 }

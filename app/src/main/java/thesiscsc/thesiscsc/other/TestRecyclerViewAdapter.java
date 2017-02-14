@@ -34,8 +34,6 @@ import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.fragment.RecyclerViewFragment;
 import thesiscsc.thesiscsc.model.Task;
 
-import static java.security.AccessController.getContext;
-
 
 /**
  * Created by thang on 24.01.2017.
@@ -45,6 +43,8 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     List<Task> contents;
     Queue<Task> taskQueue;
+    private RecyclerView mRecyclerView;
+
 
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL = 1;
@@ -55,12 +55,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public TestRecyclerViewAdapter(List<Task> contents, Queue<Task> taskQueue) {
         this.contents = contents;
         this.taskQueue = taskQueue;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        this.pos = position;
-        return position;
     }
 
 
@@ -97,23 +91,26 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 });
 
                 name_txt_big.setText(contents.get(0).getName());
-
-                return new RecyclerView.ViewHolder(view) {};
+                return new RecyclerView.ViewHolder(view) {};//new RecyclerView.ViewHolder(view) {};
             }
             case TYPE_CELL: {
                 this.view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.list_item_card_small, parent, false);
+
+                mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+                final Task task = taskQueue.poll();
                 name_txt_small = (TextView) view.findViewById(R.id.name_txt_small);
                 btn_small = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
                 btn_small.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showPopup(v, pos);
+                        showPopup(v, task.getPosition());
                     }
                 });
 
 
-                name_txt_small.setText(taskQueue.poll().getName());
+                name_txt_small.setText(task.getName());
+
                 return new RecyclerView.ViewHolder(view) {};
             }
         }

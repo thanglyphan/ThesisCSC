@@ -85,14 +85,14 @@ public class RecyclerViewFragment extends Fragment {
         taskQueue = new ArrayDeque<>();
 
         ArrayList<Task> list = new ArrayList<>();
-        list.add(new Task("KOMMENDE OG AVSLUTTET"));
-        list.add(new Task("Jeg er 1"));
-        list.add(new Task("Jeg er 2"));
-        list.add(new Task("Jeg er 3"));
-        list.add(new Task("Jeg er 4"));
-        list.add(new Task("Jeg er 5"));
-        list.add(new Task("Jeg er 6"));
-        list.add(new Task("Jeg er 7"));
+        list.add(new Task("KOMMENDE OG AVSLUTTET", 0));
+        list.add(new Task("Jeg er 1", 1));
+        list.add(new Task("Jeg er 2", 2));
+        list.add(new Task("Jeg er 3", 3));
+        list.add(new Task("Jeg er 4", 4));
+        list.add(new Task("Jeg er 5", 5));
+        list.add(new Task("Jeg er 6", 6));
+        list.add(new Task("Jeg er 7", 7));
 
 
         switch (position){
@@ -175,14 +175,14 @@ public class RecyclerViewFragment extends Fragment {
             int size = taskNames.size();
             if(size > 0) {
                 for(int i = 0; i < size; i++) {
-                    list.add(new Task(taskNames.get(i)));
+                    list.add(new Task(taskNames.get(i), i));
                 }
             } else {
-                list.add(new Task("No task found for: "));
+                list.add(new Task("No task found for: ", 0));
             }
             List<Task> testList = new ArrayList<>();
 
-            testList.add(new Task("PÅGÅR OG AVSLUTTET"));
+            testList.add(new Task("PÅGÅR OG AVSLUTTET", 0));
 
             loadOngoingTask((ArrayList<Task>) list);
         }
@@ -257,15 +257,10 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     private void nextFragment(TaskInfoFragment a){
-        System.out.println("INSIDE NEXT FRAGMENT");
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        System.out.println("TRANSACTION BEGIN");
         ft.replace(mRecyclerView.getId(), a);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        System.out.println("VIEW REPLACED");
-
         ft.addToBackStack(null);
-        System.out.println("STACK NULL");
         ft.commit();
     }
 
