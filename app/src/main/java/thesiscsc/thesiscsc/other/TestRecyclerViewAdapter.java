@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -43,8 +45,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     List<Task> contents;
     Queue<Task> taskQueue;
-    RecyclerView mRecyclerView;
-    private int pos;
 
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL = 1;
@@ -61,10 +61,8 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public int getItemViewType(int position) {
         switch (position) {
             case 0:
-                this.pos = position;
                 return TYPE_HEADER;
             default:
-                this.pos = position;
                 return TYPE_CELL;
         }
     }
@@ -77,7 +75,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         this.view = null;
-
+        int count = 1;
         switch (viewType) {
             case TYPE_HEADER: {
                 this.view = LayoutInflater.from(parent.getContext())
@@ -101,7 +99,8 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         .inflate(R.layout.list_item_card_small, parent, false);
                 name_txt_small = (TextView) view.findViewById(R.id.name_txt_small);
                 btn_small = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
-
+                HashMap<ImageButton, Integer> list = new HashMap<>();
+                list.put(btn_small, count++);
                 btn_small.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
