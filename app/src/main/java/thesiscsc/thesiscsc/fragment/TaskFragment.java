@@ -98,28 +98,28 @@ public class TaskFragment extends Fragment {
         });
 
         //Fjerne denne hvis vi ikke skal bruke bilder.
-        /*mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
+        mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 switch (page) {
                     case 0:
-                        //return HeaderDesign.fromColorResAndUrl(
-                                //R.color.red,
-                                //"https://www.bodybuilding.com/images/2016/july/train-like-dwayne-the-rock-johnson-bigshot-v2-830x467.jpg");
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.colorPrimary,
+                                "http://vignette4.wikia.nocookie.net/xiiiorganization/images/8/8c/Transparent.png/revision/latest?cb=20140108201628");
                     case 1:
-                        //return HeaderDesign.fromColorResAndUrl(
-                               // R.color.red,
-                                //"http://www.sanandreshoy.com/media/social/famosos/Hayden%20Panettiere/6.jpg");
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.colorPrimary,
+                                "http://vignette4.wikia.nocookie.net/xiiiorganization/images/8/8c/Transparent.png/revision/latest?cb=20140108201628");
                     case 2:
-                       // return HeaderDesign.fromColorResAndUrl(
-                            //    R.color.red,
-                             //   "http://heightline.com/wp-content/uploads/Tom-Cruise-smile.jpg");
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.colorPrimary,
+                                "http://vignette4.wikia.nocookie.net/xiiiorganization/images/8/8c/Transparent.png/revision/latest?cb=20140108201628");
                 }
 
                 return null;
             }
 
-        });*/
+        });
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
