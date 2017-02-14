@@ -3,6 +3,7 @@ package thesiscsc.thesiscsc.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -96,29 +97,29 @@ public class TaskFragment extends Fragment {
             }
         });
 
-
-        mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
+        //Fjerne denne hvis vi ikke skal bruke bilder.
+        /*mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 switch (page) {
                     case 0:
-                        return HeaderDesign.fromColorResAndUrl(
-                                R.color.green,
-                                "https://www.bodybuilding.com/images/2016/july/train-like-dwayne-the-rock-johnson-bigshot-v2-830x467.jpg");
+                        //return HeaderDesign.fromColorResAndUrl(
+                                //R.color.red,
+                                //"https://www.bodybuilding.com/images/2016/july/train-like-dwayne-the-rock-johnson-bigshot-v2-830x467.jpg");
                     case 1:
-                        return HeaderDesign.fromColorResAndUrl(
-                                R.color.blue,
-                                "http://www.sanandreshoy.com/media/social/famosos/Hayden%20Panettiere/6.jpg");
+                        //return HeaderDesign.fromColorResAndUrl(
+                               // R.color.red,
+                                //"http://www.sanandreshoy.com/media/social/famosos/Hayden%20Panettiere/6.jpg");
                     case 2:
-                        return HeaderDesign.fromColorResAndUrl(
-                                R.color.cyan,
-                                "http://heightline.com/wp-content/uploads/Tom-Cruise-smile.jpg");
+                       // return HeaderDesign.fromColorResAndUrl(
+                            //    R.color.red,
+                             //   "http://heightline.com/wp-content/uploads/Tom-Cruise-smile.jpg");
                 }
 
                 return null;
             }
 
-        });
+        });*/
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
