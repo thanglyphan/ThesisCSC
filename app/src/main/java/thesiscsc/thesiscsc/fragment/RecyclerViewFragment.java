@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.MultiTapKeyListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ import static thesiscsc.thesiscsc.R.id.name_txt_small;
  * Created by thang on 24.01.2017.
  */
 public class RecyclerViewFragment extends Fragment {
-    private final String SERVER_ADDRESS = "192.168.43.115:8325"; //http://192.168.43.115:8325
+    private final String SERVER_ADDRESS = "10.0.0.80:8325"; //http://192.168.43.115:8325
     static final boolean GRID_LAYOUT = false;
     private int ITEM_COUNT = 0;
     private RecyclerView mRecyclerView;
@@ -78,6 +79,11 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        username = prefs.getString("username", "");
+        loginToken = prefs.getString("signature","");
+        exp_token = new Date(prefs.getLong("exp", 0));
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
@@ -190,33 +196,35 @@ public class RecyclerViewFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             SicsGenericInput param0 = new SicsGenericInput();
-
-            param0.sicsServerBaseVersion = "[Environment:P&amp;amp;C][Version:4.6.1][Build:461vm][XmlCompatibilityType:JAXWS]";
             AuthenticationToken token = new AuthenticationToken();
+
             token.userId = username; //TODO: INSERT REAL ID.
             token.signature = loginToken;
             token.expiration = exp_token;
             param0.authenticationToken = token;
-            //System.out.println(username + " ::: " + token + " ::: " + loginToken + " :::::DONE");
 
             TaskSearchCriteria param1 = new TaskSearchCriteria();
 
             TaskProperties taskProp = new TaskProperties();
-            taskProp.findOnlyOwnTasks = false;
+            taskProp.findOnlyOwnTasks = true;
+
 
             TaskFindCriteria taskcrit = new TaskFindCriteria();
 
             taskcrit.taskProperties = taskProp;
 
-
+/*
             SicsUserReference katt = new SicsUserReference();
-            katt.userId = "SICSPC";
+            katt.userId = "AHABES";
             TaskUserList users = new TaskUserList();
             users.add(katt);
+
             ActualOwnerProperties actOwner = new ActualOwnerProperties();
             actOwner.actualOwnerList = users;
             taskcrit.actualOwnerProperties = actOwner;
+*/
             param1.criteria = taskcrit;
+
             SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
             String result = "";
 
@@ -228,7 +236,7 @@ public class RecyclerViewFragment extends Fragment {
                 }
 
             }catch (Exception e){
-
+                Log.d("nothing", loginToken);
             }
 
             try {

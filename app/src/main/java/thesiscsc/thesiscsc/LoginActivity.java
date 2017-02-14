@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private SharedPreferences prefs;
-    String ip = "http://192.168.43.115:8325/SwanLake/SicsWSServlet";
+    String ip = "http://10.0.0.80:8325/SwanLake/SicsWSServlet";
     String loginToken = "";
     Date loginExpiration;
     private SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, ip);
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         String firebaseToken = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, firebaseToken);
 
-        prefs.edit().putString("firebaseToken", firebaseToken);
+        prefs.edit().putString("firebaseToken", firebaseToken).apply();
 
         String username = prefs.getString("username", "");
         String password = prefs.getString("password", "");
@@ -138,11 +138,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validate(String usern, String pw) {
         boolean valid = true;
-        String username = "";
-        String password = "";
+        String username;
+        String password;
         String token = "";
 
-        if(usern != "" && pw != ""){
+        if(usern.equals("") && pw.equals("")){
             username = usern;
             password = pw;
         } else {
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
             _passwordText.setError(null);
         }
 
-        if(valid && usern != "" && pw != "") {
+        if(valid && usern.equals("") && pw.equals("")) {
             prefs.edit().putString("username", username).apply();
             prefs.edit().putString("password", password).apply();
             prefs.edit().putString("token", token).apply();
@@ -181,13 +181,14 @@ public class LoginActivity extends AppCompatActivity {
         String lToken = "";
         ProgressDialog progressDialog;
         Date exp = null;
+
         @Override
         protected void onPostExecute(String s) {
-            if (s.equals("OK")){
+            if (s.equals("OK")) {
                 _loginButton.setEnabled(true);
                 prefs.edit().putString("username", lUsername).apply();
                 prefs.edit().putString("password", lPassword).apply();
-                prefs.edit().putString("login_token", lToken).apply();
+                prefs.edit().putString("signature", lToken).apply();
                 prefs.edit().putLong("exp", exp.getTime()).apply();
 
                 progressDialog.dismiss();
@@ -197,6 +198,7 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         }
+
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
@@ -207,7 +209,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String statusText = "";
+            String statusText;
             LoginInput param0 = new LoginInput();
             param0.userId = params[0];
             param0.password = params[1];
@@ -217,8 +219,7 @@ public class LoginActivity extends AppCompatActivity {
             SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, ip);
             try {
                 ips.AuthenticationToken res = service.login(param0);
-                loginToken = res.signature;
-                this.lToken = loginToken;
+                lToken = res.signature;
                 loginExpiration = res.expiration;
                 this.exp = loginExpiration;
 
