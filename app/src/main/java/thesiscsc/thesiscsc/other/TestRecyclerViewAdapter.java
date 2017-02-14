@@ -129,6 +129,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
     public void showPopup(View v, int pos) {
+        //TODO: FIX FRAGMENT TRANSACTIONS TO DIFF THINGS
         System.out.println("POSITION-----" + pos);
         PopupMenu popup = new PopupMenu(this.view.getContext(), v);
         MenuInflater inflater = popup.getMenuInflater();
