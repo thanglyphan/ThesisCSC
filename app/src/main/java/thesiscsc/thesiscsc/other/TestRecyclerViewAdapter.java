@@ -1,5 +1,7 @@
 package thesiscsc.thesiscsc.other;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
@@ -7,11 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayDeque;
 import java.util.LinkedList;
@@ -24,6 +32,9 @@ import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.fragment.RecyclerViewFragment;
 import thesiscsc.thesiscsc.model.Task;
 
+import static java.security.AccessController.getContext;
+
+
 /**
  * Created by thang on 24.01.2017.
  */
@@ -32,6 +43,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     List<Task> contents;
     Queue<Task> taskQueue;
+    RecyclerView mRecyclerView;
     private int pos;
 
     static final int TYPE_HEADER = 0;
@@ -47,7 +59,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemViewType(int position) {
-
         switch (position) {
             case 0:
                 this.pos = position;
@@ -66,16 +77,18 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         this.view = null;
+
         switch (viewType) {
             case TYPE_HEADER: {
                 this.view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.list_item_card_big, parent, false);
+
                 name_txt_big = (TextView) view.findViewById(R.id.name_txt_big);
                 btn_big = (ImageButton) view.findViewById(R.id.task_menu_btn_big);
                 btn_big.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showPopup(v);
+                        showPopup(v, 0);
                     }
                 });
 
@@ -88,12 +101,15 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         .inflate(R.layout.list_item_card_small, parent, false);
                 name_txt_small = (TextView) view.findViewById(R.id.name_txt_small);
                 btn_small = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
+
                 btn_small.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showPopup(v);
+                        showPopup(v, 0);
                     }
                 });
+
+
 
                 name_txt_small.setText(taskQueue.poll().getName());
                 return new RecyclerView.ViewHolder(view) {};
@@ -113,7 +129,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
 
-    public void showPopup(View v) {
+    public void showPopup(View v, int pos) {
         System.out.println("POSITION-----" + pos);
         PopupMenu popup = new PopupMenu(this.view.getContext(), v);
         MenuInflater inflater = popup.getMenuInflater();

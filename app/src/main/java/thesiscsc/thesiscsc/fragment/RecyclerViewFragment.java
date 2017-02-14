@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
+import com.google.gson.Gson;
 
 import java.lang.reflect.Array;
 import java.util.ArrayDeque;
@@ -62,7 +63,6 @@ public class RecyclerViewFragment extends Fragment {
     private String username;
     private String loginToken;
     private Date exp_token;
-
     SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, "http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
     ArrayList<String> taskNames = new ArrayList<>();
 
@@ -86,14 +86,13 @@ public class RecyclerViewFragment extends Fragment {
 
         ArrayList<Task> list = new ArrayList<>();
         list.add(new Task("KOMMENDE OG AVSLUTTET"));
-        list.add(new Task("SUG"));
-        list.add(new Task("KUKK"));
-        list.add(new Task("SATAN"));
-        list.add(new Task("HOMSE"));
-        list.add(new Task("KUKKHORE"));
-        list.add(new Task("HALLA"));
-        list.add(new Task("BYEBYE"));
-
+        list.add(new Task("Jeg er 1"));
+        list.add(new Task("Jeg er 2"));
+        list.add(new Task("Jeg er 3"));
+        list.add(new Task("Jeg er 4"));
+        list.add(new Task("Jeg er 5"));
+        list.add(new Task("Jeg er 6"));
+        list.add(new Task("Jeg er 7"));
 
 
         switch (position){

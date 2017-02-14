@@ -32,6 +32,7 @@ dependencies {
     }
     compile files('libs/easywsdl/ExKsoap2-1.0.1.8.jar')
     compile files('libs/easywsdl/ksoap2-android-assembly-3.6.2-jar-with-dependencies.jar')
+    compile 'com.google.code.gson:gson:2.7'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
