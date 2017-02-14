@@ -51,9 +51,16 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private TextView name_txt_big, name_txt_small;
     private ImageButton btn_small, btn_big;
     private View view;
+    private int pos;
     public TestRecyclerViewAdapter(List<Task> contents, Queue<Task> taskQueue) {
         this.contents = contents;
         this.taskQueue = taskQueue;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        this.pos = position;
+        return position;
     }
 
 
@@ -75,7 +82,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         this.view = null;
-        int count = 1;
         switch (viewType) {
             case TYPE_HEADER: {
                 this.view = LayoutInflater.from(parent.getContext())
@@ -99,15 +105,12 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         .inflate(R.layout.list_item_card_small, parent, false);
                 name_txt_small = (TextView) view.findViewById(R.id.name_txt_small);
                 btn_small = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
-                HashMap<ImageButton, Integer> list = new HashMap<>();
-                list.put(btn_small, count++);
                 btn_small.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showPopup(v, 0);
+                        showPopup(v, pos);
                     }
                 });
-
 
 
                 name_txt_small.setText(taskQueue.poll().getName());
