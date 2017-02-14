@@ -16,41 +16,44 @@ import org.ksoap2.serialization.*;
 public class TaskFindResult extends AttributeContainer implements KvmSerializable,java.io.Serializable
 {
 
-    
-	/**
-	* Process Id
-	*/
+
+    /**
+     * Process Id
+     */
     public String processIdentifier;
-    
-	/**
-	* Sub Process Name
-	*/
+
+    /**
+     * Sub Process Name
+     */
     public String subProcess;
-    
-	/**
-	* Task Name
-	*/
+
+    /**
+     * Task Name
+     */
     public String nlsName;
-    
-	/**
-	* Priority
-	*/
+
+
+    public String internalName;
+
+    /**
+     * Priority
+     */
     public Integer priority;
-    
-	/**
-	* Status
-	*              SubclassNumber: 1146. SicsRefTaskManagementActivityStatus
-	*/
+
+    /**
+     * Status
+     *              SubclassNumber: 1146. SicsRefTaskManagementActivityStatus
+     */
     public SicsReferenceDataReference status;
-    
-	/**
-	* Actual Owner
-	*/
+
+    /**
+     * Actual Owner
+     */
     public SicsUserReference actualOwner;
-    
-	/**
-	* Date Last Updated
-	*/
+
+    /**
+     * Date Last Updated
+     */
     public java.util.Date lastUpdatedTimeStamp;
 
     public TaskFindResult ()
@@ -59,8 +62,8 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
 
     public TaskFindResult (java.lang.Object paramObj,ExtendedSoapSerializationEnvelope __envelope)
     {
-	    
-	    if (paramObj == null)
+
+        if (paramObj == null)
             return;
         AttributeContainer inObj=(AttributeContainer)paramObj;
 
@@ -73,12 +76,12 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
             {
                 //if you have compilation error here, please use a ksoap2.jar and ExKsoap2.jar from libs folder (in the generated zip file)
                 PropertyInfo info=soapObject.getPropertyInfo(i0);
-                java.lang.Object obj = info.getValue(); 
+                java.lang.Object obj = info.getValue();
                 if (info.name.equals("processIdentifier"))
                 {
                     if(obj!=null)
                     {
-        
+
                         if (obj.getClass().equals(SoapPrimitive.class))
                         {
                             SoapPrimitive j =(SoapPrimitive) obj;
@@ -97,7 +100,7 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
                 {
                     if(obj!=null)
                     {
-        
+
                         if (obj.getClass().equals(SoapPrimitive.class))
                         {
                             SoapPrimitive j =(SoapPrimitive) obj;
@@ -116,7 +119,7 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
                 {
                     if(obj!=null)
                     {
-        
+
                         if (obj.getClass().equals(SoapPrimitive.class))
                         {
                             SoapPrimitive j =(SoapPrimitive) obj;
@@ -131,11 +134,31 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
                     }
                     continue;
                 }
+                if (info.name.equals("internalName"))
+                {
+                    if(obj!=null)
+                    {
+
+                        if (obj.getClass().equals(SoapPrimitive.class))
+                        {
+                            SoapPrimitive j =(SoapPrimitive) obj;
+                            if(j.toString()!=null)
+                            {
+                                this.internalName = j.toString();
+                            }
+                        }
+                        else if (obj instanceof String){
+                            this.internalName = (String)obj;
+                        }
+                    }
+                    continue;
+                }
+
                 if (info.name.equals("priority"))
                 {
                     if(obj!=null)
                     {
-        
+
                         if (obj.getClass().equals(SoapPrimitive.class))
                         {
                             SoapPrimitive j =(SoapPrimitive) obj;
@@ -172,7 +195,7 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
                 {
                     if(obj!=null)
                     {
-        
+
                         if (obj.getClass().equals(SoapPrimitive.class))
                         {
                             SoapPrimitive j =(SoapPrimitive) obj;
@@ -214,17 +237,21 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
         }
         if(propertyIndex==3)
         {
-            return this.priority!=null?this.priority:SoapPrimitive.NullSkip;
+            return this.internalName!=null?this.internalName:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==4)
         {
-            return this.status!=null?this.status:SoapPrimitive.NullSkip;
+            return this.priority!=null?this.priority:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==5)
         {
-            return this.actualOwner!=null?this.actualOwner:SoapPrimitive.NullSkip;
+            return this.status!=null?this.status:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==6)
+        {
+            return this.actualOwner!=null?this.actualOwner:SoapPrimitive.NullSkip;
+        }
+        if(propertyIndex==7)
         {
             return this.lastUpdatedTimeStamp!=null?Helper.getDateTimeFormat().format(this.lastUpdatedTimeStamp):SoapPrimitive.NullSkip;
         }
@@ -261,34 +288,38 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
         if(propertyIndex==3)
         {
             info.type = PropertyInfo.INTEGER_CLASS;
-            info.name = "priority";
+            info.name = "internalName";
             info.namespace= "";
         }
         if(propertyIndex==4)
+        {
+            info.type = PropertyInfo.INTEGER_CLASS;
+            info.name = "priority";
+            info.namespace= "";
+        }
+        if(propertyIndex==5)
         {
             info.type = SicsReferenceDataReference.class;
             info.name = "status";
             info.namespace= "";
         }
-        if(propertyIndex==5)
+        if(propertyIndex==6)
         {
             info.type = SicsUserReference.class;
             info.name = "actualOwner";
             info.namespace= "";
         }
-        if(propertyIndex==6)
+        if(propertyIndex==7)
         {
             info.type = PropertyInfo.STRING_CLASS;
             info.name = "lastUpdatedTimeStamp";
             info.namespace= "";
         }
     }
-    
+
     @Override
     public void setProperty(int arg0, java.lang.Object arg1)
     {
     }
 
-    
 }
-
