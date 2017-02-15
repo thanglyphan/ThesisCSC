@@ -149,7 +149,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
 
         // loading header background image
 
-        Glide.with(this).load(R.drawable.bg)
+        Glide.with(this).load(R.drawable.csc_loading)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgNavHeaderBg);
