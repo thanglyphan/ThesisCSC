@@ -12,8 +12,14 @@
 
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
-    <string name="nav_tasks">Tasks</string>
-    <string name="nav_home3">Home 3</string>
+    <string name="nav_tasks">Task Management</string>
+    <string name="nav_payment">Payment</string>
+
+    <!-- Dots menu -->
+    <string name="dots_delegate">Delegate</string>
+    <string name="dots_mark_complete">Mark Complete</string>
+    <string name="dots_mark_failed">Mark Failed</string>
+    <string name="dots_details">Details</string>
 
 
     <!-- Toolbar titles when navigation menu item is selected -->

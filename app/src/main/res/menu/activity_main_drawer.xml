@@ -4,16 +4,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/test"
+            android:icon="@drawable/nav_home_icon"
             android:title="@string/nav_home" />
         <item
             android:id="@+id/tasks"
-            android:icon="@drawable/test"
+            android:icon="@drawable/nav_task_icon"
             android:title="@string/nav_tasks" />
         <item
             android:id="@+id/nav_home3"
-            android:icon="@drawable/test"
-            android:title="@string/nav_home3" />
+            android:icon="@drawable/nav_payment_icon"
+            android:title="@string/nav_payment" />
     </group>
 
     <item android:title="Other">
