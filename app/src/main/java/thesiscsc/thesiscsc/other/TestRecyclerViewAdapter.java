@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +36,7 @@ import domain.In;
 import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.fragment.RecyclerViewFragment;
 import thesiscsc.thesiscsc.model.Task;
+import thesiscsc.thesiscsc.model.User;
 
 
 /**
@@ -53,7 +56,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private TextView name_txt_big, name_txt_small;
     private ImageButton btn_small, btn_big;
     private View view;
-    private int pos;
     public TestRecyclerViewAdapter(List<Task> contents, Queue<Task> taskQueue) {
         this.contents = contents;
         this.taskQueue = taskQueue;
@@ -153,11 +155,58 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     private void delegeteTask() {
-        Dialog dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.delegate_popup);
 
+        final ListView delegateList = (ListView) dialog.findViewById(R.id.delegate_listview);
+        delegateList.setClickable(true);
+        delegateList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final User user = (User) delegateList.getItemAtPosition(position);
+                final Dialog insideDialog = new Dialog(context);
+                insideDialog.setContentView(R.layout.delegate_popup_confirm);
+                TextView nameField = (TextView) insideDialog.findViewById(R.id.name_text_user);
+                Button btnCancel = (Button) insideDialog.findViewById(R.id.cancel_btn);
+                Button btnConfirm = (Button) insideDialog.findViewById(R.id.delegate_btn);
+                nameField.setText(user.getName());
+
+                btnCancel.setOnClickListener(new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        insideDialog.dismiss();
+                    }
+                });
+                btnConfirm.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println(user.getName());
+                    }
+                });
+
+                insideDialog.show();
+            }
+        });
+
+        //TODO: GET NAMES FROM SERVER
+        List<User> userList = new ArrayList<>();
+        userList.add(new User("Andreas"));
+        userList.add(new User("Adam"));
+        userList.add(new User("Christian"));
+        userList.add(new User("Thang"));
+        userList.add(new User("Chillern gruppa"));
+
+
+        //TODO: CHANGE LIST OVER FOR SERVERLIST
+        User[] listItems = new User[userList.size()];
+        for(int i = 0; i < userList.size(); i++){
+            listItems[i] = userList.get(i);
+        }
+        ArrayAdapter adapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_list_item_1, listItems);
+        delegateList.setAdapter(adapter);
         dialog.show();
     }
+
 
     private void completeTask() {
         Dialog dialog = new Dialog(context);
