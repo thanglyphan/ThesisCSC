@@ -73,12 +73,12 @@ public class LoginActivity extends AppCompatActivity {
                 new CallLoginService().execute(_usernameText.getText().toString(), _passwordText.getText().toString());
             }
         });
-        /*
+
         if(!username.equals("") && !password.equals("")) {
             login();
         }
-        */
-        onLoginSuccess();
+        
+
     }
 
     public void login() {
