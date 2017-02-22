@@ -1,5 +1,6 @@
 package thesiscsc.thesiscsc.other;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +45,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     List<Task> contents;
     Queue<Task> taskQueue;
     private RecyclerView mRecyclerView;
+    Context context;
 
 
     static final int TYPE_HEADER = 0;
@@ -76,6 +78,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         this.view = null;
+        this.context = parent.getContext();
         switch (viewType) {
             case TYPE_HEADER: {
                 this.view = LayoutInflater.from(parent.getContext())
@@ -139,13 +142,41 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.delegate:System.out.println("EN"); break;
-                    case R.id.mark_complete: System.out.println("TO"); break;
-                    case R.id.mark_failed: System.out.println("TRE"); break;
-                    case R.id.details: System.out.println("FIRE"); break;
+                    case R.id.delegate: delegeteTask(); break;
+                    case R.id.mark_complete: completeTask(); break;
+                    case R.id.mark_failed: failTask(); break;
+                    case R.id.details: detailsTask(); break;
                 }
                 return true;
             }
         });
+    }
+
+    private void delegeteTask() {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.delegate_popup);
+
+        dialog.show();
+    }
+
+    private void completeTask() {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.mark_complete_popup);
+
+        dialog.show();
+    }
+
+    private void failTask() {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.mark_failed_popup);
+
+        dialog.show();
+    }
+
+    private void detailsTask() {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.details_popup);
+
+        dialog.show();
     }
 }
