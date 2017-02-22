@@ -130,7 +130,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public void showPopup(View v, int pos) {
         //TODO: FIX FRAGMENT TRANSACTIONS TO DIFF THINGS
-        System.out.println("POSITION-----" + pos);
+        System.out.println("POSITION-----" + contents.get(pos).getName());
         PopupMenu popup = new PopupMenu(this.view.getContext(), v);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_task_dots, popup.getMenu());
@@ -139,10 +139,10 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.first:
-                        System.out.println("EN");
-                        break;
-                    case R.id.second: System.out.println("TO"); break;
+                    case R.id.delegate:System.out.println("EN"); break;
+                    case R.id.mark_complete: System.out.println("TO"); break;
+                    case R.id.mark_failed: System.out.println("TRE"); break;
+                    case R.id.details: System.out.println("FIRE"); break;
                 }
                 return true;
             }
