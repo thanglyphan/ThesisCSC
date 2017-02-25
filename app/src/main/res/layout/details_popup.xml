@@ -23,12 +23,25 @@ android:layout_height="match_parent">
             android:layout_height="match_parent">
 
             <TextView
-                android:text="Details"
+                android:text="Task details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/textView6" />
+                android:id="@+id/task_details_text"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Notification.Title"
+                android:textSize="16dp" />
+
+            <Button
+                android:text="Ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                style="?android:attr/borderlessButtonStyle"
+                android:id="@+id/details_ok_btn"
+                android:textColor="@color/CornflowerBlue" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

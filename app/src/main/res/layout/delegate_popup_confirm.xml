@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-android:layout_height="match_parent">
+android:layout_height="match_parent"
+    android:weightSum="1">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        android:layout_height="80dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="@dimen/cardMarginVertical"
         android:layout_marginLeft="@dimen/cardMarginHorizontal"
         android:layout_marginRight="@dimen/cardMarginHorizontal"
@@ -15,45 +16,56 @@ android:layout_height="match_parent">
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:contentPadding="0dp"
-        android:layout_width="300dp">
+        android:layout_width="300dp"
+        android:layout_weight="0.30">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="105dp">
 
-
-            <TextView
-                android:text="Delegate to"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/header_delegate" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
                 android:id="@+id/name_text_user"
-                android:text="" />
+                android:text=""
+                android:layout_toEndOf="@+id/header_delegate"
+                android:layout_alignTop="@+id/header_delegate"
+                android:textAppearance="@style/TextAppearance.AppCompat.Notification.Title"
+                android:textSize="16sp" />
+
+            <TextView
+                android:text="Delegate to "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_delegate"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Notification.Title"
+                android:textSize="16sp" />
 
             <Button
                 android:text="Cancel"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:layout_toStartOf="@+id/name_text_user"
                 android:id="@+id/cancel_btn"
-                android:layout_alignTop="@+id/delegate_btn" />
+                android:background="@color/AliceBlue"
+                android:textColor="@color/CornflowerBlue"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/delegate_btn" />
 
             <Button
                 android:text="Delegate"
                 android:id="@+id/delegate_btn"
-                android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@+id/name_text_user"
                 android:layout_width="100dp"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:background="@color/AliceBlue"
+                android:textColor="@color/CornflowerBlue"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
 
