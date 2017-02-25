@@ -24,7 +24,7 @@ android:layout_height="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:text="Mark task as complete?"
+                android:text="@string/popup_complete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView6"
@@ -36,7 +36,7 @@ android:layout_height="match_parent"
                 android:textSize="16sp" />
 
             <Button
-                android:text="Complete"
+                android:text="@string/popup_completeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/complete_btn"
@@ -48,7 +48,7 @@ android:layout_height="match_parent"
                 android:textColor="@color/CornflowerBlue" />
 
             <Button
-                android:text="Cancel"
+                android:text="@string/popup_ButtonCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cancelComplete_btn"

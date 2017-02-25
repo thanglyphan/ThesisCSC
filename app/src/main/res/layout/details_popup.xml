@@ -23,7 +23,7 @@ android:layout_height="match_parent">
             android:layout_height="match_parent">
 
             <TextView
-                android:text="Task details"
+                android:text="@string/popup_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/task_details_text"
@@ -31,10 +31,10 @@ android:layout_height="match_parent">
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Notification.Title"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <Button
-                android:text="Ok"
+                android:text="@string/popup_detailsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

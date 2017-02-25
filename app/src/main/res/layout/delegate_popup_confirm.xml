@@ -36,7 +36,7 @@ android:layout_height="match_parent"
                 android:textSize="16sp" />
 
             <TextView
-                android:text="Delegate to "
+                android:text="@string/popup_delegateTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/header_delegate"
@@ -46,22 +46,20 @@ android:layout_height="match_parent"
                 android:textSize="16sp" />
 
             <Button
-                android:text="Cancel"
+                android:text="@string/popup_ButtonCancel"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
                 android:id="@+id/cancel_btn"
-                android:background="@color/AliceBlue"
                 android:textColor="@color/CornflowerBlue"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_alignParentBottom="true"
                 android:layout_toStartOf="@+id/delegate_btn" />
 
             <Button
-                android:text="Delegate"
+                android:text="@string/popup_delegateToButton"
                 android:id="@+id/delegate_btn"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:background="@color/AliceBlue"
                 android:textColor="@color/CornflowerBlue"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_alignParentBottom="true"

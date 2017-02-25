@@ -21,6 +21,17 @@
     <string name="dots_mark_failed">Mark Failed</string>
     <string name="dots_details">Details</string>
 
+    <!-- Popup menu -->
+    <string name="popup_delegateList">Delegate task</string>
+    <string name="popup_delegateTo">Delegate to\u0020</string>
+    <string name="popup_ButtonCancel">Cancel</string>
+    <string name="popup_delegateToButton">Delegate</string>
+    <string name="popup_details">Task details</string>
+    <string name="popup_detailsButton">OK</string>
+    <string name="popup_complete">Mark task as complete?</string>
+    <string name="popup_completeButton">Complete</string>
+    <string name="popup_failed">Mark task as failed?</string>
+    <string name="popup_failedButton">Failed</string>
 
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">

@@ -22,7 +22,7 @@ android:layout_height="match_parent">
             android:layout_height="match_parent">
 
             <TextView
-                android:text="Mark task as failed?"
+                android:text="@string/popup_failed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView4"
@@ -34,7 +34,7 @@ android:layout_height="match_parent">
                 android:textSize="16sp" />
 
             <Button
-                android:text="Failed"
+                android:text="@string/popup_failedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/failed_btn"
@@ -45,7 +45,7 @@ android:layout_height="match_parent">
                 android:layout_marginEnd="15dp" />
 
             <Button
-                android:text="Cancel"
+                android:text="@string/popup_ButtonCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cancelFailed_btn"
