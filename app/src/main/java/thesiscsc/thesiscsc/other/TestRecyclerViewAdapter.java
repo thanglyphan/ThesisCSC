@@ -170,7 +170,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 TextView nameField = (TextView) insideDialog.findViewById(R.id.name_text_user);
                 Button btnCancel = (Button) insideDialog.findViewById(R.id.cancel_btn);
                 Button btnConfirm = (Button) insideDialog.findViewById(R.id.delegate_btn);
-                nameField.setText(user.getName());
+                nameField.setText(user.getName() + "?");
 
                 btnCancel.setOnClickListener(new Button.OnClickListener() {
                     public void onClick(View v) {
@@ -209,22 +209,63 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
     private void completeTask() {
-        Dialog dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.mark_complete_popup);
+        Button btnComplete = (Button) dialog.findViewById(R.id.complete_btn);
+        Button btnCancel = (Button) dialog.findViewById(R.id.cancelComplete_btn);
+
+        btnComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Add Complete task code here!
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
         dialog.show();
     }
 
     private void failTask() {
-        Dialog dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.mark_failed_popup);
+        Button btnFailed = (Button) dialog.findViewById(R.id.failed_btn);
+        Button btnCancel = (Button) dialog.findViewById(R.id.cancelFailed_btn);
+
+        btnFailed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Add Failed task code here!
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
         dialog.show();
     }
 
     private void detailsTask() {
-        Dialog dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.details_popup);
+        Button btnOk = (Button) dialog.findViewById(R.id.details_ok_btn);
+        TextView detailText = (TextView) dialog.findViewById(R.id.task_details_text);
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
         dialog.show();
     }
