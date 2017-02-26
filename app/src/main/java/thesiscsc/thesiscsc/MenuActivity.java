@@ -129,6 +129,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
             prefs.edit().putString("username", null).apply();
             prefs.edit().putString("password", null).apply();
 
+
             Intent i = new Intent(MenuActivity.this, LoginActivity.class);
             startActivity(i);
             finish();

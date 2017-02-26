@@ -52,7 +52,7 @@ import static thesiscsc.thesiscsc.R.id.name_txt_small;
  * Created by thang on 24.01.2017.
  */
 public class RecyclerViewFragment extends Fragment {
-    private final String SERVER_ADDRESS = "192.168.42.193:8325"; //http://192.168.43.115:8325
+    private String SERVER_ADDRESS; //http://192.168.43.115:8325
     static final boolean GRID_LAYOUT = false;
     private int ITEM_COUNT = 0;
     private RecyclerView mRecyclerView;
@@ -64,8 +64,10 @@ public class RecyclerViewFragment extends Fragment {
     private String username;
     private String loginToken;
     private Date exp_token;
-    SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, "http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
+    SicsWsAdministrationEntryPointBinding adminService;
     ArrayList<String> taskNames = new ArrayList<>();
+
+    SharedPreferences prefs;
 
     public void addPosition(int position){
         this.position = position;
@@ -80,10 +82,13 @@ public class RecyclerViewFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
         username = prefs.getString("username", "");
         loginToken = prefs.getString("signature","");
         exp_token = new Date(prefs.getLong("exp", 0));
+
+        SERVER_ADDRESS = prefs.getString("ip","");
+        adminService = new SicsWsAdministrationEntryPointBinding(null, "http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
@@ -184,7 +189,7 @@ public class RecyclerViewFragment extends Fragment {
                     list.add(new Task(taskNames.get(i), i));
                 }
             } else {
-                list.add(new Task("No task found for: ", 0));
+                list.add(new Task("No task found for: " + username, 0));
             }
             List<Task> testList = new ArrayList<>();
 
@@ -215,7 +220,7 @@ public class RecyclerViewFragment extends Fragment {
 
 
             SicsUserReference sicReference = new SicsUserReference();
-            sicReference.userId = "SICSPC";
+            sicReference.userId = username;
             TaskUserList users = new TaskUserList();
             users.add(sicReference);
 

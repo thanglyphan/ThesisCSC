@@ -30,7 +30,12 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private SharedPreferences prefs;
-    String ip = "http://192.168.42.193:8325/SwanLake/SicsWSServlet";
+
+    //---------------
+    String ip = "192.168.42.193:8325";
+    //---------------
+
+    String address = "http://" + ip + "/SwanLake/SicsWSServlet";
     String loginToken = "";
     Date loginExpiration;
     private SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, ip);
@@ -51,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, firebaseToken);
 
         prefs.edit().putString("firebaseToken", firebaseToken).apply();
+        prefs.edit().putString("iptest", "iptest").apply();
+        prefs.edit().putString("ip", ip).apply();
 
         String username = prefs.getString("username", "");
         String password = prefs.getString("password", "");
@@ -218,7 +225,7 @@ public class LoginActivity extends AppCompatActivity {
             this.lUsername = param0.userId;
             this.lPassword = param0.password;
 
-            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, ip);
+            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, address);
             try {
                 ips.AuthenticationToken res = service.login(param0);
                 lToken = res.signature;
