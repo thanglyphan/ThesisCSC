@@ -52,7 +52,7 @@ import static thesiscsc.thesiscsc.R.id.name_txt_small;
  * Created by thang on 24.01.2017.
  */
 public class RecyclerViewFragment extends Fragment {
-    private final String SERVER_ADDRESS = "10.0.0.80:8325"; //http://192.168.43.115:8325
+    private final String SERVER_ADDRESS = "192.168.42.193:8325"; //http://192.168.43.115:8325
     static final boolean GRID_LAYOUT = false;
     private int ITEM_COUNT = 0;
     private RecyclerView mRecyclerView;
@@ -213,16 +213,16 @@ public class RecyclerViewFragment extends Fragment {
 
             taskcrit.taskProperties = taskProp;
 
-/*
-            SicsUserReference katt = new SicsUserReference();
-            katt.userId = "AHABES";
+
+            SicsUserReference sicReference = new SicsUserReference();
+            sicReference.userId = "SICSPC";
             TaskUserList users = new TaskUserList();
-            users.add(katt);
+            users.add(sicReference);
 
             ActualOwnerProperties actOwner = new ActualOwnerProperties();
             actOwner.actualOwnerList = users;
             taskcrit.actualOwnerProperties = actOwner;
-*/
+
             param1.criteria = taskcrit;
 
             SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");

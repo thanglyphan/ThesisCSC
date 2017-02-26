@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private SharedPreferences prefs;
-    String ip = "http://10.0.0.80:8325/SwanLake/SicsWSServlet";
+    String ip = "http://192.168.42.193:8325/SwanLake/SicsWSServlet";
     String loginToken = "";
     Date loginExpiration;
     private SicsWsAdministrationEntryPointBinding adminService = new SicsWsAdministrationEntryPointBinding(null, ip);
