@@ -210,7 +210,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 btnConfirm.setOnClickListener(new Button.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                       new excecuteDelegateTaskService().execute(user.getUser_id());
                         //System.out.println(user.getName());
                     }
                 });
@@ -230,8 +230,16 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         //userList.add(new User("AHABES"));
        // userList.add(new User("SICSPC"));
 
-        new executeSearchService().execute();
+        //new executeSearchService().execute();
 
+        userList.add(new User("Adam", "Habes", "AHABES"));
+        userList.add(new User("SICSPC", "SICSPC", "SICSPC"));
+
+        for(User u : userList){
+            if(u.getUser_id() != null && u.getUser_id().equals(username)){
+                userList.remove(u);
+            }
+        }
 
         //TODO: CHANGE LIST OVER FOR SERVERLIST
         User[] listItems = new User[userList.size()];
@@ -349,6 +357,29 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             }catch (Exception e){
                 Log.d("TEST", Log.getStackTraceString(e));
+            }
+
+
+            return null;
+        }
+    }
+
+    class excecuteDelegateTaskService extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPostExecute(String s) {
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Log.d("DELEGATE", "Task Delegated to " + params[0]);
+
+            try{
+
+            }catch (Exception e){
+
             }
 
 
