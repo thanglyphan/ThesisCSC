@@ -16,7 +16,7 @@ import org.ksoap2.serialization.*;
 public class DbOutput extends AttributeContainer implements KvmSerializable,java.io.Serializable
 {
 
-    
+
     public DbResult result;
 
     public DbOutput ()
@@ -25,8 +25,8 @@ public class DbOutput extends AttributeContainer implements KvmSerializable,java
 
     public DbOutput (java.lang.Object paramObj,ExtendedSoapSerializationEnvelope __envelope)
     {
-	    
-	    if (paramObj == null)
+
+        if (paramObj == null)
             return;
         AttributeContainer inObj=(AttributeContainer)paramObj;
 
@@ -39,7 +39,7 @@ public class DbOutput extends AttributeContainer implements KvmSerializable,java
             {
                 //if you have compilation error here, please use a ksoap2.jar and ExKsoap2.jar from libs folder (in the generated zip file)
                 PropertyInfo info=soapObject.getPropertyInfo(i0);
-                java.lang.Object obj = info.getValue(); 
+                java.lang.Object obj = info.getValue();
                 if (info.name.equals("result"))
                 {
                     if(obj!=null)
@@ -85,12 +85,12 @@ public class DbOutput extends AttributeContainer implements KvmSerializable,java
             info.namespace= "";
         }
     }
-    
+
     @Override
     public void setProperty(int arg0, java.lang.Object arg1)
     {
     }
 
-    
+
 }
 

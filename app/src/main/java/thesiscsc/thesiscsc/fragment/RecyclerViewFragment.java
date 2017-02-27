@@ -35,6 +35,7 @@ import domain.SicsGenericInput;
 import domain.SicsUserReference;
 import domain.SicsWsDomainSearchEntryPointBinding;
 import domain.TaskFindCriteria;
+import domain.TaskFindResult;
 import domain.TaskProperties;
 import domain.TaskSearchCriteria;
 import domain.TaskSearchResultOutput;
@@ -52,7 +53,6 @@ import static thesiscsc.thesiscsc.R.id.name_txt_small;
  * Created by thang on 24.01.2017.
  */
 public class RecyclerViewFragment extends Fragment {
-    private String SERVER_ADDRESS; //http://192.168.43.115:8325
     static final boolean GRID_LAYOUT = false;
     private int ITEM_COUNT = 0;
     private RecyclerView mRecyclerView;
@@ -61,13 +61,16 @@ public class RecyclerViewFragment extends Fragment {
     private Queue<Task> taskQueue;
     private List<Task> onGoingList, comingList, endedList;
     private int position;
+
+    private String SERVER_ADDRESS; //http://192.168.43.115:8325
     private String username;
     private String loginToken;
     private Date exp_token;
-    SicsWsAdministrationEntryPointBinding adminService;
-    ArrayList<String> taskNames = new ArrayList<>();
-
     SharedPreferences prefs;
+
+    SicsWsAdministrationEntryPointBinding adminService;
+
+    ArrayList<TaskFindResult> taskList = new ArrayList<>();
 
     public void addPosition(int position){
         this.position = position;
@@ -181,12 +184,12 @@ public class RecyclerViewFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            System.out.println(taskNames.size());
+            System.out.println(taskList.size());
             List<Task> list = new ArrayList<>();
-            int size = taskNames.size();
+            int size = taskList.size();
             if(size > 0) {
                 for(int i = 0; i < size; i++) {
-                    list.add(new Task(taskNames.get(i), i));
+                    list.add(new Task(taskList.get(i), i));
                 }
             } else {
                 list.add(new Task("No task found for: " + username, 0));
@@ -203,7 +206,7 @@ public class RecyclerViewFragment extends Fragment {
             SicsGenericInput param0 = new SicsGenericInput();
             AuthenticationToken token = new AuthenticationToken();
 
-            token.userId = username; //TODO: INSERT REAL ID.
+            token.userId = username;
             token.signature = loginToken;
             token.expiration = exp_token;
             param0.authenticationToken = token;
@@ -236,8 +239,9 @@ public class RecyclerViewFragment extends Fragment {
             try{
                 TaskSearchResultOutput res = service.executeTaskSearch(param0,param1);
 
+                Log.d("TEST","size: " + res.taskSearchResultList.size());
                 for(domain.TaskFindResult a: res.taskSearchResultList) {
-                    taskNames.add(a.nlsName);
+                    taskList.add(a);
                 }
 
             }catch (Exception e){
@@ -263,7 +267,7 @@ public class RecyclerViewFragment extends Fragment {
                     taskQueue.add(list.get(i));
                 }
             }
-            mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue);
+            mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue, this.getContext());
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
         }

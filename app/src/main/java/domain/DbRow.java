@@ -18,9 +18,9 @@ import java.util.Hashtable;
 
 public class DbRow extends Vector< String> implements KvmSerializable,java.io.Serializable
 {
-    
+
     public DbRow(){}
-    
+
     public DbRow(java.lang.Object inObj,ExtendedSoapSerializationEnvelope __envelope)
     {
         if (inObj == null)
@@ -37,28 +37,28 @@ public class DbRow extends Vector< String> implements KvmSerializable,java.io.Se
                 add(j1);
             }
         }
-}
-    
+    }
+
     @Override
     public java.lang.Object getProperty(int arg0) {
         return this.get(arg0)!=null?this.get(arg0):SoapPrimitive.NullNilElement;
     }
-    
+
     @Override
     public int getPropertyCount() {
         return this.size();
     }
-    
+
     @Override
     public void getPropertyInfo(int index, @SuppressWarnings("rawtypes") Hashtable arg1, PropertyInfo info) {
         info.name = "value";
         info.type = PropertyInfo.STRING_CLASS;
-    	info.namespace= "";
+        info.namespace= "";
     }
-    
+
     @Override
     public void setProperty(int arg0, java.lang.Object arg1) {
     }
 
-    
+
 }

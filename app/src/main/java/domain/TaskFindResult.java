@@ -35,6 +35,8 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
 
     public String internalName;
 
+    public int position;
+
     /**
      * Priority
      */

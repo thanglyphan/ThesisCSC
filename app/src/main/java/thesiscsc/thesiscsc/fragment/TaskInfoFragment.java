@@ -28,7 +28,7 @@ public class TaskInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.task_info_view, container, false);
         info_test = (TextView) view.findViewById(R.id.test_info);
-        info_test.setText(task.getName());
+        info_test.setText(task.getTaskName());
         return view;
     }
 

@@ -5,17 +5,32 @@ package thesiscsc.thesiscsc.model;
  */
 
 public class User {
-    private String name;
+    private String firstName, lastName, user_id, pos;
 
-    public User(String name) {
-        this.name = name;
+    public User(String firstName, String lastName, String user_id, String pos) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.user_id = user_id;
+        this.pos = pos;
     }
 
-    public String getName(){
-        return name;
+    public String getFirstName(){
+        return firstName;
+    }
+
+    public String getLastName(){
+        return lastName;
+    }
+
+    public String getUser_id(){
+        return user_id;
+    }
+
+    public String getPos(){
+        return pos;
     }
 
     public String toString(){
-        return name;
+        return firstName + " " + lastName;
     }
 }
