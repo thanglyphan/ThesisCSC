@@ -138,8 +138,6 @@ public class TaskFragment extends Fragment {
                 }
             });
         }
-        loadRefresher(view);
-        System.out.println("RELOADED");
 
         return view;
 
@@ -165,23 +163,6 @@ public class TaskFragment extends Fragment {
                 return false;
             }
         });
-    }
-
-    private void loadRefresher(View v){
-        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshFragment();
-
-            }
-        });
-    }
-
-    private void refreshFragment(){
-
-
-        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     public void loadInfo(String gUsername, String gToken, Long gDate) {

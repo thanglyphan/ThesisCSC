@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -67,6 +68,7 @@ public class RecyclerViewFragment extends Fragment {
     private String loginToken;
     private Date exp_token;
     SharedPreferences prefs;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     SicsWsAdministrationEntryPointBinding adminService;
 
@@ -164,6 +166,7 @@ public class RecyclerViewFragment extends Fragment {
 
         );
         */
+        loadRefresher(view);
     }
 
     private void loadOngoingTask(ArrayList<Task> a){
@@ -181,7 +184,12 @@ public class RecyclerViewFragment extends Fragment {
 
     class CallTaskGetService extends AsyncTask<String, Void, String> {
         String taskFindCriteriaInt = "";
-
+        /*
+        @Override
+        protected void onPreExecute(){
+            taskList = new ArrayList<>();
+        }
+        */
         @Override
         protected void onPostExecute(String s) {
             System.out.println(taskList.size());
@@ -202,15 +210,17 @@ public class RecyclerViewFragment extends Fragment {
             Log.d("HER",taskList.get(0).processIdentifier);
             Log.d("HER",taskList.get(0).internalName);*/
 
+            if(mContentItems != list) {
+                loadOngoingTask((ArrayList<Task>) list);
+            }
 
-            loadOngoingTask((ArrayList<Task>) list);
+            mSwipeRefreshLayout.setRefreshing(false);
         }
 
         @Override
         protected String doInBackground(String... params) {
             SicsGenericInput param0 = new SicsGenericInput();
             AuthenticationToken token = new AuthenticationToken();
-
             token.userId = username;
             token.signature = loginToken;
             token.expiration = exp_token;
@@ -280,12 +290,18 @@ public class RecyclerViewFragment extends Fragment {
         }
     }
 
-    private void nextFragment(TaskInfoFragment a){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(mRecyclerView.getId(), a);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.addToBackStack(null);
-        ft.commit();
+    private void loadRefresher(View v){
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshList(position);
+            }
+        });
+    }
+    private void refreshList(int position) {
+        //new CallTaskGetService().execute();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     public void addUsername(String username, String token, Date exp_date){

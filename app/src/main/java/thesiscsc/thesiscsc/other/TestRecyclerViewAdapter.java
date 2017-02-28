@@ -156,8 +156,9 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
 
-
-                name_txt_small.setText(task.getTaskName());
+                if (task != null) {
+                    name_txt_small.setText(task.getTaskName());
+                }
 
                 return new RecyclerView.ViewHolder(view) {};
             }
