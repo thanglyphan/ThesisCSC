@@ -91,7 +91,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private View view;
 
 
-    List<User> userList = new ArrayList<>();
 
     public TestRecyclerViewAdapter(List<Task> contents, Queue<Task> taskQueue, Context mContext) {
         this.contents = contents;
@@ -252,16 +251,17 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         //userList.add(new User("AHABES"));
        // userList.add(new User("SICSPC"));
 
-        //new executeSearchService().execute();
+        new executeSearchService().execute();
 
+        List<User> userList = new ArrayList<>();
         userList.add(new User("Adam", "Habes", "AHABES"));
         userList.add(new User("SICSPC", "SICSPC", "SICSPC"));
 
-       for(User u : userList){
+       /*for(User u : userList){
             if(u.getUser_id() != null && u.getUser_id().equals(username)){
                 userList.remove(u);
             }
-        }
+        }*/
 
         //TODO: CHANGE LIST OVER FOR SERVERLIST
         User[] listItems = new User[userList.size()];
@@ -321,16 +321,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         dialog.show();
     }
 
-
-    /* super.actualOwner = task.actualOwner;
-        super.internalName = task.internalName;
-        super.priority = task.priority;
-        super.processIdentifier = task.processIdentifier;
-        super.subProcess = task.subProcess;
-        super.status = task.status;
-        super.lastUpdatedTimeStamp = task.lastUpdatedTimeStamp;
-*/
-
     private void detailsTask(Task task) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.details_popup);
@@ -381,7 +371,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             try{
                 DbOutput res = service.executeSearch(param0,param1);
-                Log.d("hh",res.result.size() + "");
+//                Log.d("hh",res.result.size() + "");
 
 
                // User testUser = res.result.firstElement();

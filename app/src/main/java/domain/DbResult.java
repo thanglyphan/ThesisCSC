@@ -11,6 +11,8 @@ package domain;
 
 
 
+import android.util.Log;
+
 import org.ksoap2.serialization.*;
 import java.util.Vector;
 import java.util.Hashtable;
@@ -45,6 +47,7 @@ public class DbResult extends Vector< DbRow> implements KvmSerializable,java.io.
             for (int i0=0;i0< size;i0++)
             {
                 java.lang.Object obj = soapObject.getProperty(i0);
+                Log.d("dbresult", "dbresult: " + inObj.toString());
                 if (obj!=null && obj instanceof AttributeContainer)
                 {
                     AttributeContainer j =(AttributeContainer) soapObject.getProperty(i0);
