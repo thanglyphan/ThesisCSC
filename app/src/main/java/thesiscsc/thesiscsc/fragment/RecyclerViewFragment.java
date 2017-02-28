@@ -59,7 +59,6 @@ public class RecyclerViewFragment extends Fragment {
     SharedPreferences prefs;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    SicsWsAdministrationEntryPointBinding adminService;
 
     ArrayList<TaskFindResult> taskList = new ArrayList<>();
 
@@ -82,7 +81,7 @@ public class RecyclerViewFragment extends Fragment {
         exp_token = new Date(prefs.getLong("exp", 0));
 
         SERVER_ADDRESS = prefs.getString("ip","");
-        adminService = new SicsWsAdministrationEntryPointBinding(null, "http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
+
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
@@ -252,11 +251,6 @@ public class RecyclerViewFragment extends Fragment {
                 Log.d("nothing", loginToken);
             }
 
-            try {
-                result = adminService.about().getProperty(0).toString();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             return result;
         }
     }
