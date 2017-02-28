@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -36,6 +37,8 @@ public class TaskFragment extends Fragment {
     private String username;
     private String token;
     private Date token_exp;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
 
 
     @Override
@@ -48,6 +51,8 @@ public class TaskFragment extends Fragment {
         prefs = this.getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
         mViewPager.getToolbar().setVisibility(GONE);
         toolbar = mViewPager.getToolbar();
+
+        loadRefresher(view);
 
         if (toolbar != null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -168,6 +173,25 @@ public class TaskFragment extends Fragment {
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.addToBackStack(null);
         ft.commit();
+    }
+
+    private void loadRefresher(View v){
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshFragment();
+            }
+        });
+    }
+
+    private void refreshFragment(){
+        Fragment currentFragment = this;
+        FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+        fragTransaction.detach(currentFragment);
+        fragTransaction.attach(currentFragment);
+        fragTransaction.commit();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     public void loadInfo(String gUsername, String gToken, Long gDate) {
