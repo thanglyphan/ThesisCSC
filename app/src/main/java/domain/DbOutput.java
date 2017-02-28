@@ -10,14 +10,20 @@ package domain;
 //---------------------------------------------------
 
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.Hashtable;
 import org.ksoap2.serialization.*;
+
+import thesiscsc.thesiscsc.model.*;
 
 public class DbOutput extends AttributeContainer implements KvmSerializable,java.io.Serializable
 {
 
 
     public DbResult result;
+    private ArrayList users = new ArrayList<thesiscsc.thesiscsc.model.User>();
 
     public DbOutput ()
     {
@@ -45,7 +51,10 @@ public class DbOutput extends AttributeContainer implements KvmSerializable,java
                     if(obj!=null)
                     {
                         java.lang.Object j = obj;
+
+                        //Log.d("dboutput","dboutput " + j.toString());
                         this.result = new DbResult(j,__envelope);
+                        Log.d("dboutput","dboutput " + this.result.get(0));
                     }
                     continue;
                 }
