@@ -6,49 +6,38 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.MultiTapKeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
-import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import domain.ActualOwnerProperties;
-import domain.AuthenticationToken;
-import domain.SicsGenericInput;
-import domain.SicsUserReference;
-import domain.SicsWsDomainSearchEntryPointBinding;
-import domain.TaskFindCriteria;
-import domain.TaskFindResult;
-import domain.TaskProperties;
-import domain.TaskSearchCriteria;
-import domain.TaskSearchResultOutput;
-import domain.TaskUserList;
-import ips.SicsWsAdministrationEntryPointBinding;
+import SicsWsDomainSearchEntryPoint.ActualOwnerProperties;
+import SicsWsDomainSearchEntryPoint.AuthenticationToken;
+import SicsWsDomainSearchEntryPoint.SicsGenericInput;
+import SicsWsDomainSearchEntryPoint.SicsUserReference;
+import SicsWsDomainSearchEntryPoint.SicsWsDomainSearchEntryPointBinding;
+import SicsWsDomainSearchEntryPoint.TaskFindCriteria;
+import SicsWsDomainSearchEntryPoint.TaskFindResult;
+import SicsWsDomainSearchEntryPoint.TaskProperties;
+import SicsWsDomainSearchEntryPoint.TaskSearchCriteria;
+import SicsWsDomainSearchEntryPoint.TaskSearchResultOutput;
+import SicsWsDomainSearchEntryPoint.TaskUserList;
+import SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPointBinding;
 import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.model.Task;
-import thesiscsc.thesiscsc.other.RecyclerItemClickListener;
 import thesiscsc.thesiscsc.other.TestRecyclerViewAdapter;
-
-import static thesiscsc.thesiscsc.R.id.end;
-import static thesiscsc.thesiscsc.R.id.name_txt_small;
 
 /**
  * Created by thang on 24.01.2017.
@@ -255,7 +244,7 @@ public class RecyclerViewFragment extends Fragment {
                 TaskSearchResultOutput res = service.executeTaskSearch(param0,param1);
 
                 Log.d("TEST","size: " + res.taskSearchResultList.size());
-                for(domain.TaskFindResult a: res.taskSearchResultList) {
+                for(SicsWsDomainSearchEntryPoint.TaskFindResult a: res.taskSearchResultList) {
                     taskList.add(a);
                 }
 

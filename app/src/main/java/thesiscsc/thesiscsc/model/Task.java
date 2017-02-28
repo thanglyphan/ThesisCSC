@@ -1,12 +1,12 @@
 package thesiscsc.thesiscsc.model;
 
-import domain.TaskFindResult;
+import SicsWsDomainSearchEntryPoint.TaskFindResult;
 
 /**
  * Created by thang on 26.01.2017.
  */
 
-public class Task extends domain.TaskFindResult {
+public class Task extends SicsWsDomainSearchEntryPoint.TaskFindResult {
     String taskName;
     int position;
 

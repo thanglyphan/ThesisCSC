@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SicsWsAdministrationEntryPointBinding methods</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/github.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel='stylesheet' type='text/css' href='../Styles/Blueprint_Styles/Style.css' />
+    <script src='../Scripts/Blueprint_Scripts/Script.js' type='text/javascript'></script>
+    <style type="text/css">
+        .syntaxhighlighter {
+            overflow-y: hidden !important;
+            overflow-x: auto !important;
+        }
+    </style>
+</head>
+<body>
+        <h2 id="about">about</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+ServerInformation res = service.about();
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        ServerInformation res = (ServerInformation)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.aboutAsync ();
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="fullRefresh">fullRefresh</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+String res = service.fullRefresh();
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        String res = (String)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.fullRefreshAsync ();
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="shutDown">shutDown</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+String res = service.shutDown();
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        String res = (String)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.shutDownAsync ();
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="serverOptions">serverOptions</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+ServerOptions param0 = new ServerOptions();
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+ServerOptions res = service.serverOptions(param0);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+ServerOptions param0 = new ServerOptions();
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        ServerOptions res = (ServerOptions)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.serverOptionsAsync (param0);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="status">status</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+ServerStatus res = service.status();
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        ServerStatus res = (ServerStatus)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.statusAsync ();
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="writeApiSupportFiles">writeApiSupportFiles</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+OptionsForWritingApiSupportFiles param0 = new OptionsForWritingApiSupportFiles();
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+String res = service.writeApiSupportFiles(param0);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+OptionsForWritingApiSupportFiles param0 = new OptionsForWritingApiSupportFiles();
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        String res = (String)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.writeApiSupportFilesAsync (param0);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="decreasePoolSize">decreasePoolSize</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+String res = service.decreasePoolSize(param0);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        String res = (String)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.decreasePoolSizeAsync (param0);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="isAvailable">isAvailable</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+Boolean res = service.isAvailable();
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        Boolean res = (Boolean)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.isAvailableAsync ();
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="serviceInformation">serviceInformation</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+ServiceInformationSpecification param1 = new ServiceInformationSpecification();
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+ServiceInformation res = service.serviceInformation(param0,param1);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+ServiceInformationSpecification param1 = new ServiceInformationSpecification();
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        ServiceInformation res = (ServiceInformation)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.serviceInformationAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="lightRefresh">lightRefresh</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+String res = service.lightRefresh();
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        String res = (String)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.lightRefreshAsync ();
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="increasePoolSize">increasePoolSize</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+String res = service.increasePoolSize(param0);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        String res = (String)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.increasePoolSizeAsync (param0);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="login">login</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+LoginInput param0 = new LoginInput();
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+AuthenticationToken res = service.login(param0);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+LoginInput param0 = new LoginInput();
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        AuthenticationToken res = (AuthenticationToken)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.loginAsync (param0);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="chainedOperations">chainedOperations</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import ips;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+ChainedOperationRequests param1 = new ChainedOperationRequests();
+
+            
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding("");
+ChainedOperationResponses res = service.chainedOperations(param0,param1);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import ips;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+ChainedOperationRequests param1 = new ChainedOperationRequests();
+
+SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        ChainedOperationResponses res = (ChainedOperationResponses)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.chainedOperationsAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+</body>
+</html>
+

@@ -4,19 +4,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,17 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import org.ksoap2.serialization.AttributeInfo;
-
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 import SicsWsTaskManagementEntryPoint.ActivitySummary;
@@ -42,24 +30,17 @@ import SicsWsTaskManagementEntryPoint.ChangeTaskStatusInput;
 import SicsWsTaskManagementEntryPoint.ChangeTaskStatusSummary;
 import SicsWsTaskManagementEntryPoint.DelegateActivityInput;
 import SicsWsTaskManagementEntryPoint.PotentialOwnerUpdateList;
-import SicsWsTaskManagementEntryPoint.SicsReferenceData;
-import SicsWsTaskManagementEntryPoint.SicsReferenceDataItem;
 import SicsWsTaskManagementEntryPoint.SicsTaskManagementActivityReference;
 import SicsWsTaskManagementEntryPoint.SicsTaskManagementProcessReference;
 import SicsWsTaskManagementEntryPoint.SicsUserReference;
 import SicsWsTaskManagementEntryPoint.SicsWsTaskManagementEntryPointBinding;
-import domain.AuthenticationToken;
-import domain.DbOutput;
-import domain.DbResult;
-import domain.DbRow;
-import domain.In;
-import domain.Input;
-import domain.SicsGenericInput;
-import domain.SicsReferenceDataReference;
-import domain.SicsWsDomainSearchEntryPointBinding;
+import SicsWsDomainSearchEntryPoint.AuthenticationToken;
+import SicsWsDomainSearchEntryPoint.DbOutput;
+import SicsWsDomainSearchEntryPoint.Input;
+import SicsWsDomainSearchEntryPoint.SicsGenericInput;
+import SicsWsDomainSearchEntryPoint.SicsWsDomainSearchEntryPointBinding;
 
 import thesiscsc.thesiscsc.R;
-import thesiscsc.thesiscsc.fragment.RecyclerViewFragment;
 import thesiscsc.thesiscsc.model.Task;
 import thesiscsc.thesiscsc.model.User;
 
@@ -363,7 +344,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             Input param1 = new Input();
 
-            domain.SQLSpecification SQLSpecification = new domain.SQLSpecification();
+            SicsWsDomainSearchEntryPoint.SQLSpecification SQLSpecification = new SicsWsDomainSearchEntryPoint.SQLSpecification();
             SQLSpecification.sqlStatement = "select USER_ID, FIRSTNAME, LASTNAME from cnu_user";
             param1.inputSQLSpecification = SQLSpecification;
 
