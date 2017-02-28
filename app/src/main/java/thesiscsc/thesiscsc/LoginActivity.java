@@ -85,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
             login();
         }
         
-
     }
 
     public void login() {
