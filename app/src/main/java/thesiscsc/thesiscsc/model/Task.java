@@ -7,7 +7,6 @@ import domain.TaskFindResult;
  */
 
 public class Task extends domain.TaskFindResult {
-    TaskFindResult task;
     String taskName;
     int position;
 
@@ -17,19 +16,24 @@ public class Task extends domain.TaskFindResult {
     }
 
     public Task(TaskFindResult task, int position) {
-        this.task = task;
+        super.nlsName = task.nlsName;
+        super.actualOwner = task.actualOwner;
+        super.internalName = task.internalName;
+        super.priority = task.priority;
+        super.processIdentifier = task.processIdentifier;
+        super.subProcess = task.subProcess;
+        super.status = task.status;
+        super.lastUpdatedTimeStamp = task.lastUpdatedTimeStamp;
+
         this.position = position;
     }
 
-    public TaskFindResult getTask(){ return task; }
-
     public String getTaskName(){
-        if (task != null) {
-            return task.nlsName;
+        if (super.nlsName != null) {
+            return super.nlsName;
         } else {
             return taskName;
         }
     }
     public int getPosition() { return position; }
-
 }

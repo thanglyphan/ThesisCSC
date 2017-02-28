@@ -37,6 +37,13 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import SicsWsTaskManagementEntryPoint.ActivitySummary;
+import SicsWsTaskManagementEntryPoint.DelegateActivityInput;
+import SicsWsTaskManagementEntryPoint.PotentialOwnerUpdateList;
+import SicsWsTaskManagementEntryPoint.SicsTaskManagementActivityReference;
+import SicsWsTaskManagementEntryPoint.SicsTaskManagementProcessReference;
+import SicsWsTaskManagementEntryPoint.SicsUserReference;
+import SicsWsTaskManagementEntryPoint.SicsWsTaskManagementEntryPointBinding;
 import domain.AuthenticationToken;
 import domain.DbOutput;
 import domain.DbResult;
@@ -69,6 +76,8 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private String loginToken;
     private Date exp_token;
     SharedPreferences prefs;
+
+    SicsTaskManagementProcessReference sicsTaskManagementProcessReference;
 
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL = 1;
@@ -166,15 +175,18 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void showPopup(View v, int pos) {
         //TODO: FIX FRAGMENT TRANSACTIONS TO DIFF THINGS
         System.out.println("POSITION-----" + contents.get(pos).getTaskName());
+        //Log.d("TASKNAME", contents.get(pos).getTaskName() + "  " + "  " + contents.get(pos).nlsName + "   " + contents.get(pos).processIdentifier + "   " + contents.get(pos).internalName);
         PopupMenu popup = new PopupMenu(this.view.getContext(), v);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_task_dots, popup.getMenu());
+        final int finalPos = pos;
+
         popup.show();
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.delegate: delegeteTask(); break;
+                    case R.id.delegate: delegeteTask(contents.get(finalPos)); break;
                     case R.id.mark_complete: completeTask(); break;
                     case R.id.mark_failed: failTask(); break;
                     case R.id.details: detailsTask(); break;
@@ -184,10 +196,11 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         });
     }
 
-    private void delegeteTask() {
+    private void delegeteTask(Task task) {
+
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.delegate_popup);
-
+        final Task finalTask1 = task;
         final ListView delegateList = (ListView) dialog.findViewById(R.id.delegate_listview);
         delegateList.setClickable(true);
         delegateList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -196,11 +209,14 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final User user = (User) delegateList.getItemAtPosition(position);
                 final Dialog insideDialog = new Dialog(context);
+                final Task finalTask2 = finalTask1;
                 insideDialog.setContentView(R.layout.delegate_popup_confirm);
                 TextView nameField = (TextView) insideDialog.findViewById(R.id.name_text_user);
                 Button btnCancel = (Button) insideDialog.findViewById(R.id.cancel_btn);
                 Button btnConfirm = (Button) insideDialog.findViewById(R.id.delegate_btn);
                 nameField.setText(user + "?");
+
+
 
                 btnCancel.setOnClickListener(new Button.OnClickListener() {
                     public void onClick(View v) {
@@ -210,8 +226,9 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 btnConfirm.setOnClickListener(new Button.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       new excecuteDelegateTaskService().execute(user.getUser_id());
-                        //System.out.println(user.getName());
+                       new excecuteDelegateTaskService().execute(user.getUser_id(), finalTask2.processIdentifier, finalTask2.internalName);
+                        Toast.makeText(context, "Delegated task to " + user.toString(), Toast.LENGTH_SHORT).show();
+                        insideDialog.dismiss();
                     }
                 });
 
@@ -235,7 +252,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         userList.add(new User("Adam", "Habes", "AHABES"));
         userList.add(new User("SICSPC", "SICSPC", "SICSPC"));
 
-        for(User u : userList){
+       for(User u : userList){
             if(u.getUser_id() != null && u.getUser_id().equals(username)){
                 userList.remove(u);
             }
@@ -364,7 +381,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    class excecuteDelegateTaskService extends AsyncTask<String, Void, String> {
+    class excecuteDelegateTaskService extends AsyncTask<String, String, String> {
 
 
         @Override
@@ -374,12 +391,43 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         @Override
         protected String doInBackground(String... params) {
-            Log.d("DELEGATE", "Task Delegated to " + params[0]);
+
+            SicsWsTaskManagementEntryPoint.SicsGenericInput param0 = new SicsWsTaskManagementEntryPoint.SicsGenericInput();
+            DelegateActivityInput param1 = new DelegateActivityInput();
+
+            SicsWsTaskManagementEntryPoint.AuthenticationToken token = new SicsWsTaskManagementEntryPoint.AuthenticationToken();
+
+            token.userId = username;
+            token.signature = loginToken;
+            token.expiration = exp_token;
+            param0.authenticationToken = token;
+
+            SicsTaskManagementActivityReference activityReference = new SicsTaskManagementActivityReference();
+
+            activityReference.processIdentifier = params[1];
+            activityReference.internalName = params[2];
+
+            param1.activityReference = activityReference;
+
+            PotentialOwnerUpdateList potentialOwnerList = new PotentialOwnerUpdateList();
+            SicsUserReference userReference = new SicsUserReference();
+            userReference.userId = params[0];
+            potentialOwnerList.potentialOwner.add(userReference);
+
+            param1.potentialOwnerList = potentialOwnerList;
+
+            SicsWsTaskManagementEntryPointBinding service = new SicsWsTaskManagementEntryPointBinding(null,"http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
+
 
             try{
 
+                Log.d("DELEGATE", "tull " + params[1]);
+                Log.d("TEST","try");
+                ActivitySummary res = service.delegateActivity(param0,param1);
+                Log.d("TEST", res.getPropertyCount() + "");
             }catch (Exception e){
 
+                Log.d("TEST", Log.getStackTraceString(e));
             }
 
 

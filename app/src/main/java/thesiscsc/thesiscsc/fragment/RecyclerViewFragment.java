@@ -185,7 +185,7 @@ public class RecyclerViewFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             System.out.println(taskList.size());
-            List<Task> list = new ArrayList<>();
+            List<Task> list = new ArrayList<Task>();
             int size = taskList.size();
             if(size > 0) {
                 for(int i = 0; i < size; i++) {
@@ -196,7 +196,12 @@ public class RecyclerViewFragment extends Fragment {
             }
             List<Task> testList = new ArrayList<>();
 
-            testList.add(new Task("PÅGÅR OG AVSLUTTET", 0));
+            //testList.add(new Task("PÅGÅR OG AVSLUTTET", 0));
+
+            /*Log.d("HER",taskList.get(0).nlsName);
+            Log.d("HER",taskList.get(0).processIdentifier);
+            Log.d("HER",taskList.get(0).internalName);*/
+
 
             loadOngoingTask((ArrayList<Task>) list);
         }
@@ -258,6 +263,7 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     private void addToSection(ArrayList<Task> list){
+
         ITEM_COUNT = list.size();
         this.taskQueue = new ArrayDeque<>();
         {
@@ -267,6 +273,7 @@ public class RecyclerViewFragment extends Fragment {
                     taskQueue.add(list.get(i));
                 }
             }
+
             mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue, this.getContext());
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
