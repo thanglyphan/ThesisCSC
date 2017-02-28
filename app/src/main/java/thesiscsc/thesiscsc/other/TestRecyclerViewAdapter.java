@@ -38,8 +38,12 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import SicsWsTaskManagementEntryPoint.ActivitySummary;
+import SicsWsTaskManagementEntryPoint.ChangeTaskStatusInput;
+import SicsWsTaskManagementEntryPoint.ChangeTaskStatusSummary;
 import SicsWsTaskManagementEntryPoint.DelegateActivityInput;
 import SicsWsTaskManagementEntryPoint.PotentialOwnerUpdateList;
+import SicsWsTaskManagementEntryPoint.SicsReferenceData;
+import SicsWsTaskManagementEntryPoint.SicsReferenceDataItem;
 import SicsWsTaskManagementEntryPoint.SicsTaskManagementActivityReference;
 import SicsWsTaskManagementEntryPoint.SicsTaskManagementProcessReference;
 import SicsWsTaskManagementEntryPoint.SicsUserReference;
@@ -51,6 +55,7 @@ import domain.DbRow;
 import domain.In;
 import domain.Input;
 import domain.SicsGenericInput;
+import domain.SicsReferenceDataReference;
 import domain.SicsWsDomainSearchEntryPointBinding;
 
 import thesiscsc.thesiscsc.R;
@@ -187,9 +192,9 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.delegate: delegeteTask(contents.get(finalPos)); break;
-                    case R.id.mark_complete: completeTask(); break;
+                    case R.id.mark_complete: completeTask(contents.get(finalPos)); break;
                     case R.id.mark_failed: failTask(); break;
-                    case R.id.details: detailsTask(); break;
+                    case R.id.details: detailsTask(contents.get(finalPos)); break;
                 }
                 return true;
             }
@@ -269,17 +274,18 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
 
-    private void completeTask() {
+    private void completeTask(Task task) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.mark_complete_popup);
         Button btnComplete = (Button) dialog.findViewById(R.id.complete_btn);
         Button btnCancel = (Button) dialog.findViewById(R.id.cancelComplete_btn);
-
+        final Task finalTask = task;
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Add Complete task code here!
-            }
+                new excecuteCompleteTaskService().execute(finalTask.processIdentifier, finalTask.status.subclassNumber + "");
+                Toast.makeText(context, "Task marked as completed", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();            }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -315,18 +321,30 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         dialog.show();
     }
 
-    private void detailsTask() {
+
+    /* super.actualOwner = task.actualOwner;
+        super.internalName = task.internalName;
+        super.priority = task.priority;
+        super.processIdentifier = task.processIdentifier;
+        super.subProcess = task.subProcess;
+        super.status = task.status;
+        super.lastUpdatedTimeStamp = task.lastUpdatedTimeStamp;
+*/
+
+    private void detailsTask(Task task) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.details_popup);
         Button btnOk = (Button) dialog.findViewById(R.id.details_ok_btn);
         TextView detailText = (TextView) dialog.findViewById(R.id.task_details_text);
-
+        final Task finalTask = task;
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+        detailText.setText("Name: " + task.nlsName + "\nStatus: " + task.status.code + "\nLast Updated : " + task.lastUpdatedTimeStamp + "\nPriority: "
+                + task.priority + "\nSub Process: " + task.subProcess + "\nActual owner: " + task.actualOwner.userId);
 
         dialog.show();
     }
@@ -427,6 +445,54 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 Log.d("TEST", res.getPropertyCount() + "");
             }catch (Exception e){
 
+                Log.d("TEST", Log.getStackTraceString(e));
+            }
+
+
+            return null;
+        }
+    }
+
+    class excecuteCompleteTaskService extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPostExecute(String s) {
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            SicsWsTaskManagementEntryPoint.SicsGenericInput param0 = new SicsWsTaskManagementEntryPoint.SicsGenericInput();
+
+            ChangeTaskStatusInput param1 = new ChangeTaskStatusInput();
+
+            SicsWsTaskManagementEntryPoint.AuthenticationToken token = new SicsWsTaskManagementEntryPoint.AuthenticationToken();
+
+            token.userId = username;
+            token.signature = loginToken;
+            token.expiration = exp_token;
+            param0.authenticationToken = token;
+
+            SicsTaskManagementProcessReference processReference = new SicsTaskManagementProcessReference();
+            processReference.processIdentifier = params[0];
+
+
+            SicsWsTaskManagementEntryPoint.SicsReferenceDataReference sicsReferenceData = new SicsWsTaskManagementEntryPoint.SicsReferenceDataReference();
+            sicsReferenceData.code = "COMPLETED";
+            sicsReferenceData.subclassNumber = Integer.parseInt(params[1]);
+
+            param1.processReference = processReference;
+            param1.status = sicsReferenceData;
+
+
+            SicsWsTaskManagementEntryPointBinding service = new SicsWsTaskManagementEntryPointBinding(null,"http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
+
+
+            try{
+                ChangeTaskStatusSummary res = service.changeTaskStatus(param0,param1);
+            }catch (Exception e){
                 Log.d("TEST", Log.getStackTraceString(e));
             }
 
