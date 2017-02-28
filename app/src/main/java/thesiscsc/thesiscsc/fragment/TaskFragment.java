@@ -52,7 +52,6 @@ public class TaskFragment extends Fragment {
         mViewPager.getToolbar().setVisibility(GONE);
         toolbar = mViewPager.getToolbar();
 
-        loadRefresher(view);
 
         if (toolbar != null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -139,7 +138,8 @@ public class TaskFragment extends Fragment {
                 }
             });
         }
-
+        loadRefresher(view);
+        System.out.println("RELOADED");
 
         return view;
 
@@ -167,30 +167,20 @@ public class TaskFragment extends Fragment {
         });
     }
 
-    private void nextFragment(Fragment a){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.channel_frame, a);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
     private void loadRefresher(View v){
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshFragment();
+
             }
         });
     }
 
     private void refreshFragment(){
-        Fragment currentFragment = this;
-        FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-        fragTransaction.detach(currentFragment);
-        fragTransaction.attach(currentFragment);
-        fragTransaction.commit();
+
+
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

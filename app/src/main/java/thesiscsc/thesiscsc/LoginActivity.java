@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         if(!username.equals("") && !password.equals("")) {
             login();
         }
-        
+
     }
 
     public void login() {

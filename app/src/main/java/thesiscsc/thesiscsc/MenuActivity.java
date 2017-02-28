@@ -59,7 +59,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
 
     public static int navItemIndex = 0;
     private static final String TAG_HOME = "home";
-    private static final String TAG_HOME2 = "home2";
+    private static final String TAG_TASK= "task";
     private static final String TAG_HOME3= "home3";
     public static final String EXTRA_MESSAGE = "SOMETHING";
     public static String CURRENT_TAG = TAG_HOME;
@@ -201,7 +201,6 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
             mHandler.post(mPendingRunnable);
         }
 
-
         //Closing drawer on item click
         drawer.closeDrawers();
 
@@ -215,13 +214,13 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                 TestOneFragment homeFragment = new TestOneFragment();
                 return homeFragment;
             case 1:
-                TaskFragment home2Fragment = new TaskFragment();
-                home2Fragment.loadInfo(
+                TaskFragment taskFragment = new TaskFragment();
+                taskFragment.loadInfo(
                         prefs.getString("username", ""),
                         prefs.getString("login_token", ""),
                         prefs.getLong("exp", 0)
                 );
-                return home2Fragment;
+                return taskFragment;
             case 2:
                 TestThreeFragment home3Fragment = new TestThreeFragment();
                 return home3Fragment;
@@ -255,7 +254,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                         break;
                     case R.id.tasks:
                         navItemIndex = 1;
-                        CURRENT_TAG = TAG_HOME2;
+                        CURRENT_TAG = TAG_TASK;
                         break;
                     case R.id.nav_home3:
                         navItemIndex = 2;
