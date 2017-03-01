@@ -187,8 +187,6 @@ public class RecyclerViewFragment extends Fragment {
         protected void onPostExecute(String s) {
             List<Task> list = new ArrayList<>();
             int size = taskList.size();
-            System.out.println("LALDLASDLASLDLASD::: ---  ----       " + size);
-
             if(size > 0) {
                 for(int i = 0; i < size; i++) {
                     list.add(new Task(taskList.get(i), i));
