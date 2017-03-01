@@ -174,7 +174,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 switch (item.getItemId()){
                     case R.id.delegate: delegeteTask(contents.get(finalPos)); break;
                     case R.id.mark_complete: completeTask(contents.get(finalPos)); break;
-                    case R.id.mark_failed: failTask(); break;
+                    case R.id.mark_failed: failTask(contents.get(finalPos)); break;
                     case R.id.details: detailsTask(contents.get(finalPos)); break;
                 }
                 return true;
@@ -265,7 +265,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new excecuteCompleteTaskService().execute(finalTask.processIdentifier, finalTask.status.subclassNumber + "");
+                new excecuteChangeStatusTaskService().execute(finalTask.processIdentifier, finalTask.status.subclassNumber + "", "COMPLETED");
                 Toast.makeText(context, "Task marked as completed", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();            }
         });
@@ -280,16 +280,18 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         dialog.show();
     }
 
-    private void failTask() {
+    private void failTask(Task task) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.mark_failed_popup);
         Button btnFailed = (Button) dialog.findViewById(R.id.failed_btn);
         Button btnCancel = (Button) dialog.findViewById(R.id.cancelFailed_btn);
-
+        final Task finalTask = task;
         btnFailed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Add Failed task code here!
+                new excecuteChangeStatusTaskService().execute(finalTask.processIdentifier, finalTask.status.subclassNumber + "", "FAILED");
+                Toast.makeText(context, "Task marked as failed", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
 
@@ -425,7 +427,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    class excecuteCompleteTaskService extends AsyncTask<String, String, String> {
+    class excecuteChangeStatusTaskService extends AsyncTask<String, String, String> {
 
 
         @Override
@@ -435,6 +437,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         @Override
         protected String doInBackground(String... params) {
+            Log.d("STATUS", params[2]);
 
             SicsWsTaskManagementEntryPoint.SicsGenericInput param0 = new SicsWsTaskManagementEntryPoint.SicsGenericInput();
 
@@ -452,7 +455,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
             SicsWsTaskManagementEntryPoint.SicsReferenceDataReference sicsReferenceData = new SicsWsTaskManagementEntryPoint.SicsReferenceDataReference();
-            sicsReferenceData.code = "COMPLETED";
+            sicsReferenceData.code = params[2];
             sicsReferenceData.subclassNumber = Integer.parseInt(params[1]);
 
             param1.processReference = processReference;
