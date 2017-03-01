@@ -14,17 +14,24 @@ package SicsWsDomainSearchEntryPoint;
 import android.util.Log;
 
 import org.ksoap2.serialization.*;
+
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.Hashtable;
+
+import thesiscsc.thesiscsc.model.User;
 
 
 public class DbResult extends Vector< DbRow> implements KvmSerializable,java.io.Serializable,HasAttributes
 {
-
+    ArrayList<User> users;
+    User user;
     public DbResult(){}
 
     public DbResult(java.lang.Object inObj,ExtendedSoapSerializationEnvelope __envelope)
     {
+        user = new User();
+        users = new ArrayList<User>();
         if (inObj == null)
             return;
         if(inObj instanceof Vector)
@@ -44,15 +51,42 @@ public class DbResult extends Vector< DbRow> implements KvmSerializable,java.io.
         {
             SoapObject soapObject=(SoapObject)inObj;
             int size = soapObject.getPropertyCount();
+
+
+            int count = 0;
             for (int i0=0;i0< size;i0++)
             {
                 java.lang.Object obj = soapObject.getProperty(i0);
-                Log.d("dbresult", "dbresult: " + inObj.toString());
                 if (obj!=null && obj instanceof AttributeContainer)
                 {
                     AttributeContainer j =(AttributeContainer) soapObject.getProperty(i0);
                     DbRow j1= new DbRow(j,__envelope);
                     add(j1);
+                } else if (obj != null && obj instanceof String){
+                    Object j =(Object) soapObject.getProperty(i0);
+                    try {
+                        DbRow j1 = new DbRow(j, __envelope);
+                        add(j1);
+
+                        if (count == 0){
+                            user.setUser_Id(j1.toString());
+                            count++;
+                        } else if (count == 1){
+                            user.setFirstName(j1.toString());
+                            count++;
+                        } else if (count == 2){
+                            user.setLastName(j1.toString());
+                            count++;
+                        } else if (count == 3){
+                            users.add(user);
+                            count = 0;
+                            user = new User();
+                        }
+
+                        Log.d("DBRESULT",j1.toString());
+                    } catch (Exception e){
+                        Log.d("TEST", Log.getStackTraceString(e));
+                    }
                 }
             }
         }
@@ -122,4 +156,7 @@ public class DbResult extends Vector< DbRow> implements KvmSerializable,java.io.
 
     }
 
+    public ArrayList<User> getUserList(){
+        return users;
+    }
 }

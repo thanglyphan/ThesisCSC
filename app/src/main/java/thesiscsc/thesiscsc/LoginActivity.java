@@ -29,10 +29,10 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_SIGNUP = 0;
     private SharedPreferences prefs;
 
-    //---------------
-    //String ip = "192.168.43.197:8325";
-    String ip = "10.0.0.60:8325";
-    //---------------
+    //----------------
+    String ip = "192.168.43.197:8325";
+    //String ip = "10.0.0.60:8325";
+    //----------------
 
     String address = "http://" + ip + "/SwanLake/SicsWSServlet";
     String loginToken = "";

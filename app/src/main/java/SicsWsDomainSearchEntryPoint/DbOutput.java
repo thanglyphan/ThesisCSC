@@ -12,15 +12,19 @@ package SicsWsDomainSearchEntryPoint;
 
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import org.ksoap2.serialization.*;
 
+import thesiscsc.thesiscsc.model.User;
+
 public class DbOutput extends AttributeContainer implements KvmSerializable,java.io.Serializable
 {
 
-
-    public DbResult result;
+    //public String result;
+    public DbResult dbResult;
+    public ArrayList<User> userList;
     private ArrayList users = new ArrayList<thesiscsc.thesiscsc.model.User>();
 
     public DbOutput ()
@@ -29,7 +33,7 @@ public class DbOutput extends AttributeContainer implements KvmSerializable,java
 
     public DbOutput (java.lang.Object paramObj,ExtendedSoapSerializationEnvelope __envelope)
     {
-
+        userList = new ArrayList<User>();
         if (paramObj == null)
             return;
         AttributeContainer inObj=(AttributeContainer)paramObj;
@@ -50,9 +54,10 @@ public class DbOutput extends AttributeContainer implements KvmSerializable,java
                     {
                         java.lang.Object j = obj;
 
-                        //Log.d("dboutput","dboutput " + j.toString());
-                        this.result = new DbResult(j,__envelope);
-                        Log.d("dboutput","dboutput " + this.result.get(0));
+                        this.dbResult = new DbResult(j,__envelope);
+                        for (User u: dbResult.getUserList()) {
+                            userList.add(u);
+                        }
                     }
                     continue;
                 }
@@ -71,7 +76,7 @@ public class DbOutput extends AttributeContainer implements KvmSerializable,java
         //!!!!! You can find a correct version in Lib folder from generated zip file!!!!!
         if(propertyIndex==0)
         {
-            return this.result!=null?this.result:SoapPrimitive.NullSkip;
+            return this.dbResult!=null?this.dbResult:SoapPrimitive.NullSkip;
         }
         return null;
     }
@@ -98,6 +103,8 @@ public class DbOutput extends AttributeContainer implements KvmSerializable,java
     {
     }
 
-
+    public ArrayList<User> getUserList(){
+        return userList;
+    }
 }
 

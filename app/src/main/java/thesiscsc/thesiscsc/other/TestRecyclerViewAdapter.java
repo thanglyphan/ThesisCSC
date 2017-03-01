@@ -56,14 +56,14 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private RecyclerView mRecyclerView;
     Context context;
 
-
+    static List<User> userList;
     private String SERVER_ADDRESS; //http://192.168.43.115:8325
     private String username;
     private String loginToken;
     private Date exp_token;
     SharedPreferences prefs;
 
-    SicsTaskManagementProcessReference sicsTaskManagementProcessReference;
+
 
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL = 1;
@@ -76,6 +76,8 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public TestRecyclerViewAdapter(List<Task> contents, Queue<Task> taskQueue, Context mContext) {
         this.contents = contents;
         this.taskQueue = taskQueue;
+
+        userList = new ArrayList<>();
 
         prefs = mContext.getSharedPreferences("credentials", Context.MODE_PRIVATE);
 
@@ -161,7 +163,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void showPopup(View v, int pos) {
         //TODO: FIX FRAGMENT TRANSACTIONS TO DIFF THINGS
         System.out.println("POSITION-----" + contents.get(pos).getTaskName());
-        //Log.d("TASKNAME", contents.get(pos).getTaskName() + "  " + "  " + contents.get(pos).nlsName + "   " + contents.get(pos).processIdentifier + "   " + contents.get(pos).internalName);
         PopupMenu popup = new PopupMenu(this.view.getContext(), v);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_task_dots, popup.getMenu());
@@ -212,7 +213,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 btnConfirm.setOnClickListener(new Button.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       new excecuteDelegateTaskService().execute(user.getUser_id(), finalTask2.processIdentifier, finalTask2.internalName);
+                       new excecuteDelegateTaskService().execute(user.getUser_Id(), finalTask2.processIdentifier, finalTask2.internalName);
                         Toast.makeText(context, "Delegated task to " + user.toString(), Toast.LENGTH_SHORT).show();
                         insideDialog.dismiss();
                     }
@@ -222,30 +223,12 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
         });
 
-        //TODO: GET NAMES FROM SERVER
+        try{
+            String str_result= new executeSearchService().execute().get();
+        } catch (Exception e){
 
-        /*userList.add(new User("Andreas"));
-        userList.add(new User("Adam"));
-        userList.add(new User("Christian"));
-        userList.add(new User("Thang"));
-        userList.add(new User("Chillern gruppa"));*/
+        }
 
-        //userList.add(new User("AHABES"));
-       // userList.add(new User("SICSPC"));
-
-        new executeSearchService().execute();
-
-        List<User> userList = new ArrayList<>();
-        userList.add(new User("Adam", "Habes", "AHABES"));
-        userList.add(new User("SICSPC", "SICSPC", "SICSPC"));
-
-       /*for(User u : userList){
-            if(u.getUser_id() != null && u.getUser_id().equals(username)){
-                userList.remove(u);
-            }
-        }*/
-
-        //TODO: CHANGE LIST OVER FOR SERVERLIST
         User[] listItems = new User[userList.size()];
         for(int i = 0; i < userList.size(); i++){
             listItems[i] = userList.get(i);
@@ -328,9 +311,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
         @Override
-        protected void onPostExecute(String s) {
-
-        }
+        protected void onPostExecute(String s) {}
 
         @Override
         protected String doInBackground(String... params) {
@@ -355,20 +336,17 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             try{
                 DbOutput res = service.executeSearch(param0,param1);
-//                Log.d("hh",res.result.size() + "");
+                userList = res.getUserList();
 
-
-               // User testUser = res.result.firstElement();
-
-                //Log.d("TEST","size: " + resu.get(0).get(0));
-
-         //       Log.d("TEST", "DB " + res.result.getPropertyCount() + "\n" + "some " + res.result.getAttributeCount() );
+                for (User u: userList) {
+                    if(u.getUser_Id().equals(username)){
+                        userList.remove(u);
+                    }
+                }
 
             }catch (Exception e){
                 Log.d("TEST", Log.getStackTraceString(e));
             }
-
-
             return null;
         }
     }
@@ -413,10 +391,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             try{
 
-                Log.d("DELEGATE", "tull " + params[1]);
-                Log.d("TEST","try");
                 ActivitySummary res = service.delegateActivity(param0,param1);
-                Log.d("TEST", res.getPropertyCount() + "");
             }catch (Exception e){
 
                 Log.d("TEST", Log.getStackTraceString(e));
@@ -475,4 +450,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             return null;
         }
     }
+
+
 }

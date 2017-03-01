@@ -11,13 +11,20 @@ package SicsWsDomainSearchEntryPoint;
 
 
 
+import android.util.Log;
+
 import org.ksoap2.serialization.*;
+
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.Hashtable;
+
+import thesiscsc.thesiscsc.model.User;
 
 
 public class DbRow extends Vector< String> implements KvmSerializable,java.io.Serializable
 {
+    String value;
 
     public DbRow(){}
 
@@ -25,11 +32,20 @@ public class DbRow extends Vector< String> implements KvmSerializable,java.io.Se
     {
         if (inObj == null)
             return;
-        SoapObject soapObject=(SoapObject)inObj;
+
+        ArrayList names = new ArrayList<User>();
+
+        value = inObj.toString();
+
+        Log.d("DBROWS", inObj.toString());
+
+        /*
+        SoapObject soapObject=(String)inObj;
         int size = soapObject.getPropertyCount();
         for (int i0=0;i0< size;i0++)
         {
             java.lang.Object obj = soapObject.getProperty(i0);
+            Log.d("DBROW", obj.toString());
             if (obj!=null && obj instanceof AttributeContainer)
             {
                 AttributeContainer j =(AttributeContainer) soapObject.getProperty(i0);
@@ -37,7 +53,10 @@ public class DbRow extends Vector< String> implements KvmSerializable,java.io.Se
                 add(j1);
             }
         }
+        */
     }
+
+
 
     @Override
     public java.lang.Object getProperty(int arg0) {
@@ -60,5 +79,9 @@ public class DbRow extends Vector< String> implements KvmSerializable,java.io.Se
     public void setProperty(int arg0, java.lang.Object arg1) {
     }
 
+    @Override
+    public String toString(){
+        return value;
+    }
 
 }
