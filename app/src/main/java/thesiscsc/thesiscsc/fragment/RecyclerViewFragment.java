@@ -50,7 +50,7 @@ public class RecyclerViewFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private List<Task> mContentItems = new ArrayList<>();
     private Queue<Task> taskQueue;
-    private List<Task> onGoingList, comingList, endedList;
+    private List<Task> inprogressList, reservedList, endedList;
     private int position;
 
     private String SERVER_ADDRESS; //http://192.168.43.115:8325
@@ -59,8 +59,8 @@ public class RecyclerViewFragment extends Fragment {
     private Date exp_token;
     SharedPreferences prefs;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private final String ONGOING = "ONGOING";
-    private final String COMING = "COMING";
+    private final String INPROGRESS = "INPROGRESS";
+    private final String RESERVED = "RESERVED";
     private final String COMPLETED = "COMPLETED";
 
 
@@ -106,8 +106,8 @@ public class RecyclerViewFragment extends Fragment {
 
 
         switch (position){
-            case 0: new CallTaskGetService().execute(ONGOING); break;
-            case 1: new CallTaskGetService().execute(COMING); break;
+            case 0: new CallTaskGetService().execute(INPROGRESS); break;
+            case 1: new CallTaskGetService().execute(RESERVED); break;
             case 2: new CallTaskGetService().execute(COMPLETED); break;
         }
 
@@ -163,13 +163,13 @@ public class RecyclerViewFragment extends Fragment {
         loadRefresher(view);
     }
 
-    private void loadOngoingTask(ArrayList<Task> a){
-        onGoingList = a;
-        addToSection((ArrayList<Task>) onGoingList);
+    private void loadReservedTask(ArrayList<Task> a){
+        reservedList = a;
+        addToSection((ArrayList<Task>) reservedList);
     }
-    private void loadComingTask(ArrayList<Task> a){
-        comingList = a;
-        addToSection((ArrayList<Task>) comingList);
+    private void loadInprogressTask(ArrayList<Task> a){
+        inprogressList = a;
+        addToSection((ArrayList<Task>) inprogressList);
     }
     private void loadEndedTask(ArrayList<Task> a){
         endedList = a;
@@ -177,30 +177,44 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     class CallTaskGetService extends AsyncTask<String, Void, String> {
-
+        ArrayList<Task> listInprogress;
+        ArrayList<Task> listReserved;
+        ArrayList<Task> listCompleted;
         @Override
         protected void onPreExecute(){
             taskList = new ArrayList<>();
+            listInprogress = new ArrayList<>();
+            listReserved = new ArrayList<>();
+            listCompleted = new ArrayList<>();
+
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String result) {
             List<Task> list = new ArrayList<>();
+
             int size = taskList.size();
             if(size > 0) {
                 for(int i = 0; i < size; i++) {
-                    list.add(new Task(taskList.get(i), i));
+                    //list.add(new Task(taskList.get(i), i));
+                    //System.out.println("STATUS------   " + list.get(i).getStatus());
+                    Task task = new Task(taskList.get(i), i);
+                    switch (task.getStatus()){
+                        case "RESERVED": listReserved.add(task); break;
+                        case "INPROGRESS": listInprogress.add(task); break;
+                        default: break;
+                    }
                 }
             } else {
                 list.add(new Task("No task found for: " + username, 0));
             }
-            if(s.equals(ONGOING)) {
-                loadOngoingTask((ArrayList<Task>) list);
-            }else if(s.equals(COMING)) {
-                loadComingTask(hardcodedList);
-            } else {
-                loadEndedTask(hardcodedList);
+            switch (result){
+                case INPROGRESS: loadInprogressTask(listInprogress); break;
+                case RESERVED: loadReservedTask(listReserved); break;
+                case COMPLETED: loadEndedTask( hardcodedList); break;
+                default: break;
             }
+
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
@@ -281,8 +295,8 @@ public class RecyclerViewFragment extends Fragment {
     }
     private void refreshList(int position) {
         switch (position) {
-            case 0: new CallTaskGetService().execute(ONGOING); break;
-            case 1: new CallTaskGetService().execute(COMING); break;
+            case 0: new CallTaskGetService().execute(INPROGRESS); break;
+            case 1: new CallTaskGetService().execute(RESERVED); break;
             case 2: new CallTaskGetService().execute(COMPLETED); break;
             default: mSwipeRefreshLayout.setRefreshing(false);
 
