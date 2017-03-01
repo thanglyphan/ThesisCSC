@@ -3,6 +3,7 @@ package thesiscsc.thesiscsc.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.annotation.BoolRes;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -58,9 +59,14 @@ public class RecyclerViewFragment extends Fragment {
     private Date exp_token;
     SharedPreferences prefs;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private final String ONGOING = "ONGOING";
+    private final String COMING = "COMING";
+    private final String COMPLETED = "COMPLETED";
+
 
 
     ArrayList<TaskFindResult> taskList = new ArrayList<>();
+    ArrayList<Task> hardcodedList;
 
     public void addPosition(int position){
         this.position = position;
@@ -88,21 +94,21 @@ public class RecyclerViewFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager;
         taskQueue = new ArrayDeque<>();
 
-        ArrayList<Task> list = new ArrayList<>();
-        list.add(new Task("KOMMENDE OG AVSLUTTET", 0));
-        list.add(new Task("Jeg er 1", 1));
-        list.add(new Task("Jeg er 2", 2));
-        list.add(new Task("Jeg er 3", 3));
-        list.add(new Task("Jeg er 4", 4));
-        list.add(new Task("Jeg er 5", 5));
-        list.add(new Task("Jeg er 6", 6));
-        list.add(new Task("Jeg er 7", 7));
+        hardcodedList = new ArrayList<>();
+        hardcodedList.add(new Task("KOMMENDE OG AVSLUTTET", 0));
+        hardcodedList.add(new Task("Jeg er 1", 1));
+        hardcodedList.add(new Task("Jeg er 2", 2));
+        hardcodedList.add(new Task("Jeg er 3", 3));
+        hardcodedList.add(new Task("Jeg er 4", 4));
+        hardcodedList.add(new Task("Jeg er 5", 5));
+        hardcodedList.add(new Task("Jeg er 6", 6));
+        hardcodedList.add(new Task("Jeg er 7", 7));
 
 
         switch (position){
-            case 0: new CallTaskGetService().execute(); break;
-            case 1: loadComingTask(list); break;
-            case 2: loadEndedTask(list); break;
+            case 0: new CallTaskGetService().execute(ONGOING); break;
+            case 1: new CallTaskGetService().execute(COMING); break;
+            case 2: new CallTaskGetService().execute(COMPLETED); break;
         }
 
         //new CallTaskGetService().execute();
@@ -171,18 +177,18 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     class CallTaskGetService extends AsyncTask<String, Void, String> {
-        String taskFindCriteriaInt = "";
-        /*
+
         @Override
         protected void onPreExecute(){
             taskList = new ArrayList<>();
         }
-        */
+
         @Override
         protected void onPostExecute(String s) {
-            System.out.println(taskList.size());
-            List<Task> list = new ArrayList<Task>();
+            List<Task> list = new ArrayList<>();
             int size = taskList.size();
+            System.out.println("LALDLASDLASLDLASD::: ---  ----       " + size);
+
             if(size > 0) {
                 for(int i = 0; i < size; i++) {
                     list.add(new Task(taskList.get(i), i));
@@ -190,18 +196,13 @@ public class RecyclerViewFragment extends Fragment {
             } else {
                 list.add(new Task("No task found for: " + username, 0));
             }
-            List<Task> testList = new ArrayList<>();
-
-            //testList.add(new Task("PÅGÅR OG AVSLUTTET", 0));
-
-            /*Log.d("HER",taskList.get(0).nlsName);
-            Log.d("HER",taskList.get(0).processIdentifier);
-            Log.d("HER",taskList.get(0).internalName);*/
-
-            if(mContentItems != list) {
+            if(s.equals(ONGOING)) {
                 loadOngoingTask((ArrayList<Task>) list);
+            }else if(s.equals(COMING)) {
+                loadComingTask(hardcodedList);
+            } else {
+                loadEndedTask(hardcodedList);
             }
-
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
@@ -215,15 +216,11 @@ public class RecyclerViewFragment extends Fragment {
             param0.authenticationToken = token;
 
             TaskSearchCriteria param1 = new TaskSearchCriteria();
-
             TaskProperties taskProp = new TaskProperties();
             taskProp.findOnlyOwnTasks = true;
 
-
             TaskFindCriteria taskcrit = new TaskFindCriteria();
-
             taskcrit.taskProperties = taskProp;
-
 
             SicsUserReference sicReference = new SicsUserReference();
             sicReference.userId = username;
@@ -237,14 +234,15 @@ public class RecyclerViewFragment extends Fragment {
             param1.criteria = taskcrit;
 
             SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
-            String result = "";
+            String result = params[0];
 
             try{
                 TaskSearchResultOutput res = service.executeTaskSearch(param0,param1);
 
-                Log.d("TEST","size: " + res.taskSearchResultList.size());
                 for(SicsWsDomainSearchEntryPoint.TaskFindResult a: res.taskSearchResultList) {
-                    taskList.add(a);
+                    if(!taskList.contains(a)) {
+                        taskList.add(a);
+                    }
                 }
 
             }catch (Exception e){
@@ -259,6 +257,7 @@ public class RecyclerViewFragment extends Fragment {
 
         ITEM_COUNT = list.size();
         this.taskQueue = new ArrayDeque<>();
+        this.mContentItems = new ArrayList<>();
         {
             for (int i = 0; i < ITEM_COUNT; i++) {
                 mContentItems.add(list.get(i));
@@ -283,8 +282,13 @@ public class RecyclerViewFragment extends Fragment {
         });
     }
     private void refreshList(int position) {
-        //new CallTaskGetService().execute();
-        mSwipeRefreshLayout.setRefreshing(false);
+        switch (position) {
+            case 0: new CallTaskGetService().execute(ONGOING); break;
+            case 1: new CallTaskGetService().execute(COMING); break;
+            case 2: new CallTaskGetService().execute(COMPLETED); break;
+            default: mSwipeRefreshLayout.setRefreshing(false);
+
+        }
     }
 
     public void addUsername(String username, String token, Date exp_date){

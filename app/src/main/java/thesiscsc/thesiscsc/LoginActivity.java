@@ -30,8 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences prefs;
 
     //---------------
-    //String ip = "192.168.43.197:8325";
-    String ip = "10.0.0.60:8325";
+    String ip = "192.168.43.197:8325";
+    //String ip = "10.0.0.60:8325";
     //---------------
 
     String address = "http://" + ip + "/SwanLake/SicsWSServlet";
@@ -69,8 +69,8 @@ public class LoginActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
-        _usernameText.setText("SICSPC");
-        _passwordText.setText("SICSPC");
+        _usernameText.setText("USER1");
+        _passwordText.setText("USER1");
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
