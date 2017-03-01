@@ -13,15 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import thesiscsc.thesiscsc.MenuActivity;
 import thesiscsc.thesiscsc.R;
 
 /**
  * Created by thang on 16.01.2017.
  */
 public class TestOneFragment extends Fragment {
-    public SharedPreferences prefs;
     private ListView lv;
     private TextView text;
     private NavigationView navigationView;
@@ -71,7 +68,6 @@ public class TestOneFragment extends Fragment {
         taskView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment taskFragment = new TaskFragment();
                 nextFragment(new TaskFragment(), "task", 1);
             }
         });
@@ -79,7 +75,6 @@ public class TestOneFragment extends Fragment {
         paymentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment testThreeFragment = new TestThreeFragment();
                 nextFragment(new TestThreeFragment(), "home3", 2);
             }
         });
@@ -104,7 +99,6 @@ public class TestOneFragment extends Fragment {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.frame, a, tag).commit();
         navigationView.getMenu().getItem(index).setChecked(true);
-
     }
 
 }
