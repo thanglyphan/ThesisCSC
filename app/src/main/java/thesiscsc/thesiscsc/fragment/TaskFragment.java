@@ -91,11 +91,11 @@ public class TaskFragment extends Fragment {
             public CharSequence getPageTitle(int position) {
                 switch (position % 3) {
                     case 0:
-                        return "Pågår";
+                        return "In progress";
                     case 1:
-                        return "Kommende";
+                        return "Reserved";
                     case 2:
-                        return "Avsluttet";
+                        return "N/A";
                 }
                 return "";
             }

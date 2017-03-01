@@ -28,6 +28,10 @@ public class Task extends SicsWsDomainSearchEntryPoint.TaskFindResult {
         this.position = position;
     }
 
+    public String getStatus (){
+        return super.status.code;
+    }
+
     public String getTaskName(){
         if (super.nlsName != null) {
             return super.nlsName;

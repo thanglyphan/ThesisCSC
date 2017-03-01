@@ -25,8 +25,8 @@
     <color name="LightPink">#FFB6C1</color>
     <color name="Orange">#FFA500</color>
     <color name="LightSalmon">#FFA07A</color>
-    <color name="DarkOrange">#FF8C00</color>
-    <color name="Coral">#FF7F50</color>
+    <color name="DarkOrange">#ffa435</color>
+    <color name="Coral">#ff7f50</color>
     <color name="HotPink">#FF69B4</color>
     <color name="Tomato">#FF6347</color>
     <color name="OrangeRed">#FF4500</color>
@@ -47,7 +47,7 @@
     <color name="SandyBrown">#F4A460</color>
     <color name="Azure">#F0FFFF</color>
     <color name="Honeydew">#F0FFF0</color>
-    <color name="AliceBlue">#F0F8FF</color>
+    <color name="AliceBlue">#f0f8ff</color>
     <color name="Khaki">#F0E68C</color>
     <color name="LightCoral">#F08080</color>
     <color name="PaleGoldenrod">#EEE8AA</color>
@@ -58,7 +58,7 @@
     <color name="BurlyWood">#DEB887</color>
     <color name="Plum">#DDA0DD</color>
     <color name="Gainsboro">#DCDCDC</color>
-    <color name="Crimson">#DC143C</color>
+    <color name="Crimson">#dc143c</color>
     <color name="PaleVioletRed">#DB7093</color>
     <color name="Goldenrod">#DAA520</color>
     <color name="Orchid">#DA70D6</color>
@@ -79,7 +79,7 @@
     <color name="LightSteelBlue">#B0C4DE</color>
     <color name="PaleTurquoise">#AFEEEE</color>
     <color name="GreenYellow">#ADFF2F</color>
-    <color name="LightBlue">#ADD8E6</color>
+    <color name="LightBlue">#ffa435</color>
     <color name="DarkGray">#A9A9A9</color>
     <color name="Brown">#A52A2A</color>
     <color name="Sienna">#A0522D</color>
@@ -94,8 +94,8 @@
     <color name="DarkMagenta">#8B008B</color>
     <color name="DarkRed">#8B0000</color>
     <color name="BlueViolet">#8A2BE2</color>
-    <color name="LightSkyBlue">#87CEFA</color>
-    <color name="SkyBlue">#87CEEB</color>
+    <color name="LightSkyBlue">#87cefa</color>
+    <color name="SkyBlue">#87ceeb</color>
     <color name="Gray">#808080</color>
     <color name="Olive">#808000</color>
     <color name="Purple">#800080</color>
@@ -110,8 +110,8 @@
     <color name="SlateBlue">#6A5ACD</color>
     <color name="DimGray">#696969</color>
     <color name="MediumAquamarine">#66CDAA</color>
-    <color name="CornflowerBlue">#6495ED</color>
-    <color name="CadetBlue">#5F9EA0</color>
+    <color name="CornflowerBlue">#6495ed</color>
+    <color name="CadetBlue">#5f9ea0</color>
     <color name="DarkOliveGreen">#556B2F</color>
     <color name="Indigo">#4B0082</color>
     <color name="MediumTurquoise">#48D1CC</color>
