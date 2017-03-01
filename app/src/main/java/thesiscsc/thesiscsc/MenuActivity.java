@@ -58,9 +58,9 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
 
 
     public static int navItemIndex = 0;
-    private static final String TAG_HOME = "home";
-    private static final String TAG_TASK= "task";
-    private static final String TAG_HOME3= "home3";
+    public static final String TAG_HOME = "home";
+    public static final String TAG_TASK= "task";
+    public static final String TAG_HOME3= "home3";
     public static final String EXTRA_MESSAGE = "SOMETHING";
     public static String CURRENT_TAG = TAG_HOME;
 
@@ -164,8 +164,6 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
-        // showing dot next to notifications label
-        navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
 
     }
 
