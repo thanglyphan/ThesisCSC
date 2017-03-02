@@ -7,9 +7,16 @@
     android:fitsSystemWindows="true"
     tools:context=".MenuActivity">
 
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/CornflowerBlue"
         android:theme="@style/AppTheme"
         app:elevation="0dp">
 
@@ -17,17 +24,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/ActionBarRed"
+            android:contextClickable="false"
             app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"
-            android:contextClickable="false" />
+            app:titleTextColor="@color/AliceBlue" />
 
     </android.support.design.widget.AppBarLayout>
-
-    <FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
