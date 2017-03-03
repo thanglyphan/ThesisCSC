@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
-        android:text="Welcome back to CICS mobile!"
+        android:text="Welcome back to CICS Mobile!"
         android:textSize="18sp"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/viewTask"
