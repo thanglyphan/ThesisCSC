@@ -20,7 +20,7 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        /*
+
         buttonApprove = (Button) findViewById(R.id.buttonApprove);
         buttonDeny = (Button) findViewById(R.id.buttonDeny);
         text = (TextView) findViewById(R.id.textView);
@@ -29,7 +29,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         String message = intent.getStringExtra(MenuActivity.EXTRA_MESSAGE);
 
-        text.setText(message);*/
+        text.setText(message);
 
         String idOffer = "";
 
