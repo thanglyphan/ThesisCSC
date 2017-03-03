@@ -242,7 +242,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 statusText = "OK";
             } catch (Exception e) {
-                Log.d("Fucked", e.toString());
                 Toast.makeText(getBaseContext(), "Servers down", Toast.LENGTH_LONG).show();
                 statusText = "ERROR";
             }

@@ -43,6 +43,7 @@ import SicsWsDomainSearchEntryPoint.SicsWsDomainSearchEntryPointBinding;
 import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.model.Task;
 import thesiscsc.thesiscsc.model.User;
+import thesiscsc.thesiscsc.asyncMethods.*;
 
 
 /**
@@ -224,7 +225,9 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         });
 
         try{
-            String str_result= new executeSearchService().execute().get();
+            ExecuteSearchService executeSearchService = new ExecuteSearchService(this.context);
+            userList = executeSearchService.execute("select USER_ID, FIRSTNAME, LASTNAME from cnu_user").get();
+
         } catch (Exception e){
 
         }
@@ -306,7 +309,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         dialog.show();
     }
 
-
+/*
     class executeSearchService extends AsyncTask<String, Void, String> {
 
 
@@ -350,7 +353,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             return null;
         }
     }
-
+*/
     class excecuteDelegateTaskService extends AsyncTask<String, String, String> {
 
 

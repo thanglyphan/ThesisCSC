@@ -27,9 +27,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import thesiscsc.thesiscsc.asyncMethods.ExecuteSearchService;
 import thesiscsc.thesiscsc.fragment.TestOneFragment;
 import thesiscsc.thesiscsc.fragment.TestThreeFragment;
 import thesiscsc.thesiscsc.fragment.TaskFragment;
+import thesiscsc.thesiscsc.model.User;
 import thesiscsc.thesiscsc.other.CircleTransform;
 import thesiscsc.thesiscsc.pager.Tabsadapter;
 
@@ -143,20 +148,31 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
 
     private void loadNavHeader() {
         // name, website
-        String a = "Thang Phan";
-        String b = "www.thangphan.no";
+        ExecuteSearchService executeSearchService = new ExecuteSearchService(this);
+        String a;
+        try {
+            ArrayList<User> user = executeSearchService.execute("select USER_ID, FIRSTNAME, LASTNAME from cnu_user where USER_ID ='" + prefs.getString("username", "") +"'").get();
+            a = user.get(0).getFirstName() + " " + user.get(0).getLastName();
+        } catch (Exception e){
+            Log.d("exception", e.toString());
+            a = "no name";
+        }
+
+
+        Log.d("username", prefs.getString("username", ""));
+        String b = prefs.getString("username", "");
         txtName.setText(a);
         txtWebsite.setText(b);
 
         // loading header background image
 
-        Glide.with(this).load(R.drawable.csc_loading)
+        Glide.with(this).load(R.drawable.csc_loading_cropped)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgNavHeaderBg);
 
         // Loading profile image
-        Glide.with(this).load(R.drawable.csc_original_logo)
+        Glide.with(this).load(R.drawable.ic_blank)
                 .dontAnimate()
                 .crossFade()
                 .thumbnail(0.5f)
