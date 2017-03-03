@@ -3,6 +3,7 @@ package thesiscsc.thesiscsc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        /*
         buttonApprove = (Button) findViewById(R.id.buttonApprove);
         buttonDeny = (Button) findViewById(R.id.buttonDeny);
         text = (TextView) findViewById(R.id.textView);
@@ -27,6 +29,15 @@ public class PaymentActivity extends AppCompatActivity {
 
         String message = intent.getStringExtra(MenuActivity.EXTRA_MESSAGE);
 
-        text.setText(message);
+        text.setText(message);*/
+
+        String idOffer = "";
+
+        Intent startingIntent = getIntent();
+        if (startingIntent != null) {
+            idOffer = startingIntent.getStringExtra("id_offer"); // Retrieve the id
+        }
+
+        Log.d("works",idOffer);
     }
 }

@@ -25,7 +25,6 @@ import SicsWsAdministrationEntryPoint.LoginInput;
 import SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPointBinding;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private SharedPreferences prefs;
 
@@ -51,24 +50,37 @@ public class LoginActivity extends AppCompatActivity {
         prefs = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         ButterKnife.inject(this);
 
-        String firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, firebaseToken);
 
-        prefs.edit().putString("firebaseToken", firebaseToken).apply();
+        if (getIntent().hasExtra("run_activity")) {
+            handleFirebaseNotificationIntent(getIntent());
+        }
+
         prefs.edit().putString("iptest", "iptest").apply();
         prefs.edit().putString("ip", ip).apply();
 
         String username = prefs.getString("username", "");
         String password = prefs.getString("password", "");
         System.out.println(username);
+
+/*
+        String firebaseToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d("firebaseToken", firebaseToken);
+
+        prefs.edit().putString("firebaseToken", firebaseToken).apply();
+
         if (getIntent().getExtras() != null) {
+            Log.d("intent",getIntent().getExtras().get("body").toString());
             Intent intent = new Intent(LoginActivity.this, PaymentActivity.class);
 
             String message = getIntent().getExtras().get("body").toString();
             intent.putExtra(EXTRA_MESSAGE, message);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        } else {
+            Log.d("intent", "empty");
         }
+        */
+
         _usernameText.setText("SICSPC");
         _passwordText.setText("SICSPC");
 
@@ -87,8 +99,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() {
-        Log.d(TAG, "Login");
-
         String username = prefs.getString("username", "");
         String password = prefs.getString("password", "");
 
@@ -237,6 +247,28 @@ public class LoginActivity extends AppCompatActivity {
                 statusText = "ERROR";
             }
             return statusText;
+        }
+    }
+
+
+    private void handleFirebaseNotificationIntent(Intent intent){
+        String className = intent.getStringExtra("run_activity");
+        startSelectedActivity(className, intent.getExtras());
+    }
+
+    private void startSelectedActivity(String className, Bundle extras){
+        Class cls;
+        try {
+            cls = Class.forName(className);
+        }catch(ClassNotFoundException e){
+            cls = null;
+        Log.d("error", e.toString());
+        }
+        Intent i = new Intent(LoginActivity.this, cls);
+
+        if (i != null) {
+            i.putExtras(extras);
+            this.startActivity(i);
         }
     }
 }
