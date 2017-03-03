@@ -108,15 +108,15 @@ public class TaskFragment extends Fragment {
                 switch (page) {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.colorPrimary,
+                                R.color.ActionBarRed,
                                 "http://vignette4.wikia.nocookie.net/xiiiorganization/images/8/8c/Transparent.png/revision/latest?cb=20140108201628");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.colorPrimary,
+                                R.color.ActionBarRed,
                                 "http://vignette4.wikia.nocookie.net/xiiiorganization/images/8/8c/Transparent.png/revision/latest?cb=20140108201628");
                     case 2:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.colorPrimary,
+                                R.color.ActionBarRed,
                                 "http://vignette4.wikia.nocookie.net/xiiiorganization/images/8/8c/Transparent.png/revision/latest?cb=20140108201628");
                 }
 

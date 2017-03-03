@@ -3,11 +3,18 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/ActionBarRed</item>
+        <item name="colorPrimaryDark">@color/DarkRed</item>
+        <item name="colorAccent">@color/CornflowerBlue</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:textColorPrimary">@color/Black</item>
+        <item name="android:textColorSecondary">@color/Black</item>
+        <item name="android:actionMenuTextColor">@color/AliceBlue</item>
+        <item name="android:textColorPrimaryInverse">@color/Black</item>
+        <item name="colorControlNormal">@color/AliceBlue</item>
+        <item name="actionBarTheme">@style/MVP_AppTheme.ActionBarTheme</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
