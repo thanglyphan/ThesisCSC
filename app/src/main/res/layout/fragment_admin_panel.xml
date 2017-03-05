@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/channel_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/AliceBlue"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/viewPay"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/viewTask"
+        android:layout_marginTop="90dp"
+        android:text="Admin Panel"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/viewSettings"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_alignTop="@+id/viewAdmin"
+        android:layout_marginStart="18dp"
+        android:layout_toEndOf="@+id/viewAdmin"
+        android:elevation="12dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:id="@+id/textViewTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="110dp"
+            android:text="Shutdown server"
+            android:textColor="@color/AliceBlue"
+            android:textSize="12sp" />
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:shape="ring"
+            app:cardBackgroundColor="@color/AliceBlue"
+            app:cardCornerRadius="30dp">
+
+            <ImageView
+                android:id="@+id/imageViewTest"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_settings_black_24dp" />
+        </android.support.v7.widget.CardView>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/viewAdmin"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/viewTask"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="29dp"
+        android:elevation="12dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        app:cardBackgroundColor="@color/RoyalBlue"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:id="@+id/textViewTest2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="110dp"
+            android:text="Full refresh of server"
+            android:textColor="@color/AliceBlue"
+            android:textSize="12sp" />
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:shape="ring"
+            app:cardBackgroundColor="@color/AliceBlue"
+            app:cardCornerRadius="30dp">
+
+            <ImageView
+                android:id="@+id/imageViewTest2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_assignment_ind_black_24dp" />
+        </android.support.v7.widget.CardView>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/viewTask"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_alignStart="@+id/viewAdmin"
+        android:layout_alignTop="@+id/viewPay"
+        android:elevation="12dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        app:cardBackgroundColor="@color/RoyalBlue"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:id="@+id/textViewTest3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="110dp"
+            android:text="Is available"
+            android:textColor="@color/AliceBlue"
+            android:textSize="12sp" />
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:shape="ring"
+            app:cardBackgroundColor="@color/AliceBlue"
+            app:cardCornerRadius="30dp">
+
+            <ImageView
+                android:id="@+id/imageViewTest3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:src="@drawable/nav_task_icon" />
+        </android.support.v7.widget.CardView>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/viewPay"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_alignStart="@+id/viewSettings"
+        android:layout_below="@+id/textView7"
+        android:layout_marginTop="46dp"
+        android:elevation="12dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        app:cardBackgroundColor="@color/RoyalBlue"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:id="@+id/textViewTest4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="110dp"
+            android:text="About SICS server"
+            android:textColor="@color/AliceBlue"
+            android:textSize="12sp" />
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:shape="ring"
+            app:cardBackgroundColor="@color/AliceBlue"
+            app:cardCornerRadius="30dp">
+
+            <ImageView
+                android:id="@+id/imageViewTest4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:src="@drawable/nav_payment_icon" />
+        </android.support.v7.widget.CardView>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

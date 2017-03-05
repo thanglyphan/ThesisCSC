@@ -18,7 +18,7 @@ import thesiscsc.thesiscsc.R;
 /**
  * Created by thang on 16.01.2017.
  */
-public class TestOneFragment extends Fragment {
+public class AdminPanelFragment extends Fragment {
     private ListView lv;
     private TextView text;
     private NavigationView navigationView;
@@ -27,7 +27,7 @@ public class TestOneFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.testone_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_panel, container, false);
         //lv = (ListView)view.findViewById(R.id.lv_channel);
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         text = (TextView) view.findViewById(R.id.textView2);
