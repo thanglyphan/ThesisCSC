@@ -66,7 +66,7 @@ public class AdminPanelFragment extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     getActivity().finish();
                     return true;
 
@@ -77,12 +77,15 @@ public class AdminPanelFragment extends Fragment {
         });
     }
 
-    private void setUpOnClickListeners(){
+    private void setUpOnClickListeners() {
         taskView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextFragment(new TaskFragment(), "task", 1);
-            }
+                CallIsAvailableService cia = new CallIsAvailableService();
+                try {
+                    Toast.makeText(getActivity(), cia.execute().get(), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                }            }
         });
 
         paymentView.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +93,8 @@ public class AdminPanelFragment extends Fragment {
             public void onClick(View v) {
                 CallAboutService cas = new CallAboutService();
                 try {
-                    Toast.makeText(getActivity(),cas.execute().get(),Toast.LENGTH_LONG).show();
-                } catch (Exception e){
+                    Toast.makeText(getActivity(), cas.execute().get(), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
                 }
             }
         });
@@ -99,24 +102,29 @@ public class AdminPanelFragment extends Fragment {
         adminView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CallShutdownService css = new CallShutdownService();
+                CallFullRefreshService cfrs = new CallFullRefreshService();
                 try {
-                    Toast.makeText(getActivity(),css.execute().get(),Toast.LENGTH_LONG).show();
-                } catch (Exception e){
+                    Toast.makeText(getActivity(), cfrs.execute().get(), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
                 }
+
             }
         });
 
         settingView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.print("LOL");
+                CallShutdownService css = new CallShutdownService();
+                try {
+                    Toast.makeText(getActivity(), css.execute().get(), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                }
             }
         });
 
     }
 
-    private void nextFragment(Fragment a, String tag, int index){
+    private void nextFragment(Fragment a, String tag, int index) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.frame, a, tag).commit();
         navigationView.getMenu().getItem(index).setChecked(true);
@@ -126,7 +134,7 @@ public class AdminPanelFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
-            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null,"http://"+ prefs.getString("ip","") + "/SwanLake/SicsWSServlet");
+            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, "http://" + prefs.getString("ip", "") + "/SwanLake/SicsWSServlet");
 
             try {
                 ServerInformation res = service.about();
@@ -143,11 +151,11 @@ public class AdminPanelFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
-            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null,"http://"+ prefs.getString("ip","") + "/SwanLake/SicsWSServlet");
+            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, "http://" + prefs.getString("ip", "") + "/SwanLake/SicsWSServlet");
 
             try {
                 ServerInformation res = service.about();
-                return res.signature;
+                return "Sending shutdown command...";
 
             } catch (Exception e) {
                 Log.d("ExcecuteAboutService", e.toString());
@@ -156,4 +164,38 @@ public class AdminPanelFragment extends Fragment {
         }
     }
 
+    class CallFullRefreshService extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
+            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, "http://" + prefs.getString("ip", "") + "/SwanLake/SicsWSServlet");
+
+            try {
+                return service.fullRefresh();
+            } catch (Exception e) {
+                Log.d("ExcecuteAboutService", e.toString());
+                return "Something went wrong";
+            }
+        }
+    }
+
+    class CallIsAvailableService extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
+            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, "http://" + prefs.getString("ip", "") + "/SwanLake/SicsWSServlet");
+
+            try {
+                Boolean res = service.isAvailable();
+                if (res) {
+                    return "Server is available.";
+                } else {
+                    return "Server is not available";
+                }
+            } catch (Exception e) {
+                Log.d("ExcecuteAboutService", e.toString());
+                return "Something went wrong";
+            }
+        }
+    }
 }
