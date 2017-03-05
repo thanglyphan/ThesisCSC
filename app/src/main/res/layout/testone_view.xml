@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="110dp"
-            android:text="Admin Desk"
+            android:text="Admin Panel"
             android:textColor="@color/AliceBlue"
             android:textSize="12sp" />
 

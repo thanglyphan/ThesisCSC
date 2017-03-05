@@ -1,19 +1,32 @@
 package thesiscsc.thesiscsc.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import SicsWsAdministrationEntryPoint.ServerInformation;
+import SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPointBinding;
 import thesiscsc.thesiscsc.R;
+import thesiscsc.thesiscsc.asyncMethods.ExcecuteAboutService;
+import thesiscsc.thesiscsc.model.Task;
+import thesiscsc.thesiscsc.model.User;
 
 /**
  * Created by thang on 16.01.2017.
@@ -75,15 +88,22 @@ public class AdminPanelFragment extends Fragment {
         paymentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextFragment(new TestThreeFragment(), "home3", 2);
+                CallAboutService cas = new CallAboutService();
+                try {
+                    Toast.makeText(getActivity(),cas.execute().get(),Toast.LENGTH_LONG).show();
+                } catch (Exception e){
+                }
             }
         });
         //TODO: FIX THIS
         adminView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextFragment(new AdminPanelFragment(), "adminPanel", 3);
-                System.out.print("LOL");
+                CallShutdownService css = new CallShutdownService();
+                try {
+                    Toast.makeText(getActivity(),css.execute().get(),Toast.LENGTH_LONG).show();
+                } catch (Exception e){
+                }
             }
         });
 
@@ -100,6 +120,40 @@ public class AdminPanelFragment extends Fragment {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.frame, a, tag).commit();
         navigationView.getMenu().getItem(index).setChecked(true);
+    }
+
+    class CallAboutService extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
+            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null,"http://"+ prefs.getString("ip","") + "/SwanLake/SicsWSServlet");
+
+            try {
+                ServerInformation res = service.about();
+                return res.signature;
+
+            } catch (Exception e) {
+                Log.d("ExcecuteAboutService", e.toString());
+                return "Something went wrong";
+            }
+        }
+    }
+
+    class CallShutdownService extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
+            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null,"http://"+ prefs.getString("ip","") + "/SwanLake/SicsWSServlet");
+
+            try {
+                ServerInformation res = service.about();
+                return res.signature;
+
+            } catch (Exception e) {
+                Log.d("ExcecuteAboutService", e.toString());
+                return "Something went wrong";
+            }
+        }
     }
 
 }
