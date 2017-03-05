@@ -1,8 +1,10 @@
 package thesiscsc.thesiscsc.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import thesiscsc.thesiscsc.PaymentActivity;
 import thesiscsc.thesiscsc.R;
 
 /**
@@ -73,7 +77,17 @@ public class TestOneFragment extends Fragment {
         paymentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextFragment(new TestThreeFragment(), "home3", 2);
+                Intent paymentIntent = new Intent(TestOneFragment.this.getActivity(), PaymentActivity.class);
+                startActivity(paymentIntent);
+
+                /*
+                FragmentManager manager = getFragmentManager ();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.frame, new TestThreeFragment(), "payment").commit();
+                //nextFragment(new AdminPanelFragment(), "adminPanel", 3);
+                System.out.print("LOL");
+                //nextFragment(new TestThreeFragment(), "home3", 2);
+                */
             }
         });
         //TODO: FIX THIS

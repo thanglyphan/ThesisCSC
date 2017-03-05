@@ -12,7 +12,7 @@ import android.widget.TextView;
  * Created by thang on 07.02.2017.
  */
 
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentActivity extends AppCompatActivity  {
     Button buttonApprove, buttonDeny;
     TextView text;
 
@@ -27,10 +27,6 @@ public class PaymentActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String message = intent.getStringExtra(MenuActivity.EXTRA_MESSAGE);
-
-        text.setText(message);
-
         String idOffer = "";
 
         Intent startingIntent = getIntent();
@@ -38,6 +34,16 @@ public class PaymentActivity extends AppCompatActivity {
             idOffer = startingIntent.getStringExtra("id_offer"); // Retrieve the id
         }
 
-        Log.d("works",idOffer);
+        String message = intent.getStringExtra(MenuActivity.EXTRA_MESSAGE);
+
+        if (message != null) {
+            text.setText(message);
+        }
+
+        if (idOffer != null){
+            Log.d("works",idOffer);
+        } else {
+            Log.d("works", "doesn't work");
+        }
     }
 }
