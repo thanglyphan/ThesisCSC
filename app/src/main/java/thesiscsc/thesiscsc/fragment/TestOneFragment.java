@@ -1,7 +1,5 @@
 package thesiscsc.thesiscsc.fragment;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -31,10 +29,10 @@ public class TestOneFragment extends Fragment {
         //lv = (ListView)view.findViewById(R.id.lv_channel);
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         text = (TextView) view.findViewById(R.id.textView2);
-        taskView = (CardView) view.findViewById(R.id.viewTask);
-        paymentView = (CardView) view.findViewById(R.id.viewPay);
-        adminView = (CardView) view.findViewById(R.id.viewAdmin);
-        settingView = (CardView) view.findViewById(R.id.viewSettings);
+        taskView = (CardView) view.findViewById(R.id.viewIsAvailable);
+        paymentView = (CardView) view.findViewById(R.id.viewAbout);
+        adminView = (CardView) view.findViewById(R.id.viewRefresh);
+        settingView = (CardView) view.findViewById(R.id.viewShutdown);
         setUpOnClickListeners();
 
 

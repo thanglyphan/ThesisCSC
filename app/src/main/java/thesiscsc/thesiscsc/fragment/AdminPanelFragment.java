@@ -1,7 +1,6 @@
 package thesiscsc.thesiscsc.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,15 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import SicsWsAdministrationEntryPoint.ServerInformation;
 import SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPointBinding;
 import thesiscsc.thesiscsc.R;
-import thesiscsc.thesiscsc.asyncMethods.ExcecuteAboutService;
-import thesiscsc.thesiscsc.model.Task;
-import thesiscsc.thesiscsc.model.User;
 
 /**
  * Created by thang on 16.01.2017.
@@ -35,7 +28,7 @@ public class AdminPanelFragment extends Fragment {
     private ListView lv;
     private TextView text;
     private NavigationView navigationView;
-    CardView taskView, paymentView, adminView, settingView;
+    CardView isAvailableView, paymentView, adminView, settingView;
 
 
     @Override
@@ -44,10 +37,10 @@ public class AdminPanelFragment extends Fragment {
         //lv = (ListView)view.findViewById(R.id.lv_channel);
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         text = (TextView) view.findViewById(R.id.textView2);
-        taskView = (CardView) view.findViewById(R.id.viewTask);
-        paymentView = (CardView) view.findViewById(R.id.viewPay);
-        adminView = (CardView) view.findViewById(R.id.viewAdmin);
-        settingView = (CardView) view.findViewById(R.id.viewSettings);
+        isAvailableView = (CardView) view.findViewById(R.id.viewIsAvailable);
+        paymentView = (CardView) view.findViewById(R.id.viewAbout);
+        adminView = (CardView) view.findViewById(R.id.viewRefresh);
+        settingView = (CardView) view.findViewById(R.id.viewShutdown);
         setUpOnClickListeners();
 
 
@@ -57,9 +50,7 @@ public class AdminPanelFragment extends Fragment {
 
     @Override
     public void onResume() {
-
         super.onResume();
-
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
@@ -69,16 +60,14 @@ public class AdminPanelFragment extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     getActivity().finish();
                     return true;
-
                 }
-
                 return false;
             }
         });
     }
 
     private void setUpOnClickListeners() {
-        taskView.setOnClickListener(new View.OnClickListener() {
+        isAvailableView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CallIsAvailableService cia = new CallIsAvailableService();
@@ -98,7 +87,6 @@ public class AdminPanelFragment extends Fragment {
                 }
             }
         });
-        //TODO: FIX THIS
         adminView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
