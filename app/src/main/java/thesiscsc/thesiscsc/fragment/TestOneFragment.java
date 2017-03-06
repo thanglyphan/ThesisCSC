@@ -110,7 +110,7 @@ public class TestOneFragment extends Fragment {
 
     private void nextFragment(Fragment a, String tag, int index){
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.frame, a, tag).addToBackStack("fragmentHistory").commit();
+        ft.replace(R.id.frame, a, tag).commit();
         navigationView.getMenu().getItem(index).setChecked(true);
     }
 

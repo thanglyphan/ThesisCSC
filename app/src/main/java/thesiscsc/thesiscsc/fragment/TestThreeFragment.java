@@ -56,7 +56,7 @@ public class TestThreeFragment extends Fragment {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.channel_frame, a);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.addToBackStack("fragmentHistory").commit();
+        ft.commit();
     }
 
 }

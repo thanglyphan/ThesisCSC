@@ -27,10 +27,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import thesiscsc.thesiscsc.asyncMethods.ExecuteSearchService;
+import thesiscsc.thesiscsc.fragment.AdminPanelFragment;
+import thesiscsc.thesiscsc.fragment.PaymentFragment;
+import thesiscsc.thesiscsc.fragment.SettingsFragment;
 import thesiscsc.thesiscsc.fragment.TestOneFragment;
 import thesiscsc.thesiscsc.fragment.TestThreeFragment;
 import thesiscsc.thesiscsc.fragment.TaskFragment;
@@ -66,6 +68,8 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
     public static final String TAG_HOME = "home";
     public static final String TAG_TASK= "task";
     public static final String TAG_HOME3= "home3";
+    public static final String TAG_ADMINPANEL= "adminPanel";
+    public static final String TAG_SETTINGS= "settings";
     public static final String EXTRA_MESSAGE = "SOMETHING";
     public static String CURRENT_TAG = TAG_HOME;
 
@@ -206,7 +210,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
                         android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.addToBackStack("fragmentHistory").commitAllowingStateLoss();
+                fragmentTransaction.commitAllowingStateLoss();
             }
         };
 
@@ -236,8 +240,14 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                 );
                 return taskFragment;
             case 2:
-                TestThreeFragment home3Fragment = new TestThreeFragment();
-                return home3Fragment;
+                PaymentFragment paymentFragment = new PaymentFragment();
+                return paymentFragment;
+            case 3:
+                AdminPanelFragment adminPanelFragment = new AdminPanelFragment();
+                return adminPanelFragment;
+            case 4:
+                SettingsFragment settingsFragment = new SettingsFragment();
+                return settingsFragment;
             default:
                 return new TestOneFragment();
         }
@@ -245,6 +255,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
 
     private void setToolbarTitle() {
         getSupportActionBar().setTitle(activityTitles[navItemIndex]);
+        //getSupportActionBar().setTitle(activityTitles[5]);
     }
 
     private void selectNavMenu() {
@@ -270,9 +281,17 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_TASK;
                         break;
-                    case R.id.nav_home3:
+                    case R.id.nav_payment:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_HOME3;
+                        break;
+                    case R.id.nav_adminPanel:
+                        navItemIndex = 3;
+                        CURRENT_TAG = TAG_ADMINPANEL;
+                        break;
+                    case R.id.nav_settings:
+                        navItemIndex = 4;
+                        CURRENT_TAG = TAG_SETTINGS;
                         break;
                     default:
                         navItemIndex = 0;
@@ -391,7 +410,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
         int tabIconColor = ContextCompat.getColor(getApplicationContext(), R.color.RosyBrown);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.addToBackStack("fragmentHistory").commit();
+        ft.commit();
     }
 
     @Override
