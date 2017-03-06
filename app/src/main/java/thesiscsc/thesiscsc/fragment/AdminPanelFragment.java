@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.concurrent.TimeUnit;
 
 import SicsWsAdministrationEntryPoint.ServerInformation;
 import SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPointBinding;
@@ -28,7 +31,8 @@ public class AdminPanelFragment extends Fragment {
     private ListView lv;
     private TextView text;
     private NavigationView navigationView;
-    CardView isAvailableView, paymentView, adminView, settingView;
+    CardView isAvailableView, aboutView, fullRefreshView, shutdownView;
+SharedPreferences prefs;
 
 
     @Override
@@ -38,11 +42,11 @@ public class AdminPanelFragment extends Fragment {
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         text = (TextView) view.findViewById(R.id.textView2);
         isAvailableView = (CardView) view.findViewById(R.id.viewIsAvailable);
-        paymentView = (CardView) view.findViewById(R.id.viewAbout);
-        adminView = (CardView) view.findViewById(R.id.viewRefresh);
-        settingView = (CardView) view.findViewById(R.id.viewShutdown);
+        aboutView = (CardView) view.findViewById(R.id.viewAbout);
+        fullRefreshView = (CardView) view.findViewById(R.id.viewRefresh);
+        shutdownView = (CardView) view.findViewById(R.id.viewShutdown);
         setUpOnClickListeners();
-
+        prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
 
         return view;
 
@@ -70,53 +74,60 @@ public class AdminPanelFragment extends Fragment {
         isAvailableView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Log.d("IPADMIN", prefs.getString("ip",""));
                 CallIsAvailableService cia = new CallIsAvailableService();
                 try {
-                    Toast.makeText(getActivity(), cia.execute().get(), Toast.LENGTH_LONG).show();
+                    String reply = cia.execute().get(5000, TimeUnit.MILLISECONDS);
+                    Toast.makeText(getActivity(), reply, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
-                }            }
+                    Log.d("ÆØÅ",Log.getStackTraceString(e));
+                    Toast.makeText(getActivity(), "Server is not available", Toast.LENGTH_LONG).show();
+                }
+            }
         });
 
-        paymentView.setOnClickListener(new View.OnClickListener() {
+        aboutView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CallAboutService cas = new CallAboutService();
                 try {
-                    Toast.makeText(getActivity(), cas.execute().get(), Toast.LENGTH_LONG).show();
+                    String reply = cas.execute().get(5000, TimeUnit.MILLISECONDS);
+                    Toast.makeText(getActivity(), reply, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Server is not available", Toast.LENGTH_LONG).show();
                 }
             }
         });
-        adminView.setOnClickListener(new View.OnClickListener() {
+
+        fullRefreshView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CallFullRefreshService cfrs = new CallFullRefreshService();
                 try {
-                    Toast.makeText(getActivity(), cfrs.execute().get(), Toast.LENGTH_LONG).show();
+                    String reply = cfrs.execute().get(5000, TimeUnit.MILLISECONDS);
+                    Toast.makeText(getActivity(), reply, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Server is not available", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
 
-        settingView.setOnClickListener(new View.OnClickListener() {
+        shutdownView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CallShutdownService css = new CallShutdownService();
                 try {
-                    Toast.makeText(getActivity(), css.execute().get(), Toast.LENGTH_LONG).show();
+                    String reply = css.execute().get(5000, TimeUnit.MILLISECONDS);
+                    Toast.makeText(getActivity(), reply, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Server is not available", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
     }
 
-    private void nextFragment(Fragment a, String tag, int index) {
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.frame, a, tag).commit();
-        navigationView.getMenu().getItem(index).setChecked(true);
-    }
 
     class CallAboutService extends AsyncTask<String, Void, String> {
         @Override
@@ -170,6 +181,7 @@ public class AdminPanelFragment extends Fragment {
     class CallIsAvailableService extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
+            Log.d("IPADMIN", prefs.getString("ip",""));
             SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
             SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, "http://" + prefs.getString("ip", "") + "/SwanLake/SicsWSServlet");
 

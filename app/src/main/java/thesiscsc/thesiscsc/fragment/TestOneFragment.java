@@ -27,6 +27,7 @@ public class TestOneFragment extends Fragment {
     CardView taskView, paymentView, adminView, settingView;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.testone_view, container, false);
@@ -95,14 +96,13 @@ public class TestOneFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 nextFragment(new AdminPanelFragment(), "adminPanel", 3);
-                System.out.print("LOL");
             }
         });
 
         settingView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.print("LOL");
+                nextFragment(new SettingsFragment(), "Settings", 3);
             }
         });
 
@@ -110,7 +110,7 @@ public class TestOneFragment extends Fragment {
 
     private void nextFragment(Fragment a, String tag, int index){
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.frame, a, tag).commit();
+        ft.replace(R.id.frame, a, tag).addToBackStack("fragmentHistory").commit();
         navigationView.getMenu().getItem(index).setChecked(true);
     }
 

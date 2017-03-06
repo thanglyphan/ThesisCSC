@@ -206,7 +206,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
                         android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.commitAllowingStateLoss();
+                fragmentTransaction.addToBackStack("fragmentHistory").commitAllowingStateLoss();
             }
         };
 
@@ -391,7 +391,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
         int tabIconColor = ContextCompat.getColor(getApplicationContext(), R.color.RosyBrown);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.commit();
+        ft.addToBackStack("fragmentHistory").commit();
     }
 
     @Override

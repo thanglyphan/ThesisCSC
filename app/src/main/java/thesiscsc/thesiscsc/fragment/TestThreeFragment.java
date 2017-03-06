@@ -3,6 +3,7 @@ package thesiscsc.thesiscsc.fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,7 +19,6 @@ import thesiscsc.thesiscsc.R;
 public class TestThreeFragment extends Fragment {
     public SharedPreferences prefs;
     private ListView lv;
-
 
 
     @Override
@@ -56,8 +56,7 @@ public class TestThreeFragment extends Fragment {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.channel_frame, a);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.addToBackStack(null);
-        ft.commit();
+        ft.addToBackStack("fragmentHistory").commit();
     }
 
 }
