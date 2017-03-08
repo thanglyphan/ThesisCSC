@@ -68,7 +68,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL = 1;
-    private TextView name_txt_big, name_txt_small;
+    private TextView name_txt_big, name_txt_small, actualOwner_txt, PID_txt, status_txt;
     private ImageButton btn_small, btn_big;
     private View view;
 
@@ -111,10 +111,13 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         switch (viewType) {
             case TYPE_HEADER: {
                 this.view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.list_item_card_big, parent, false);
+                        .inflate(R.layout.list_item_card_small, parent, false);
 
-                name_txt_big = (TextView) view.findViewById(R.id.name_txt_big);
-                btn_big = (ImageButton) view.findViewById(R.id.task_menu_btn_big);
+                name_txt_big = (TextView) view.findViewById(R.id.name_txt_small);
+                actualOwner_txt = (TextView) view.findViewById(R.id.task_initiator);
+                PID_txt = (TextView) view.findViewById(R.id.task_PID);
+                status_txt = (TextView) view.findViewById(R.id.task_status);
+                btn_big = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
                 btn_big.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -123,6 +126,9 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 });
 
                 name_txt_big.setText(contents.get(0).getTaskName());
+                actualOwner_txt.setText(contents.get(0).getActualOwner());
+                PID_txt.setText(contents.get(0).getPID());
+                status_txt.setText(contents.get(0).getStatus());
                 return new RecyclerView.ViewHolder(view) {};//new RecyclerView.ViewHolder(view) {};
             }
             case TYPE_CELL: {
@@ -132,6 +138,9 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
                 final Task task = taskQueue.poll();
                 name_txt_small = (TextView) view.findViewById(R.id.name_txt_small);
+                actualOwner_txt = (TextView) view.findViewById(R.id.task_initiator);
+                PID_txt = (TextView) view.findViewById(R.id.task_PID);
+                status_txt = (TextView) view.findViewById(R.id.task_status);
                 btn_small = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
                 btn_small.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -142,6 +151,9 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 if (task != null) {
                     name_txt_small.setText(task.getTaskName());
+                    actualOwner_txt.setText(task.getActualOwner());
+                    PID_txt.setText(task.getPID());
+                    status_txt.setText(task.getStatus());
                 }
 
                 return new RecyclerView.ViewHolder(view) {};
