@@ -3,6 +3,7 @@ package thesiscsc.thesiscsc.other;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -56,6 +57,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     Queue<Task> taskQueue;
     private RecyclerView mRecyclerView;
     Context context;
+    View colorView;
 
     static List<User> userList;
     private String SERVER_ADDRESS; //http://192.168.43.115:8325
@@ -125,6 +127,12 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
 
+                if (contents.get(0).getStatus().equals("RESERVED")){
+                    colorView.setBackgroundColor(Color.rgb(255,140,0));
+                } else if (contents.get(0).getStatus().equals("INPROGRESS")){
+                    colorView.setBackgroundColor(Color.rgb(0,255,0));
+                }
+
                 name_txt_big.setText(contents.get(0).getTaskName());
                 actualOwner_txt.setText(contents.get(0).getActualOwner());
                 PID_txt.setText(contents.get(0).getPID());
@@ -137,6 +145,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
                 final Task task = taskQueue.poll();
+                colorView = view.findViewById(R.id.taskStatusColor);
                 name_txt_small = (TextView) view.findViewById(R.id.name_txt_small);
                 actualOwner_txt = (TextView) view.findViewById(R.id.task_initiator);
                 PID_txt = (TextView) view.findViewById(R.id.task_PID);
@@ -148,6 +157,11 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         showPopup(v, task.getPosition());
                     }
                 });
+                if (task.getStatus().equals("RESERVED")){
+                    colorView.setBackgroundColor(Color.rgb(255,140,0));
+                } else if (task.getStatus().equals("INPROGRESS")){
+                    colorView.setBackgroundColor(Color.rgb(0,255,0));
+                }
 
                 if (task != null) {
                     name_txt_small.setText(task.getTaskName());
