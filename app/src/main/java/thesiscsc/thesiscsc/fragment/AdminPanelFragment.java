@@ -32,7 +32,7 @@ public class AdminPanelFragment extends Fragment {
     private TextView text;
     private NavigationView navigationView;
     CardView isAvailableView, aboutView, fullRefreshView, shutdownView;
-SharedPreferences prefs;
+    SharedPreferences prefs;
 
 
     @Override

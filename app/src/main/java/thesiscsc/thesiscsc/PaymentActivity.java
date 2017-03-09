@@ -31,7 +31,7 @@ public class PaymentActivity extends AppCompatActivity  {
 
         Intent startingIntent = getIntent();
         if (startingIntent != null) {
-            idOffer = startingIntent.getStringExtra("id_offer"); // Retrieve the id
+            idOffer = startingIntent.getStringExtra("remittance_id"); // Retrieve the id
         }
 
         String message = intent.getStringExtra(MenuActivity.EXTRA_MESSAGE);
@@ -41,9 +41,9 @@ public class PaymentActivity extends AppCompatActivity  {
         }
 
         if (idOffer != null){
-            Log.d("works",idOffer);
+            Log.d("idOffer",idOffer);
         } else {
-            Log.d("works", "doesn't work");
+            Log.d("idOffer", "doesn't work");
         }
     }
 }
