@@ -8,6 +8,8 @@ import SicsWsDomainSearchEntryPoint.TaskFindResult;
 
 public class Task extends SicsWsDomainSearchEntryPoint.TaskFindResult {
     String taskName;
+    String noOwner = "";
+    String noStatus = "";
     int position;
 
     public Task(String taskName, int position){
@@ -29,7 +31,11 @@ public class Task extends SicsWsDomainSearchEntryPoint.TaskFindResult {
     }
 
     public String getStatus (){
-        return super.status.code;
+        if (super.status != null){
+            return super.status.code;
+        } else {
+            return noStatus;
+        }
     }
 
     public String getTaskName(){
@@ -40,4 +46,15 @@ public class Task extends SicsWsDomainSearchEntryPoint.TaskFindResult {
         }
     }
     public int getPosition() { return position; }
+
+    public String getActualOwner(){
+        if (super.actualOwner != null){
+            return super.actualOwner.userId;
+        } else {
+            return noOwner;
+        }
+    }
+    public String getPID(){
+        return super.processIdentifier;
+    }
 }

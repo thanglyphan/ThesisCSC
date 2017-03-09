@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,27 +9,30 @@
         android:layout_height="wrap_content"
         android:text="Settings"
         android:textAlignment="center"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/setServerIPTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Set server IP"
-        android:textSize="18sp" />
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="33dp" />
 
     <EditText
         android:id="@+id/IPEditText"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="63dp"
+        android:layout_marginStart="14dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="IP GOES HERE" />
+        android:layout_below="@+id/settingsTitleTextView"
+        android:layout_toEndOf="@+id/setServerIPTextView" />
 
     <Button
         android:id="@+id/SetIPButton"
         android:layout_width="152dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/SetIPHomeButton"
+        android:layout_marginTop="26dp"
+        android:layout_toEndOf="@+id/SetIPHotspotButton"
+        android:background="@color/CornflowerBlue"
         android:text="Set ip"
         android:textAlignment="center" />
 
@@ -37,11 +40,48 @@
         android:id="@+id/SetIPHomeButton"
         android:layout_width="152dp"
         android:layout_height="wrap_content"
-        android:text='Set to "10.0.0.60"' />
+        android:layout_alignBottom="@+id/SetIPHotspotButton"
+        android:layout_toEndOf="@+id/SetIPHotspotButton"
+        android:text='"10.0.0.60"' />
 
     <Button
         android:id="@+id/SetIPHotspotButton"
         android:layout_width="152dp"
         android:layout_height="wrap_content"
-        android:text='Set to "192.168.43.197"' />
-</LinearLayout>
+        android:layout_marginTop="18dp"
+        android:text='"192.168.43.197"'
+        android:layout_below="@+id/IPEditText"
+        android:layout_alignStart="@+id/setServerIPTextView" />
+
+    <TextView
+        android:id="@+id/setServerIPTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server IP: "
+        android:textSize="16sp"
+        android:layout_marginStart="37dp"
+        android:layout_alignBaseline="@+id/IPEditText"
+        android:layout_alignBottom="@+id/IPEditText"
+        android:layout_alignParentStart="true" />
+
+    <Switch
+        android:id="@+id/switchText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/SetIPButton"
+        android:layout_alignStart="@+id/SetIPHotspotButton"
+        android:layout_below="@+id/SetIPButton"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="24dp"
+        android:text="Increase Text Size" />
+
+    <Switch
+        android:id="@+id/switchColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Color Blind Mode"
+        android:layout_below="@+id/switchText"
+        android:layout_alignStart="@+id/switchText"
+        android:layout_alignEnd="@+id/switchText" />
+</RelativeLayout>

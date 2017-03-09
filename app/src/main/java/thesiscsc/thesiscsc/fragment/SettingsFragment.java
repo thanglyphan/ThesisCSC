@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ import thesiscsc.thesiscsc.R;
 public class SettingsFragment extends Fragment {
     private ListView lv;
     private TextView title,serverIP;
+    private Switch mySwitch;
     private EditText ip;
     private Button btnSetIP, btnSetIPHome, btnSetIPHotspot;
     private NavigationView navigationView;
@@ -69,6 +72,24 @@ public class SettingsFragment extends Fragment {
                 prefs.edit().putString("ip", "192.168.43.197:8325").apply();
                 Toast.makeText(getActivity(), "'" + "192.168.43.197:8325" + "' set as new server IP.", Toast.LENGTH_LONG).show();
                 ip.setText(prefs.getString("ip",""));
+            }
+        });
+
+        mySwitch = (Switch) view.findViewById(R.id.switchColor);
+
+        //set the switch to ON
+        mySwitch.setChecked(false);
+        //attach a listener to check for changes in state
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked){
+                    System.out.println("Switch On");
+                }else{
+                    System.out.println("Switch Off");
+                }
             }
         });
 
