@@ -28,7 +28,7 @@ import thesiscsc.thesiscsc.R;
 public class SettingsFragment extends Fragment {
     private ListView lv;
     private TextView title,serverIP;
-    private Switch mySwitch;
+    private Switch colorSwitch, textSwitch;
     private EditText ip;
     private Button btnSetIP, btnSetIPHome, btnSetIPHotspot;
     private NavigationView navigationView;
@@ -75,20 +75,33 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        mySwitch = (Switch) view.findViewById(R.id.switchColor);
+        colorSwitch = (Switch) view.findViewById(R.id.switchColor);
+        textSwitch = (Switch) view.findViewById(R.id.switchText);
 
-        //set the switch to ON
-        mySwitch.setChecked(false);
+        //set the switch to Off
+        colorSwitch.setChecked(false);
+        textSwitch.setChecked(false);
         //attach a listener to check for changes in state
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        colorSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked){
-                    System.out.println("Switch On");
+                    System.out.println("Color Switch On");
                 }else{
-                    System.out.println("Switch Off");
+                    System.out.println("Color Switch Off");
+                }
+            }
+        });
+        textSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    System.out.println("Text Switch On");
+                }else{
+                    System.out.println("Text Switch Off");
                 }
             }
         });
