@@ -30,7 +30,7 @@ public class ExecuteSearchService extends AsyncTask<String, Void, ArrayList<User
         protected ArrayList<User> doInBackground(String... params) {
             ArrayList<User> userList = new ArrayList<>();
 
-        prefs = mContext.getSharedPreferences("credentials", Context.MODE_PRIVATE);
+            prefs = mContext.getSharedPreferences("credentials", Context.MODE_PRIVATE);
 
 
             SicsGenericInput param0 = new SicsGenericInput();
