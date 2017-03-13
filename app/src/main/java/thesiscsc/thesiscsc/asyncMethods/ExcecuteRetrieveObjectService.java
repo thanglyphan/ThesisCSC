@@ -10,20 +10,23 @@ import java.util.Date;
 import SicsWsDomainRetrievalEntryPoint.AuthenticationToken;
 import SicsWsDomainRetrievalEntryPoint.DomainObject;
 import SicsWsDomainRetrievalEntryPoint.Input;
+import SicsWsDomainRetrievalEntryPoint.LedgerRemittanceBalance;
 import SicsWsDomainRetrievalEntryPoint.SicsGenericInput;
 import SicsWsDomainRetrievalEntryPoint.SicsLedgerRemittanceBalanceReference;
 import SicsWsDomainRetrievalEntryPoint.SicsWsDomainRetrievalEntryPointBinding;
 import SicsWsDomainRetrievalEntryPoint.Specification;
 
-public class ExcecuteRetrieveObjectService extends AsyncTask<String, Void, String> {
+public class ExcecuteRetrieveObjectService extends AsyncTask<String, Void, LedgerRemittanceBalance> {
     private Context mContext;
     SharedPreferences prefs;
 
     public ExcecuteRetrieveObjectService(Context context) {
         mContext = context;
     }
+
+
     @Override
-    protected String doInBackground(String... arg0) {
+    protected LedgerRemittanceBalance doInBackground(String... arg0) {
 
 
         prefs = mContext.getSharedPreferences("credentials", Context.MODE_PRIVATE);
@@ -54,11 +57,12 @@ public class ExcecuteRetrieveObjectService extends AsyncTask<String, Void, Strin
 
 
         try{
-            DomainObject res = service.retrieveObject(param0,param1);
-            Log.d("DOMAINOBJECT", res.objectId);
+            LedgerRemittanceBalance ledgerRemittanceBalance =  (LedgerRemittanceBalance) service.retrieveObject(param0,param1);
+
+            return ledgerRemittanceBalance;
         }catch (Exception e){
             Log.d("TEST", Log.getStackTraceString(e));
         }
-        return "hei";
+        return null;
     }
 }

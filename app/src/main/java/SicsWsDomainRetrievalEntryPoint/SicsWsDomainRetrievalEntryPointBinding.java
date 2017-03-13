@@ -142,7 +142,7 @@ public class SicsWsDomainRetrievalEntryPointBinding
     public DomainObject retrieveObject(final SicsGenericInput genericInput,final Input input ) throws java.lang.Exception
     {
         com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile __profile = new com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile();
-        return (DomainObject)execute(new IWcfMethod()
+        return (LedgerRemittanceBalance)execute(new IWcfMethod()
         {
             @Override
             public ExtendedSoapSerializationEnvelope CreateSoapEnvelope(){
@@ -170,7 +170,7 @@ public class SicsWsDomainRetrievalEntryPointBinding
             
             @Override
             public java.lang.Object ProcessResult(ExtendedSoapSerializationEnvelope __envelope,java.lang.Object __result)throws java.lang.Exception {
-                return (DomainObject)getResult(DomainObject.class,__result,"result",__envelope);
+                return (LedgerRemittanceBalance)getResult(LedgerRemittanceBalance.class,__result,"result",__envelope);
             }
         },"http://www.SicsWsDomainRetrievalEntryPoint.com/SicsWsDomainRetrievalEntryPoint-interface/retrieveObject",__profile);
     }
@@ -189,6 +189,7 @@ public class SicsWsDomainRetrievalEntryPointBinding
     {
         org.ksoap2.transport.Transport __httpTransport=createTransport();
         __httpTransport.debug=enableLogging;
+        __httpTransport.debug=true;
         ExtendedSoapSerializationEnvelope __envelope=wcfMethod.CreateSoapEnvelope();
         try
         {
