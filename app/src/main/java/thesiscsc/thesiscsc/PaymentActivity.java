@@ -57,7 +57,7 @@ public class PaymentActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
 
-        String idOffer = "R9";
+        String idOffer = "";
 
         Intent startingIntent = getIntent();
         if (startingIntent != null) {

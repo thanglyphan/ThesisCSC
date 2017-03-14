@@ -128,8 +128,26 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 });
 
                 if (contents.get(0).getStatus().equals("RESERVED")){
+                    /////
+                    /////
+                    /////
+                    /////
+                    //fix dis
+                    /////
+                    /////
+                    /////
+                    /////
                   //  colorView.setBackgroundColor(Color.rgb(255,140,0));
                 } else if (contents.get(0).getStatus().equals("INPROGRESS")){
+                    /////
+                    /////
+                    /////
+                    /////
+                    //fix dis
+                    /////
+                    /////
+                    /////
+                    /////
                   //  colorView.setBackgroundColor(Color.rgb(0,255,0));
                 }
 

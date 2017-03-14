@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 import SicsWsAdministrationEntryPoint.ServerInformation;
 import SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPointBinding;
 import thesiscsc.thesiscsc.R;
+import thesiscsc.thesiscsc.asyncMethods.ExcecuteIsAvailableService;
+import thesiscsc.thesiscsc.other.CallIsAvailable;
 
 /**
  * Created by thang on 16.01.2017.
@@ -74,10 +76,8 @@ public class AdminPanelFragment extends Fragment {
         isAvailableView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.d("IPADMIN", prefs.getString("ip",""));
-                CallIsAvailableService cia = new CallIsAvailableService();
                 try {
-                    String reply = cia.execute().get(5000, TimeUnit.MILLISECONDS);
+                    String reply = new CallIsAvailable().CallIsAvailable(getContext());
                     Toast.makeText(getActivity(), reply, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Log.d("ÆØÅ",Log.getStackTraceString(e));
@@ -178,24 +178,5 @@ public class AdminPanelFragment extends Fragment {
         }
     }
 
-    class CallIsAvailableService extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            Log.d("IPADMIN", prefs.getString("ip",""));
-            SharedPreferences prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
-            SicsWsAdministrationEntryPointBinding service = new SicsWsAdministrationEntryPointBinding(null, "http://" + prefs.getString("ip", "") + "/SwanLake/SicsWSServlet");
 
-            try {
-                Boolean res = service.isAvailable();
-                if (res) {
-                    return "Server is available.";
-                } else {
-                    return "Server is not available";
-                }
-            } catch (Exception e) {
-                Log.d("ExcecuteAboutService", e.toString());
-                return "Something went wrong";
-            }
-        }
-    }
 }
