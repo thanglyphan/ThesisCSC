@@ -2,6 +2,7 @@ package thesiscsc.thesiscsc.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -52,9 +53,9 @@ public class TaskFragment extends Fragment {
         mViewPager.getToolbar().setVisibility(GONE);
         toolbar = mViewPager.getToolbar();
 
-
         if (toolbar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Task Management");
         }
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getActivity().getSupportFragmentManager()) {

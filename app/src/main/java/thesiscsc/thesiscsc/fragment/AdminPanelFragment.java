@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -49,6 +50,9 @@ public class AdminPanelFragment extends Fragment {
         shutdownView = (CardView) view.findViewById(R.id.viewShutdown);
         setUpOnClickListeners();
         prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Admin Panel");
+
 
         return view;
 
