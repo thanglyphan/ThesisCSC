@@ -27,12 +27,10 @@ public class ExcecuteUpdateActivityService extends AsyncTask<String, Void, Boole
     private Context mContext;
     SharedPreferences prefs;
     String processIdentifier;
-    String comment;
 
-    public ExcecuteUpdateActivityService(Context context, String processIdentifier, String comment) {
+    public ExcecuteUpdateActivityService(Context context, String processIdentifier) {
         mContext = context;
         this.processIdentifier = processIdentifier;
-        this.comment = comment;
     }
     @Override
     protected Boolean doInBackground(String... params) {
@@ -60,7 +58,7 @@ public class ExcecuteUpdateActivityService extends AsyncTask<String, Void, Boole
         ActivityOutputDataList activityOutputDataList = new ActivityOutputDataList();
         ActivityOutputDataCreate activityOutputDataCreate = new ActivityOutputDataCreate();
         activityOutputDataCreate.parameterName = "authorized";
-        activityOutputDataCreate.parameterValue = "Y";
+        activityOutputDataCreate.parameterValue = params[0];
         activityOutputDataList.add(0,activityOutputDataCreate);
 
         ActivityCommentList activityCommentList = new ActivityCommentList();
@@ -70,7 +68,7 @@ public class ExcecuteUpdateActivityService extends AsyncTask<String, Void, Boole
         sicsUserReference.userId = prefs.getString("username", "");
         activityCommentCreate.addedBy = sicsUserReference;
         activityCommentCreate.addedTime = new Date();
-        activityCommentCreate.text = comment;
+        activityCommentCreate.text = params[1];
         activityCommentList.add(0,activityCommentCreate);
 
         param1.activityReference = sicsTaskManagementActivityReference;

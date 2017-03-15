@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import SicsWsDomainRetrievalEntryPoint.DomainObject;
 import SicsWsDomainRetrievalEntryPoint.LedgerRemittanceBalance;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteChangeStatusRemittanceBalanceService;
+import thesiscsc.thesiscsc.asyncMethods.ExcecuteChangeTaskStatusService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteRetrieveObjectService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteUpdateActivityService;
 import thesiscsc.thesiscsc.asyncMethods.ExecuteSearchService;
@@ -41,6 +43,7 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 public class PaymentActivity extends AppCompatActivity {
     Button buttonApprove, buttonDeny;
     String idOffer;
+    EditText comment;
 
     TextView text, moneyText, dateText, text2,text3,text4,text5;
 
@@ -57,6 +60,7 @@ public class PaymentActivity extends AppCompatActivity {
             Log.d("ÆØÅ",Log.getStackTraceString(e));
         }
 
+        comment = (EditText) findViewById(R.id.comment);
         text = (TextView) findViewById(R.id.textView);
         text2 = (TextView) findViewById(R.id.textView2);
         text3 = (TextView) findViewById(R.id.textView3);
@@ -77,7 +81,6 @@ public class PaymentActivity extends AppCompatActivity {
         Intent startingIntent = getIntent();
         if (startingIntent != null) {
             idOffer = startingIntent.getStringExtra("remittance_id"); // Retrieve the id
-            text.setText("Remittance ID: " + idOffer);
         }
 
 
@@ -91,8 +94,10 @@ public class PaymentActivity extends AppCompatActivity {
         text.setText(message);
         if (idOffer != null) {
             Log.d("idOffer", idOffer);
+            text.setText("Remittance ID: " + idOffer);
         } else {
-            idOffer = "R36";
+            idOffer = "R41";
+            text.setText("Remittance ID: " + idOffer);
             Log.d("idOffer", "doesn't work");
             Log.d("idOffer", idOffer);
         }
@@ -106,42 +111,49 @@ public class PaymentActivity extends AppCompatActivity {
             dateText.setText(formatter.format(ledgerRemittanceBalance.dateOfBooking));
 
             text4.setText(ledgerRemittanceBalance.baseCompany.identifier);
-            //text5.setText(ledgerRemittanceBalance.paymentPartnersAddress.partnerAddressIdentifier);
-
+           // text5.setText(ledgerRemittanceBalance.paymentPartnersAddress.partnerAddressIdentifier);
 
         } catch (Exception e) {
             Log.d("paymentlog", Log.getStackTraceString(e));
         }
 
 
+        /////////
+        idOffer = "R45";
+        String r = "P202";
+        /////////
+
         final ExcecuteChangeStatusRemittanceBalanceService excec = new ExcecuteChangeStatusRemittanceBalanceService(this,idOffer);
-        final ExcecuteUpdateActivityService excec2 = new ExcecuteUpdateActivityService(this,"P178","apemann");
-        final ExcecuteUpdateActivityService excec3 = new ExcecuteUpdateActivityService(this,"P178","apemann");
+        final ExcecuteUpdateActivityService excec2 = new ExcecuteUpdateActivityService(this,r);
+        final ExcecuteChangeTaskStatusService excec3 = new ExcecuteChangeTaskStatusService(this,r,1146);
 
-        try{
 
-            // Boolean yep = excec.execute().get();
-            //Boolean nop = excec2.execute().get();
-            Boolean meby = excec2.execute().get();
-            Log.d("paymentlog","alt i orden");
-        } catch (Exception e){
-
-            Log.d("paymentlog", Log.getStackTraceString(e));
-        }
         buttonApprove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try{
-
-                   // Boolean yep = excec.execute().get();
-                    Boolean nop = excec2.execute().get();
-                    Log.d("paymentlog","alt i orden");
+                    Boolean a = excec.execute().get();
+                    Boolean b = excec2.execute("Y", comment.getText().toString()).get();
+                    Boolean c = excec3.execute("COMPLETED").get();
+                    Log.d("paymentlog", a + " " + b + " " + c);
                 } catch (Exception e){
 
                     Log.d("paymentlog", Log.getStackTraceString(e));
                 }
             }
         });
+        buttonDeny.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try{
+                    Boolean a = excec.execute().get();
+                    Boolean b = excec2.execute("N",comment.getText().toString()).get();
+                    Boolean c = excec3.execute("COMPLETED").get();
+                    Log.d("paymentlog", a + " " + b + " " + c);
+                } catch (Exception e){
 
+                    Log.d("paymentlog", Log.getStackTraceString(e));
+                }
+            }
+        });
     }
 
 }
