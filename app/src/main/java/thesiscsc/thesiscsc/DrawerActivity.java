@@ -10,8 +10,11 @@ import android.os.Bundle;
         import android.support.v7.app.ActionBar;
         import android.support.v7.app.ActionBarDrawerToggle;
         import android.support.v7.app.AppCompatActivity;
-        import android.view.MenuItem;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import thesiscsc.thesiscsc.other.CallIsAvailable;
 
 
 public class DrawerActivity extends AppCompatActivity {
@@ -22,15 +25,16 @@ public class DrawerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+        try {
+            String reply = new CallIsAvailable().CallIsAvailable(getBaseContext());
+        } catch (Exception e) {
+            Log.d("ÆØÅ",Log.getStackTraceString(e));
+        }
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);

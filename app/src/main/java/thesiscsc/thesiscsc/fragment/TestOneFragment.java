@@ -7,15 +7,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import thesiscsc.thesiscsc.PaymentActivity;
 import thesiscsc.thesiscsc.R;
+import thesiscsc.thesiscsc.other.CallIsAvailable;
 
 /**
  * Created by thang on 16.01.2017.
@@ -30,6 +33,11 @@ public class TestOneFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        try {
+            String reply = new CallIsAvailable().CallIsAvailable(getContext());
+        } catch (Exception e) {
+            Log.d("ÆØÅ",Log.getStackTraceString(e));
+        }
         View view = inflater.inflate(R.layout.testone_view, container, false);
         //lv = (ListView)view.findViewById(R.id.lv_channel);
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);

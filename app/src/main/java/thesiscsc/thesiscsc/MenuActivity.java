@@ -37,6 +37,7 @@ import thesiscsc.thesiscsc.fragment.TestOneFragment;
 import thesiscsc.thesiscsc.fragment.TestThreeFragment;
 import thesiscsc.thesiscsc.fragment.TaskFragment;
 import thesiscsc.thesiscsc.model.User;
+import thesiscsc.thesiscsc.other.CallIsAvailable;
 import thesiscsc.thesiscsc.other.CircleTransform;
 import thesiscsc.thesiscsc.pager.Tabsadapter;
 
@@ -79,6 +80,11 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            String reply = new CallIsAvailable().CallIsAvailable(getBaseContext());
+        } catch (Exception e) {
+            Log.d("ÆØÅ",Log.getStackTraceString(e));
+        }
         setContentView(R.layout.activity_menu);
         prefs = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);

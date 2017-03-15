@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 
@@ -39,6 +40,7 @@ import SicsWsDomainSearchEntryPoint.TaskUserList;
 import SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPointBinding;
 import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.model.Task;
+import thesiscsc.thesiscsc.other.CallIsAvailable;
 import thesiscsc.thesiscsc.other.TestRecyclerViewAdapter;
 
 /**
@@ -76,7 +78,13 @@ public class RecyclerViewFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recyclerview, container, false);
+        try {
+            String reply = new CallIsAvailable().CallIsAvailable(getContext());
+            return inflater.inflate(R.layout.fragment_recyclerview, container, false);
+        } catch (Exception e) {
+            Log.d("ÆØÅ",Log.getStackTraceString(e));
+        }
+        return null;
     }
 
     @Override
@@ -201,6 +209,7 @@ public class RecyclerViewFragment extends Fragment {
                     //list.add(new Task(taskList.get(i), i));
                     //System.out.println("STATUS------   " + list.get(i).getStatus());
                     Task task = new Task(taskList.get(i), i);
+                    Log.d("startActionType",task.getStartActionType());
                     switch (task.getStatus()){
                         case "RESERVED": listReserved.add(task); break;
                         case "INPROGRESS": listInprogress.add(task); break;

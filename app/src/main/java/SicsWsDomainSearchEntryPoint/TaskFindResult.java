@@ -34,6 +34,8 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
 
     public String internalName;
 
+    public SicsReferenceDataReference startActionType;
+
     /**
      * Priority
      */
@@ -181,6 +183,15 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
                     }
                     continue;
                 }
+                if (info.name.equals("startActionType"))
+                {
+                    if(obj!=null)
+                    {
+                        java.lang.Object j = obj;
+                        this.startActionType = (SicsReferenceDataReference)__envelope.get(j,SicsReferenceDataReference.class,false);
+                    }
+                    continue;
+                }
                 if (info.name.equals("actualOwner"))
                 {
                     if(obj!=null)
@@ -240,17 +251,21 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
         }
         if(propertyIndex==4)
         {
-            return this.priority!=null?this.priority:SoapPrimitive.NullSkip;
+            return this.startActionType!=null?this.startActionType:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==5)
         {
-            return this.status!=null?this.status:SoapPrimitive.NullSkip;
+            return this.priority!=null?this.priority:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==6)
         {
-            return this.actualOwner!=null?this.actualOwner:SoapPrimitive.NullSkip;
+            return this.status!=null?this.status:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==7)
+        {
+            return this.actualOwner!=null?this.actualOwner:SoapPrimitive.NullSkip;
+        }
+        if(propertyIndex==8)
         {
             return this.lastUpdatedTimeStamp!=null?Helper.getDateTimeFormat().format(this.lastUpdatedTimeStamp):SoapPrimitive.NullSkip;
         }
@@ -292,23 +307,29 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
         }
         if(propertyIndex==4)
         {
+            info.type = SicsReferenceDataReference.class;
+            info.name = "startActionType";
+            info.namespace= "";
+        }
+        if(propertyIndex==5)
+        {
             info.type = PropertyInfo.INTEGER_CLASS;
             info.name = "priority";
             info.namespace= "";
         }
-        if(propertyIndex==5)
+        if(propertyIndex==6)
         {
             info.type = SicsReferenceDataReference.class;
             info.name = "status";
             info.namespace= "";
         }
-        if(propertyIndex==6)
+        if(propertyIndex==7)
         {
             info.type = SicsUserReference.class;
             info.name = "actualOwner";
             info.namespace= "";
         }
-        if(propertyIndex==7)
+        if(propertyIndex==8)
         {
             info.type = PropertyInfo.STRING_CLASS;
             info.name = "lastUpdatedTimeStamp";

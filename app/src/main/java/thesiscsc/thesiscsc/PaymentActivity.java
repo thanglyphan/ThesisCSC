@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -22,6 +23,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import SicsWsDomainRetrievalEntryPoint.DomainObject;
 import SicsWsDomainRetrievalEntryPoint.LedgerRemittanceBalance;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteRetrieveObjectService;
+import thesiscsc.thesiscsc.other.CallIsAvailable;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
@@ -40,7 +42,11 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-
+        try {
+            String reply = new CallIsAvailable().CallIsAvailable(getBaseContext());
+        } catch (Exception e) {
+            Log.d("ÆØÅ",Log.getStackTraceString(e));
+        }
 
         text = (TextView) findViewById(R.id.textView);
         text2 = (TextView) findViewById(R.id.textView2);

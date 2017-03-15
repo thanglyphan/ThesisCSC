@@ -39,6 +39,11 @@ public class AdminPanelFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        try {
+            String reply = new CallIsAvailable().CallIsAvailable(getContext());
+        } catch (Exception e) {
+            Log.d("ÆØÅ",Log.getStackTraceString(e));
+        }
         View view = inflater.inflate(R.layout.fragment_admin_panel, container, false);
         //lv = (ListView)view.findViewById(R.id.lv_channel);
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);

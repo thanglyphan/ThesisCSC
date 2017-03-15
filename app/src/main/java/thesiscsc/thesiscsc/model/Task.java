@@ -22,6 +22,7 @@ public class Task extends SicsWsDomainSearchEntryPoint.TaskFindResult {
         super.actualOwner = task.actualOwner;
         super.internalName = task.internalName;
         super.priority = task.priority;
+        super.startActionType = task.startActionType;
         super.processIdentifier = task.processIdentifier;
         super.subProcess = task.subProcess;
         super.status = task.status;
@@ -33,6 +34,14 @@ public class Task extends SicsWsDomainSearchEntryPoint.TaskFindResult {
     public String getStatus (){
         if (super.status != null){
             return super.status.code;
+        } else {
+            return noStatus;
+        }
+    }
+
+    public String getStartActionType(){
+        if (super.startActionType != null){
+            return super.startActionType.code;
         } else {
             return noStatus;
         }

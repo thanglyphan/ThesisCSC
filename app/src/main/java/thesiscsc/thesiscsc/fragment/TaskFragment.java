@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.github.florent37.materialviewpager.header.HeaderDesign;
 import java.util.Date;
 
 import thesiscsc.thesiscsc.R;
+import thesiscsc.thesiscsc.other.CallIsAvailable;
 
 import static android.view.View.GONE;
 
@@ -46,6 +48,13 @@ public class TaskFragment extends Fragment {
         //View view = inflater.inflate(R.layout.testtwo_view, container, false);
         //lv = (ListView)view.findViewById(R.id.lv_channel);
         View view = inflater.inflate(R.layout.two_fragment_view, container, false);
+
+        try {
+            String reply = new CallIsAvailable().CallIsAvailable(getContext());
+        } catch (Exception e) {
+            Log.d("ÆØÅ",Log.getStackTraceString(e));
+        }
+
 
         mViewPager = (MaterialViewPager) view.findViewById(R.id.materialViewPager);
         prefs = this.getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
