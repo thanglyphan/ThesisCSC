@@ -2,6 +2,7 @@ package thesiscsc.thesiscsc.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.annotation.BoolRes;
 import android.support.v4.app.Fragment;
@@ -288,7 +289,10 @@ public class RecyclerViewFragment extends Fragment {
 
     private void loadRefresher(View v){
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setProgressViewOffset(false, 210, 350);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.CornflowerBlue);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
             @Override
             public void onRefresh() {
                 refreshList(position);
