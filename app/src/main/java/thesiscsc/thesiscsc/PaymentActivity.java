@@ -22,7 +22,9 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import SicsWsDomainRetrievalEntryPoint.DomainObject;
 import SicsWsDomainRetrievalEntryPoint.LedgerRemittanceBalance;
+import thesiscsc.thesiscsc.asyncMethods.ExcecuteChangeStatusRemittanceBalanceService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteRetrieveObjectService;
+import thesiscsc.thesiscsc.asyncMethods.ExecuteSearchService;
 import thesiscsc.thesiscsc.other.CallIsAvailable;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
@@ -47,7 +49,12 @@ public class PaymentActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d("ÆØÅ",Log.getStackTraceString(e));
         }
+        ExcecuteChangeStatusRemittanceBalanceService excec = new ExcecuteChangeStatusRemittanceBalanceService(this);
+        try{
+            Boolean yep = excec.execute().get();
+        } catch (Exception e){
 
+        }
         text = (TextView) findViewById(R.id.textView);
         text2 = (TextView) findViewById(R.id.textView2);
         text3 = (TextView) findViewById(R.id.textView3);

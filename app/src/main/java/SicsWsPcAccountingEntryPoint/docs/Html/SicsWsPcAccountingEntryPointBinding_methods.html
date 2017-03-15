@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SicsWsPcAccountingEntryPointBinding methods</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/github.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel='stylesheet' type='text/css' href='../Styles/Blueprint_Styles/Style.css' />
+    <script src='../Scripts/Blueprint_Scripts/Script.js' type='text/javascript'></script>
+    <style type="text/css">
+        .syntaxhighlighter {
+            overflow-y: hidden !important;
+            overflow-x: auto !important;
+        }
+    </style>
+</head>
+<body>
+        <h2 id="changeStatusRemittanceBalance">changeStatusRemittanceBalance</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+ChangeStatusRemittanceBalanceInput param1 = new ChangeStatusRemittanceBalanceInput();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+service.changeStatusRemittanceBalance(param0,param1);
+//here you can put the code you want to run when your web service operation is finished
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+ChangeStatusRemittanceBalanceInput param1 = new ChangeStatusRemittanceBalanceInput();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        //here you can put the code you want to run when your web service operation is finished
+    }
+},"");
+service.changeStatusRemittanceBalanceAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="createPolicyAccountingDetail">createPolicyAccountingDetail</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+PolicyAccountingDetail param1 = new PolicyAccountingDetail();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+service.createPolicyAccountingDetail(param0,param1);
+//here you can put the code you want to run when your web service operation is finished
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+PolicyAccountingDetail param1 = new PolicyAccountingDetail();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        //here you can put the code you want to run when your web service operation is finished
+    }
+},"");
+service.createPolicyAccountingDetailAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="closeWorksheet">closeWorksheet</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+CloseWorksheetInput param1 = new CloseWorksheetInput();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+service.closeWorksheet(param0,param1);
+//here you can put the code you want to run when your web service operation is finished
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+CloseWorksheetInput param1 = new CloseWorksheetInput();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        //here you can put the code you want to run when your web service operation is finished
+    }
+},"");
+service.closeWorksheetAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="createWorksheet">createWorksheet</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+CreateBusinessWorksheetInput param1 = new CreateBusinessWorksheetInput();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+SicsAccountingWorksheetReference res = service.createWorksheet(param0,param1);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+CreateBusinessWorksheetInput param1 = new CreateBusinessWorksheetInput();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        SicsAccountingWorksheetReference res = (SicsAccountingWorksheetReference)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.createWorksheetAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="createRemittanceBalance">createRemittanceBalance</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+CreateRemittanceBalanceInput param1 = new CreateRemittanceBalanceInput();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+SicsLedgerRemittanceBalanceReference res = service.createRemittanceBalance(param0,param1);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+CreateRemittanceBalanceInput param1 = new CreateRemittanceBalanceInput();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        SicsLedgerRemittanceBalanceReference res = (SicsLedgerRemittanceBalanceReference)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.createRemittanceBalanceAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="createBalancePairing">createBalancePairing</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+LedgerBalancePairingInput param1 = new LedgerBalancePairingInput();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+LedgerBalancePairing res = service.createBalancePairing(param0,param1);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+LedgerBalancePairingInput param1 = new LedgerBalancePairingInput();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        LedgerBalancePairing res = (LedgerBalancePairing)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.createBalancePairingAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="createFGUClaimWorksheet">createFGUClaimWorksheet</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+CreateFGUClaimWorksheetInput param1 = new CreateFGUClaimWorksheetInput();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+ArrayOfSicsAccountingWorksheetReference res = service.createFGUClaimWorksheet(param0,param1);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+CreateFGUClaimWorksheetInput param1 = new CreateFGUClaimWorksheetInput();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        ArrayOfSicsAccountingWorksheetReference res = (ArrayOfSicsAccountingWorksheetReference)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.createFGUClaimWorksheetAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="createClaimWorksheet">createClaimWorksheet</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+CreateClaimWorksheetInput param1 = new CreateClaimWorksheetInput();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+SicsAccountingClaimWorksheetReference res = service.createClaimWorksheet(param0,param1);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+CreateClaimWorksheetInput param1 = new CreateClaimWorksheetInput();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        SicsAccountingClaimWorksheetReference res = (SicsAccountingClaimWorksheetReference)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.createClaimWorksheetAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="createPolicyAccountingClaimDetail">createPolicyAccountingClaimDetail</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+PolicyAccountingClaimDetail param1 = new PolicyAccountingClaimDetail();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+service.createPolicyAccountingClaimDetail(param0,param1);
+//here you can put the code you want to run when your web service operation is finished
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+PolicyAccountingClaimDetail param1 = new PolicyAccountingClaimDetail();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        //here you can put the code you want to run when your web service operation is finished
+    }
+},"");
+service.createPolicyAccountingClaimDetailAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="reverseTechnicalWorksheet">reverseTechnicalWorksheet</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+ReverseTechnicalWorksheetInput param1 = new ReverseTechnicalWorksheetInput();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+SicsAccountingWorksheetReference res = service.reverseTechnicalWorksheet(param0,param1);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+ReverseTechnicalWorksheetInput param1 = new ReverseTechnicalWorksheetInput();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        SicsAccountingWorksheetReference res = (SicsAccountingWorksheetReference)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.reverseTechnicalWorksheetAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+        <h2 id="updateWorksheetBalanceInformation">updateWorksheetBalanceInformation</h2>
+        <p>
+            
+        </p>
+        <h4>Synchronous operation</h4>
+        <pre>
+        <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+
+SicsGenericInput param0 = new SicsGenericInput();
+UpdateWorksheetBalanceInformationInput param1 = new UpdateWorksheetBalanceInformationInput();
+
+            
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding("");
+String res = service.updateWorksheetBalanceInformation(param0,param1);
+//in res variable you have a value returned from your web service
+            </code>
+</pre>
+            <p>To invoke a synchronous method, you need to do this in separate thread (for example by using <a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a> class)</p>
+            <h4>Asynchronous operation</h4>
+            <pre>
+            <code class="java">
+import SicsWsPcAccountingEntryPoint;
+...
+SicsGenericInput param0 = new SicsGenericInput();
+UpdateWorksheetBalanceInformationInput param1 = new UpdateWorksheetBalanceInformationInput();
+
+SicsWsPcAccountingEntryPointBinding service = new SicsWsPcAccountingEntryPointBinding(new IServiceEvents() {
+    @Override
+    public void Starting() {
+    }
+    @Override
+    public void Completed(OperationResult result) {
+        String res = (String)result.Result;
+        //in res variable you have a value returned from your web service
+    }
+},"");
+service.updateWorksheetBalanceInformationAsync (param0,param1);
+                </code>
+</pre>
+        <br />
+        <br />
+</body>
+</html>
+
