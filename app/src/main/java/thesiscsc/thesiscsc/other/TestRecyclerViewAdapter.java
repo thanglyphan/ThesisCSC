@@ -115,6 +115,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 this.view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.list_item_card_small, parent, false);
 
+                colorView = view.findViewById(R.id.taskStatusColor);
                 name_txt_big = (TextView) view.findViewById(R.id.name_txt_small);
                 actualOwner_txt = (TextView) view.findViewById(R.id.task_initiator);
                 PID_txt = (TextView) view.findViewById(R.id.task_PID);
@@ -127,28 +128,12 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
 
-                if (contents.get(0).getStatus().equals("RESERVED")){
-                    /////
-                    /////
-                    /////
-                    /////
-                    //fix dis
-                    /////
-                    /////
-                    /////
-                    /////
-                  //  colorView.setBackgroundColor(Color.rgb(255,140,0));
-                } else if (contents.get(0).getStatus().equals("INPROGRESS")){
-                    /////
-                    /////
-                    /////
-                    /////
-                    //fix dis
-                    /////
-                    /////
-                    /////
-                    /////
-                  //  colorView.setBackgroundColor(Color.rgb(0,255,0));
+                if (contents.get(0).getStatus() != null) {
+                    if (contents.get(0).getStatus().equals("RESERVED")) {
+                        colorView.setBackgroundColor(Color.rgb(255,140,0));
+                    } else if (contents.get(0).getStatus().equals("INPROGRESS")) {
+                        colorView.setBackgroundColor(Color.rgb(146, 227, 132));
+                    }
                 }
 
                 name_txt_big.setText(contents.get(0).getTaskName());
@@ -178,7 +163,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 if (task.getStatus().equals("RESERVED")){
                     colorView.setBackgroundColor(Color.rgb(255,140,0));
                 } else if (task.getStatus().equals("INPROGRESS")){
-                    colorView.setBackgroundColor(Color.rgb(0,255,0));
+                    colorView.setBackgroundColor(Color.rgb(146, 227, 132));
                 }
 
                 if (task != null) {
@@ -203,7 +188,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 break;
         }
     }
-
 
     public void showPopup(View v, int pos) {
         //TODO: FIX FRAGMENT TRANSACTIONS TO DIFF THINGS
@@ -284,7 +268,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         delegateList.setAdapter(adapter);
         dialog.show();
     }
-
 
     private void completeTask(Task task) {
         final Dialog dialog = new Dialog(context);
