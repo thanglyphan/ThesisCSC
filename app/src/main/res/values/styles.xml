@@ -1,21 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/ActionBarRed</item>
         <item name="colorPrimaryDark">@color/DarkRed</item>
         <item name="colorAccent">@color/CornflowerBlue</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:textColorPrimary">@color/Black</item>
-        <item name="android:textColorSecondary">@color/Black</item>
-        <item name="android:actionMenuTextColor">@color/AliceBlue</item>
-        <item name="android:textColorPrimaryInverse">@color/Black</item>
         <item name="colorControlNormal">@color/AliceBlue</item>
         <item name="actionBarTheme">@style/MVP_AppTheme.ActionBarTheme</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
-    </style>
+        <item name="actionMenuTextColor">@color/Black</item>
+        <item name="android:textColorPrimary">@color/AliceBlue</item>
+        <item name="android:itemTextAppearance">@style/myCustomMenuTextApearance</item></style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_draw</item>
@@ -25,6 +23,10 @@
         <item name="colorAccent">@color/White</item>
         <item name="android:textColorPrimary">@color/BlanchedAlmond</item>
         <item name="android:background">@color/Red</item>
+    </style>
+
+    <style name="myCustomMenuTextApearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
 </resources>
