@@ -38,7 +38,8 @@ public class UpdateActivityInput extends AttributeContainer implements KvmSerial
     public ActivityAttachmentList attachmentList;
     
     public ActivityCommentList commentList;
-    
+
+    public ActivityOutputDataList outputDataList;
 	/**
 	* Set this element if you want to remove all parameter values, i.e. set the value to null
 	*                for all parameters. This parameter is processed before the inputDataList, so it's possible to remove
@@ -49,6 +50,8 @@ public class UpdateActivityInput extends AttributeContainer implements KvmSerial
     public ActivityAttachmentUpdateList attachmentUpdateList;
     
     public ActivityCommentUpdateList commentUpdateList;
+
+    public ActivityOutputDataUpdateList outputDataUpdateList;
 
     public UpdateActivityInput ()
     {
@@ -127,6 +130,15 @@ public class UpdateActivityInput extends AttributeContainer implements KvmSerial
                     }
                     continue;
                 }
+                if (info.name.equals("outputDataList"))
+                {
+                    if(obj!=null)
+                    {
+                        java.lang.Object j = obj;
+                        this.outputDataList = new ActivityOutputDataList(j,__envelope);
+                    }
+                    continue;
+                }
                 if (info.name.equals("attachmentList"))
                 {
                     if(obj!=null)
@@ -182,6 +194,15 @@ public class UpdateActivityInput extends AttributeContainer implements KvmSerial
                     }
                     continue;
                 }
+                if (info.name.equals("outputDataUpdateList"))
+                {
+                    if(obj!=null)
+                    {
+                        java.lang.Object j = obj;
+                        this.outputDataUpdateList = (ActivityOutputDataUpdateList)__envelope.get(j,ActivityOutputDataUpdateList.class,false);
+                    }
+                    continue;
+                }
 
             }
 
@@ -213,21 +234,25 @@ public class UpdateActivityInput extends AttributeContainer implements KvmSerial
         }
         if(propertyIndex==4)
         {
-            return this.attachmentList!=null?this.attachmentList:SoapPrimitive.NullSkip;
+            return this.outputDataList!=null?this.outputDataList:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==5)
         {
-            return this.commentList!=null?this.commentList:SoapPrimitive.NullSkip;
+            return this.attachmentList!=null?this.attachmentList:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==6)
         {
-            return this.removeAllInputDataParameterValues!=null?this.removeAllInputDataParameterValues:SoapPrimitive.NullSkip;
+            return this.commentList!=null?this.commentList:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==7)
         {
-            return this.attachmentUpdateList!=null?this.attachmentUpdateList:SoapPrimitive.NullSkip;
+            return this.removeAllInputDataParameterValues!=null?this.removeAllInputDataParameterValues:SoapPrimitive.NullSkip;
         }
         if(propertyIndex==8)
+        {
+            return this.attachmentUpdateList!=null?this.attachmentUpdateList:SoapPrimitive.NullSkip;
+        }
+        if(propertyIndex==9)
         {
             return this.commentUpdateList!=null?this.commentUpdateList:SoapPrimitive.NullSkip;
         }
@@ -237,7 +262,7 @@ public class UpdateActivityInput extends AttributeContainer implements KvmSerial
 
     @Override
     public int getPropertyCount() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -270,28 +295,34 @@ public class UpdateActivityInput extends AttributeContainer implements KvmSerial
         if(propertyIndex==4)
         {
             info.type = PropertyInfo.VECTOR_CLASS;
-            info.name = "attachmentList";
+            info.name = "outputDataList";
             info.namespace= "";
         }
         if(propertyIndex==5)
         {
             info.type = PropertyInfo.VECTOR_CLASS;
-            info.name = "commentList";
+            info.name = "attachmentList";
             info.namespace= "";
         }
         if(propertyIndex==6)
+        {
+            info.type = PropertyInfo.VECTOR_CLASS;
+            info.name = "commentList";
+            info.namespace= "";
+        }
+        if(propertyIndex==7)
         {
             info.type = PropertyInfo.BOOLEAN_CLASS;
             info.name = "removeAllInputDataParameterValues";
             info.namespace= "";
         }
-        if(propertyIndex==7)
+        if(propertyIndex==8)
         {
             info.type = ActivityAttachmentUpdateList.class;
             info.name = "attachmentUpdateList";
             info.namespace= "";
         }
-        if(propertyIndex==8)
+        if(propertyIndex==9)
         {
             info.type = ActivityCommentUpdateList.class;
             info.name = "commentUpdateList";

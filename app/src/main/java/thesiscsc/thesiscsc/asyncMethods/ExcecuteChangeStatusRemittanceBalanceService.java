@@ -5,7 +5,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import SicsWsDomainRetrievalEntryPoint.LedgerRemittanceBalance;
@@ -21,9 +24,11 @@ import SicsWsPcAccountingEntryPoint.SicsWsPcAccountingEntryPointBinding;
 public class ExcecuteChangeStatusRemittanceBalanceService extends AsyncTask<String, Void, Boolean> {
     private Context mContext;
     SharedPreferences prefs;
+    String identifier;
 
-    public ExcecuteChangeStatusRemittanceBalanceService(Context context) {
+    public ExcecuteChangeStatusRemittanceBalanceService(Context context, String identifier) {
         mContext = context;
+        this.identifier = identifier;
     }
     @Override
     protected Boolean doInBackground(String... params) {
@@ -40,17 +45,16 @@ public class ExcecuteChangeStatusRemittanceBalanceService extends AsyncTask<Stri
         token.signature = prefs.getString("signature","");
         token.expiration = new Date(prefs.getLong("exp", 0));
 
-
-      /*  token.userId = "AHABES";
-        token.signature = "561BF86584C8DCCA6D37B56E57955B3A561004E2";
-        token.expiration = new Date(2017-03-16);
         param0.authenticationToken = token;
-        */
+
+        Log.d("remstatus",token.userId);
+        Log.d("remstatus",token.signature);
+        Log.d("remstatus",token.expiration + "");
 
         ChangeStatusRemittanceBalanceInput param1 = new ChangeStatusRemittanceBalanceInput();
 
         SicsLedgerRemittanceBalanceReference sicsLedgerRemittanceBalanceReference = new SicsLedgerRemittanceBalanceReference();
-        sicsLedgerRemittanceBalanceReference.identifier = "R27";
+        sicsLedgerRemittanceBalanceReference.identifier = identifier;
 
 
 
@@ -61,8 +65,10 @@ public class ExcecuteChangeStatusRemittanceBalanceService extends AsyncTask<Stri
         sicsReferenceDataReference.subclassNumber = 179;
 
         ledgerRemittanceBalanceChangeStatus.status = sicsReferenceDataReference;
-        ledgerRemittanceBalanceChangeStatus.valueDate = new Date(2017-03-15);
-        ledgerRemittanceBalanceChangeStatus.dateOfBooking = new Date(2017-03-15);
+
+
+        ledgerRemittanceBalanceChangeStatus.valueDate = new Date();
+        ledgerRemittanceBalanceChangeStatus.dateOfBooking = new Date();
 
         param1.ledgerRemittanceBalanceReference = sicsLedgerRemittanceBalanceReference;
         param1.ledgerRemittanceBalance = ledgerRemittanceBalanceChangeStatus;

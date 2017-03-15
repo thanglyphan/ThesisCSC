@@ -51,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         prefs = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         ButterKnife.inject(this);
 
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d("FIREBASETOKEN", "Refreshed token: " + refreshedToken);
 
         if (getIntent().hasExtra("run_activity")) {
             handleFirebaseNotificationIntent(getIntent());

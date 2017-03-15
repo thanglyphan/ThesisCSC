@@ -73,6 +73,8 @@ public class ExtendedSoapSerializationEnvelope extends com.easywsdl.exksoap2.ser
         classNames.put("http://www.SicsNt.com/TaskManagement^^ActivityAttachmentList",ActivityAttachmentList.class);
         classNames.put("http://www.SicsNt.com/TaskManagement^^ActivityCommentList",ActivityCommentList.class);
         classNames.put("http://www.SicsNt.com/TaskManagement^^ActivityInputDataList",ActivityInputDataList.class);
+        classNames.put("http://www.SicsNt.com/TaskManagement^^ActivityOutputDataList",ActivityOutputDataList.class);
+        classNames.put("http://www.SicsNt.com/TaskManagement^^ActivityOutputDataCreate",ActivityOutputDataCreate.class);
     }   
 
     protected static final int QNAME_NAMESPACE = 0;
