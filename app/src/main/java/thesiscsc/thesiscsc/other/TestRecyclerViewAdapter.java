@@ -190,8 +190,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void showPopup(View v, int pos) {
-        //TODO: FIX FRAGMENT TRANSACTIONS TO DIFF THINGS
-        System.out.println("POSITION-----" + contents.get(pos).getTaskName());
         PopupMenu popup = new PopupMenu(this.view.getContext(), v);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_task_dots, popup.getMenu());

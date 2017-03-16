@@ -32,6 +32,7 @@ import thesiscsc.thesiscsc.asyncMethods.ExcecuteRetrieveObjectService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteUpdateActivityService;
 import thesiscsc.thesiscsc.asyncMethods.ExecuteSearchService;
 import thesiscsc.thesiscsc.fragment.AdminPanelFragment;
+import thesiscsc.thesiscsc.model.Task;
 import thesiscsc.thesiscsc.other.CallIsAvailable;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
@@ -45,6 +46,8 @@ public class PaymentActivity extends AppCompatActivity {
     String idOffer;
     EditText comment;
 
+    Task task;
+
     TextView text, moneyText, dateText, text2,text3,text4,text5;
 
 
@@ -52,8 +55,7 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-
-
+        this.task = (Task) getIntent().getSerializableExtra("task");
         try {
             String reply = new CallIsAvailable().CallIsAvailable(getBaseContext());
         } catch (Exception e) {
