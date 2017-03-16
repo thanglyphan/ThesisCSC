@@ -27,7 +27,7 @@ public class TestOneFragment extends Fragment {
     private ListView lv;
     private TextView text;
     private NavigationView navigationView;
-    CardView taskView, paymentView, adminView, settingView;
+    CardView taskView, adminView, settingView;
 
 
 
@@ -43,7 +43,6 @@ public class TestOneFragment extends Fragment {
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         text = (TextView) view.findViewById(R.id.textView2);
         taskView = (CardView) view.findViewById(R.id.viewIsAvailable);
-        paymentView = (CardView) view.findViewById(R.id.viewAbout);
         adminView = (CardView) view.findViewById(R.id.viewRefresh);
         settingView = (CardView) view.findViewById(R.id.viewShutdown);
         setUpOnClickListeners();
@@ -83,22 +82,6 @@ public class TestOneFragment extends Fragment {
             }
         });
 
-        paymentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent paymentIntent = new Intent(TestOneFragment.this.getActivity(), PaymentActivity.class);
-                startActivity(paymentIntent);
-
-                /*
-                FragmentManager manager = getFragmentManager ();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.frame, new TestThreeFragment(), "payment").commit();
-                //nextFragment(new AdminPanelFragment(), "adminPanel", 3);
-                System.out.print("LOL");
-                //nextFragment(new TestThreeFragment(), "home3", 2);
-                */
-            }
-        });
         //TODO: FIX THIS
         adminView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -73,16 +73,21 @@ public class TaskFragment extends Fragment {
             public Fragment getItem(int position) {
                 switch (position) {
                     case 0:
+                        RecyclerViewFragment all = new RecyclerViewFragment();
+                        all.addPosition(position);
+                        all.addUsername(username, token, token_exp);
+                        return all;
+                    case 1:
                         RecyclerViewFragment during = new RecyclerViewFragment();
                         during.addPosition(position);
                         during.addUsername(username, token, token_exp);
                         return during;
-                    case 1:
+                    case 2:
                         RecyclerViewFragment intask = new RecyclerViewFragment();
                         intask.addPosition(position);
                         intask.addUsername(username, token, token_exp);
                         return intask;
-                    case 2:
+                    case 3:
                         RecyclerViewFragment ended = new RecyclerViewFragment();
                         ended.addPosition(position);
                         ended.addUsername(username, token, token_exp);
@@ -94,18 +99,20 @@ public class TaskFragment extends Fragment {
 
             @Override
             public int getCount() {
-                return 3;
+                return 4;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                switch (position % 3) {
+                switch (position % 4) {
                     case 0:
-                        return "In progress";
+                        return "All";
                     case 1:
-                        return "Reserved";
+                        return "In progress";
                     case 2:
-                        return "N/A";
+                        return "Reserved";
+                    case 3:
+                        return "Payment";
                 }
                 return "";
             }
