@@ -56,6 +56,16 @@
         android:layout_below="@+id/IPEditText"
         android:layout_alignStart="@+id/setServerIPTextView" />
 
+    <Button
+        android:id="@+id/btnHomeGlobalIp"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/setServerIPTextView"
+        android:layout_below="@+id/SetIPHotspotButton"
+        android:layout_marginTop="25dp"
+        android:text='"88.89.219.196"'
+        android:textColor="@color/Black" />
+
     <TextView
         android:id="@+id/setServerIPTextView"
         android:layout_width="wrap_content"

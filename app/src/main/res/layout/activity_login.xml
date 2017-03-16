@@ -10,7 +10,9 @@
         android:layout_height="wrap_content"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingRight="24dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true" >
 
         <ImageView android:src="@drawable/csc_original_logo"
             android:contentDescription="@string/csc_logo"
@@ -58,6 +60,34 @@
             android:padding="12dp"
             android:textColor="@color/Black"
             android:text="@string/login_text"/>
+
+        <RelativeLayout
+            android:id="@+id/relativeSettings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_settings"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="24dp"
+                android:padding="12dp"
+                android:text="Set IP"
+                android:textColor="@color/Black"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:overlapAnchor="false"
+                android:paddingLeft="10dp"
+                android:spinnerMode="dropdown" />
+        </RelativeLayout>
 
 
     </LinearLayout>

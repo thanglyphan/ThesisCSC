@@ -44,6 +44,12 @@
         <item>Home 5</item>
     </string-array>
 
+    <string-array name="IPs">
+        <item>192.168.43.197</item>
+        <item>88.89.219.196</item>
+        <item>10.0.0.60</item>
+    </string-array>
+
     <string name="about_us">About Us</string>
     <string name="activity_title_privacy_policy">Privacy Policy</string>
     <string name="action_clear_all">Clear All</string>

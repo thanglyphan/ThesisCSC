@@ -31,7 +31,7 @@ public class SettingsFragment extends Fragment {
     private TextView title,serverIP;
     private Switch colorSwitch, textSwitch;
     private EditText ip;
-    private Button btnSetIP, btnSetIPHome, btnSetIPHotspot;
+    private Button btnSetIP, btnSetIPHome, btnSetIPHotspot, btnSetGlobalIP;
     private NavigationView navigationView;
     private SharedPreferences prefs;
 
@@ -46,6 +46,7 @@ public class SettingsFragment extends Fragment {
         btnSetIP = (Button) view.findViewById(R.id.SetIPButton);
         btnSetIPHome = (Button) view.findViewById(R.id.SetIPHomeButton);
         btnSetIPHotspot = (Button) view.findViewById(R.id.SetIPHotspotButton);
+        btnSetGlobalIP = (Button) view.findViewById(R.id.btnHomeGlobalIp);
         prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
         ip.setText(prefs.getString("ip",""));
 
@@ -78,6 +79,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        btnSetGlobalIP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prefs.edit().putString("ip", "88.89.219.196:8325").apply();
+                Toast.makeText(getActivity(), "'" + "88.89.219.196:8325" + "' set as new server IP.", Toast.LENGTH_LONG).show();
+                ip.setText(prefs.getString("ip",""));
+            }
+        });
         colorSwitch = (Switch) view.findViewById(R.id.switchColor);
         textSwitch = (Switch) view.findViewById(R.id.switchText);
 

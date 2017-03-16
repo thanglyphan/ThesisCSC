@@ -1,16 +1,23 @@
 package thesiscsc.thesiscsc;
 
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -23,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import SicsWsAdministrationEntryPoint.LoginInput;
 import SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPointBinding;
+import thesiscsc.thesiscsc.fragment.SettingsFragment;
 
 public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_SIGNUP = 0;
@@ -43,6 +51,9 @@ public class LoginActivity extends AppCompatActivity {
     @InjectView(R.id.input_email) EditText _usernameText;
     @InjectView(R.id.input_password) EditText _passwordText;
     @InjectView(R.id.btn_login) Button _loginButton;
+    @InjectView(R.id.relativeSettings) RelativeLayout relativeSettings;
+    @InjectView(R.id.btn_settings) Button _settingsButton;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,19 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         prefs = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         ButterKnife.inject(this);
+        String s = getIntent().getStringExtra("SERVER_GONE");
+        spinner = (Spinner) findViewById(R.id.spinner);
+
+        spinner.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);
+        spinner.setDropDownWidth(520);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.IPs, R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        if(s != null){
+            relativeSettings.setVisibility(View.VISIBLE);
+        }
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("FIREBASETOKEN", "Refreshed token: " + refreshedToken);
@@ -92,6 +116,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //login();
                 new CallLoginService().execute(_usernameText.getText().toString(), _passwordText.getText().toString());
+            }
+        });
+
+        _settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prefs.edit().putString("ip", spinner.getSelectedItem().toString() + ":8325").apply();
+                Toast.makeText(getBaseContext(), "'" + spinner.getSelectedItem().toString() + "' set as new server IP.", Toast.LENGTH_SHORT).show();
             }
         });
 
