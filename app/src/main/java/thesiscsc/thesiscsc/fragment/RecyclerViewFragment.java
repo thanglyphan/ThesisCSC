@@ -1,6 +1,8 @@
 package thesiscsc.thesiscsc.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -9,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +20,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
@@ -40,9 +45,11 @@ import SicsWsDomainSearchEntryPoint.TaskSearchCriteria;
 import SicsWsDomainSearchEntryPoint.TaskSearchResultOutput;
 import SicsWsDomainSearchEntryPoint.TaskUserList;
 import SicsWsAdministrationEntryPoint.SicsWsAdministrationEntryPointBinding;
+import thesiscsc.thesiscsc.PaymentActivity;
 import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.model.Task;
 import thesiscsc.thesiscsc.other.CallIsAvailable;
+import thesiscsc.thesiscsc.other.RecyclerItemClickListener;
 import thesiscsc.thesiscsc.other.TestRecyclerViewAdapter;
 
 /**
@@ -55,7 +62,7 @@ public class RecyclerViewFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private List<Task> mContentItems = new ArrayList<>();
     private Queue<Task> taskQueue;
-    private List<Task> inprogressList, reservedList, endedList, allTaskList;
+    private List<Task> inprogressList, reservedList, paymentList, allTaskList;
     private int position;
 
     private String SERVER_ADDRESS; //http://192.168.43.115:8325
@@ -138,42 +145,32 @@ public class RecyclerViewFragment extends Fragment {
 
         //Use this now
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
-        //mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue);
-        //mRecyclerView.setAdapter(mAdapter);
-        /*
+        mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue, this.getContext());
+        mRecyclerView.setAdapter(mAdapter);
+
         mRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int itemPos) {
                         switch (position){
-                            case 0:
-                                TaskInfoFragment onGoing = new TaskInfoFragment();
-                                onGoing.addTaskToShow(onGoingList.get(itemPos));
-                                //nextFragment(onGoing);
-                                break;
-                            case 1:
-                                TaskInfoFragment coming = new TaskInfoFragment();
-                                coming.addTaskToShow(comingList.get(itemPos));
-                                //nextFragment(coming);
-                                break;
-                            case 2:
-                                TaskInfoFragment ended = new TaskInfoFragment();
-                                ended.addTaskToShow(endedList.get(itemPos));
-                                //nextFragment(ended);
-                                break;
+                            case 0: detailsTask(allTaskList.get(itemPos)); break;
+                            case 1: detailsTask(inprogressList.get(itemPos)); break;
+                            case 2: detailsTask(reservedList.get(itemPos)); break;
+                            case 3: startPaymentActivity(paymentList.get(itemPos)); break; //detailsTask(paymentList.get(itemPos)); break;
                         }
                     }
 
                     @Override public void onLongItemClick(View view, int itemPos) {
                         switch (position){
-                            case 0: System.out.println(onGoingList.get(itemPos).getName() + " IS IN CATEGORY: " + position); break;
-                            case 1: System.out.println(comingList.get(itemPos).getName() + " IS IN CATEGORY: " + position); break;
-                            case 2: System.out.println(endedList.get(itemPos).getName() + " IS IN CATEGORY: " + position); break;
+                            case 0: detailsTask(allTaskList.get(itemPos)); break;
+                            case 1: detailsTask(inprogressList.get(itemPos)); break;
+                            case 2: detailsTask(reservedList.get(itemPos)); break;
+                            case 3: startPaymentActivity(paymentList.get(itemPos)); break;
                         }
                     }
                 })
 
         );
-        */
+
         loadRefresher(view);
     }
 
@@ -190,14 +187,14 @@ public class RecyclerViewFragment extends Fragment {
         addToSection((ArrayList<Task>) inprogressList);
     }
     private void loadEndedTask(ArrayList<Task> a){
-        endedList = a;
-        addToSection((ArrayList<Task>) endedList);
+        paymentList = a;
+        addToSection((ArrayList<Task>) paymentList);
     }
 
     class CallTaskGetService extends AsyncTask<String, Void, String> {
         ArrayList<Task> listInprogress;
         ArrayList<Task> listReserved;
-        ArrayList<Task> listCompleted;
+        ArrayList<Task> listPayment;
         ArrayList<Task> allTask;
 
         @Override
@@ -205,7 +202,7 @@ public class RecyclerViewFragment extends Fragment {
             taskList = new ArrayList<>();
             listInprogress = new ArrayList<>();
             listReserved = new ArrayList<>();
-            listCompleted = new ArrayList<>();
+            listPayment = new ArrayList<>();
             allTask = new ArrayList<>();
 
         }
@@ -222,11 +219,16 @@ public class RecyclerViewFragment extends Fragment {
                     Task task = new Task(taskList.get(i), i);
                     allTask.add(task);
 
-                    switch (task.getStatus()){
-                        case "RESERVED": listReserved.add(task); break;
-                        case "INPROGRESS": listInprogress.add(task); break;
-                        default: break;
+                    if(task.getStartActionType().equals("OPENWKS")) {
+                        listPayment.add(task);
+                    } else {
+                        switch (task.getStatus()){
+                            case "RESERVED": listReserved.add(task); break;
+                            case "INPROGRESS": listInprogress.add(task); break;
+                            default: break;
+                        }
                     }
+
                 }
             } else {
                 list.add(new Task("No task found for: " + username, 0));
@@ -235,7 +237,7 @@ public class RecyclerViewFragment extends Fragment {
             switch (result){
                 case INPROGRESS: loadInprogressTask(listInprogress); break;
                 case RESERVED: loadReservedTask(listReserved); break;
-                case COMPLETED: loadEndedTask( hardcodedList); break;
+                case COMPLETED: loadEndedTask(listPayment); break;
                 default: break;
             }
 
@@ -335,5 +337,29 @@ public class RecyclerViewFragment extends Fragment {
         this.username = username;
         this.loginToken = token;
         this.exp_token = exp_date;
+    }
+
+    private void detailsTask(Task task) {
+        final Dialog dialog = new Dialog(this.getContext());
+        dialog.setContentView(R.layout.details_popup);
+        Button btnOk = (Button) dialog.findViewById(R.id.details_ok_btn);
+        TextView detailText = (TextView) dialog.findViewById(R.id.task_details_text);
+        final Task finalTask = task;
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        detailText.setText("Name: " + task.nlsName + "\nStatus: " + task.status.code + "\nLast Updated : " + task.lastUpdatedTimeStamp + "\nPriority: "
+                + task.priority + "\nSub Process: " + task.subProcess + "\nActual owner: " + task.actualOwner.userId);
+
+        dialog.show();
+    }
+
+    private void startPaymentActivity(Task a) {
+        Intent intent = new Intent(getActivity(), PaymentActivity.class);
+        intent.putExtra("task", a);
+        startActivity(intent);
     }
 }
