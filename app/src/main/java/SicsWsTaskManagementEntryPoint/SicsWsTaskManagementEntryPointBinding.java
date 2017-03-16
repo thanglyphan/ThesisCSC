@@ -385,11 +385,11 @@ public class SicsWsTaskManagementEntryPointBinding
         finally {
             if (__httpTransport.debug) {
                 if (__httpTransport.requestDump != null) {
-                    android.util.Log.i("requestDump",__httpTransport.requestDump);    
+                    android.util.Log.i("requestDumpTask",__httpTransport.requestDump);
                     
                 }
                 if (__httpTransport.responseDump != null) {
-                    android.util.Log.i("responseDump",__httpTransport.responseDump);
+                    android.util.Log.i("responseDumpTask",__httpTransport.responseDump);
                 }
             }
         }

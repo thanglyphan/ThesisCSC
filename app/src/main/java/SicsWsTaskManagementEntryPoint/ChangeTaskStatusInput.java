@@ -136,7 +136,7 @@ public class ChangeTaskStatusInput extends AttributeContainer implements KvmSeri
         if(propertyIndex==2)
         {
             info.type = SicsUserReference.class;
-            info.name = "suggestedActualOwner";
+            info.name = "suggestedActualOwner xsi:type=\"ns4:SicsUserReference\" xsi:nil=\"true\"";
             info.namespace= "";
         }
     }

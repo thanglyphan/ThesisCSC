@@ -119,8 +119,8 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         /////////
-        idOffer = "R45";
-        String r = "P202";
+        String r = "P212";
+        idOffer = "R49";
         /////////
 
         final ExcecuteChangeStatusRemittanceBalanceService excec = new ExcecuteChangeStatusRemittanceBalanceService(this,idOffer);
@@ -133,8 +133,8 @@ public class PaymentActivity extends AppCompatActivity {
                 try{
                     Boolean a = excec.execute().get();
                     Boolean b = excec2.execute("Y", comment.getText().toString()).get();
-                    Boolean c = excec3.execute("COMPLETED").get();
-                    Log.d("paymentlog", a + " " + b + " " + c);
+                    //Boolean c = excec3.execute("COMPLETED").get();
+                  //  Log.d("paymentlog", a + " " + b + " " + c);
                 } catch (Exception e){
 
                     Log.d("paymentlog", Log.getStackTraceString(e));
