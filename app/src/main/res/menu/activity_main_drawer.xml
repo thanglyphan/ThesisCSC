@@ -11,10 +11,6 @@
             android:icon="@drawable/nav_task_icon"
             android:title="@string/nav_tasks" />
         <item
-            android:id="@+id/nav_payment"
-            android:icon="@drawable/nav_payment_icon"
-            android:title="@string/nav_payment" />
-        <item
             android:id="@+id/nav_adminPanel"
             android:icon="@drawable/ic_assignment_ind_black_24dp"
             android:title="@string/nav_adminPanel" />

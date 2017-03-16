@@ -287,10 +287,6 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_TASK;
                         break;
-                    case R.id.nav_payment:
-                        navItemIndex = 2;
-                        CURRENT_TAG = TAG_HOME3;
-                        break;
                     case R.id.nav_adminPanel:
                         navItemIndex = 3;
                         CURRENT_TAG = TAG_ADMINPANEL;
