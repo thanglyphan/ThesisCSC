@@ -146,8 +146,8 @@ public class PaymentActivity extends AppCompatActivity {
                 try{
                     Boolean a = excec.execute().get();
                     Boolean b = excec2.execute("N",comment.getText().toString()).get();
-                    Boolean c = excec3.execute("COMPLETED").get();
-                    Log.d("paymentlog", a + " " + b + " " + c);
+                   // Boolean c = excec3.execute("COMPLETED").get();
+                   // Log.d("paymentlog", a + " " + b + " " + c);
                 } catch (Exception e){
 
                     Log.d("paymentlog", Log.getStackTraceString(e));
