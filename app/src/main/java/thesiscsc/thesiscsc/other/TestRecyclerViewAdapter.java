@@ -121,6 +121,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 PID_txt = (TextView) view.findViewById(R.id.task_PID);
                 status_txt = (TextView) view.findViewById(R.id.task_status);
                 btn_big = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
+
                 btn_big.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -154,12 +155,14 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 PID_txt = (TextView) view.findViewById(R.id.task_PID);
                 status_txt = (TextView) view.findViewById(R.id.task_status);
                 btn_small = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
+
                 btn_small.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         showPopup(v, task.getPosition());
                     }
                 });
+
                 if (task.getStatus().equals("RESERVED")){
                     colorView.setBackgroundColor(Color.rgb(255,140,0));
                 } else if (task.getStatus().equals("INPROGRESS")){
@@ -181,9 +184,15 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
         switch (getItemViewType(position)) {
             case TYPE_HEADER:
-                break;
+                btn_big.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showPopup(v, 0);
+                    }
+                }); break;
             case TYPE_CELL:
                 break;
         }
@@ -334,51 +343,51 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         dialog.show();
     }
 
-/*
-    class executeSearchService extends AsyncTask<String, Void, String> {
+    /*
+        class executeSearchService extends AsyncTask<String, Void, String> {
 
 
-        @Override
-        protected void onPostExecute(String s) {}
+            @Override
+            protected void onPostExecute(String s) {}
 
-        @Override
-        protected String doInBackground(String... params) {
+            @Override
+            protected String doInBackground(String... params) {
 
-            SicsGenericInput param0 = new SicsGenericInput();
+                SicsGenericInput param0 = new SicsGenericInput();
 
-            AuthenticationToken token = new AuthenticationToken();
+                AuthenticationToken token = new AuthenticationToken();
 
-            token.userId = username;
-            token.signature = loginToken;
-            token.expiration = exp_token;
-            param0.authenticationToken = token;
+                token.userId = username;
+                token.signature = loginToken;
+                token.expiration = exp_token;
+                param0.authenticationToken = token;
 
-            Input param1 = new Input();
+                Input param1 = new Input();
 
-            SicsWsDomainSearchEntryPoint.SQLSpecification SQLSpecification = new SicsWsDomainSearchEntryPoint.SQLSpecification();
-            SQLSpecification.sqlStatement = "select USER_ID, FIRSTNAME, LASTNAME from cnu_user";
-            param1.inputSQLSpecification = SQLSpecification;
+                SicsWsDomainSearchEntryPoint.SQLSpecification SQLSpecification = new SicsWsDomainSearchEntryPoint.SQLSpecification();
+                SQLSpecification.sqlStatement = "select USER_ID, FIRSTNAME, LASTNAME from cnu_user";
+                param1.inputSQLSpecification = SQLSpecification;
 
 
-            SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
+                SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://"+ SERVER_ADDRESS + "/SwanLake/SicsWSServlet");
 
-            try{
-                DbOutput res = service.executeSearch(param0,param1);
-                userList = res.getUserList();
+                try{
+                    DbOutput res = service.executeSearch(param0,param1);
+                    userList = res.getUserList();
 
-                for (User u: userList) {
-                    if(u.getUser_Id().equals(username)){
-                        userList.remove(u);
+                    for (User u: userList) {
+                        if(u.getUser_Id().equals(username)){
+                            userList.remove(u);
+                        }
                     }
-                }
 
-            }catch (Exception e){
-                Log.d("TEST", Log.getStackTraceString(e));
+                }catch (Exception e){
+                    Log.d("TEST", Log.getStackTraceString(e));
+                }
+                return null;
             }
-            return null;
         }
-    }
-*/
+    */
     class excecuteDelegateTaskService extends AsyncTask<String, String, String> {
 
 
