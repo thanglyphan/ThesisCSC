@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,7 +55,7 @@ public class RecyclerViewFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private List<Task> mContentItems = new ArrayList<>();
     private Queue<Task> taskQueue;
-    private List<Task> inprogressList, reservedList, endedList;
+    private List<Task> inprogressList, reservedList, endedList, allTaskList;
     private int position;
 
     private String SERVER_ADDRESS; //http://192.168.43.115:8325
@@ -66,6 +67,7 @@ public class RecyclerViewFragment extends Fragment {
     private final String INPROGRESS = "INPROGRESS";
     private final String RESERVED = "RESERVED";
     private final String COMPLETED = "COMPLETED";
+    private final String ALL = "ALL";
 
 
 
@@ -117,9 +119,10 @@ public class RecyclerViewFragment extends Fragment {
 
 
         switch (position){
-            case 0: new CallTaskGetService().execute(INPROGRESS); break;
-            case 1: new CallTaskGetService().execute(RESERVED); break;
-            case 2: new CallTaskGetService().execute(COMPLETED); break;
+            case 0: new CallTaskGetService().execute(ALL); break;
+            case 1: new CallTaskGetService().execute(INPROGRESS); break;
+            case 2: new CallTaskGetService().execute(RESERVED); break;
+            case 3: new CallTaskGetService().execute(COMPLETED); break;
         }
 
         //new CallTaskGetService().execute();
@@ -174,6 +177,10 @@ public class RecyclerViewFragment extends Fragment {
         loadRefresher(view);
     }
 
+    private void loadAllTask(ArrayList<Task> a) {
+        allTaskList = a;
+        addToSection((ArrayList<Task>) allTaskList);
+    }
     private void loadReservedTask(ArrayList<Task> a){
         reservedList = a;
         addToSection((ArrayList<Task>) reservedList);
@@ -191,12 +198,15 @@ public class RecyclerViewFragment extends Fragment {
         ArrayList<Task> listInprogress;
         ArrayList<Task> listReserved;
         ArrayList<Task> listCompleted;
+        ArrayList<Task> allTask;
+
         @Override
         protected void onPreExecute(){
             taskList = new ArrayList<>();
             listInprogress = new ArrayList<>();
             listReserved = new ArrayList<>();
             listCompleted = new ArrayList<>();
+            allTask = new ArrayList<>();
 
         }
 
@@ -210,7 +220,8 @@ public class RecyclerViewFragment extends Fragment {
                     //list.add(new Task(taskList.get(i), i));
                     //System.out.println("STATUS------   " + list.get(i).getStatus());
                     Task task = new Task(taskList.get(i), i);
-                    Log.d("startActionType",task.getStartActionType());
+                    allTask.add(task);
+
                     switch (task.getStatus()){
                         case "RESERVED": listReserved.add(task); break;
                         case "INPROGRESS": listInprogress.add(task); break;
@@ -220,6 +231,7 @@ public class RecyclerViewFragment extends Fragment {
             } else {
                 list.add(new Task("No task found for: " + username, 0));
             }
+            loadAllTask(allTask);
             switch (result){
                 case INPROGRESS: loadInprogressTask(listInprogress); break;
                 case RESERVED: loadReservedTask(listReserved); break;
@@ -310,9 +322,10 @@ public class RecyclerViewFragment extends Fragment {
     }
     private void refreshList(int position) {
         switch (position) {
-            case 0: new CallTaskGetService().execute(INPROGRESS); break;
-            case 1: new CallTaskGetService().execute(RESERVED); break;
-            case 2: new CallTaskGetService().execute(COMPLETED); break;
+            case 0: new CallTaskGetService().execute(ALL); break;
+            case 1: new CallTaskGetService().execute(INPROGRESS); break;
+            case 2: new CallTaskGetService().execute(RESERVED); break;
+            case 3: new CallTaskGetService().execute(COMPLETED); break;
             default: mSwipeRefreshLayout.setRefreshing(false);
 
         }
