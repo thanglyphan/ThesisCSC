@@ -21,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -148,28 +150,44 @@ public class RecyclerViewFragment extends Fragment {
         mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue, this.getContext());
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.addOnItemTouchListener(
+        /*mRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int itemPos) {
-                        switch (position){
-                            case 0: detailsTask(allTaskList.get(itemPos)); break;
-                            case 1: detailsTask(inprogressList.get(itemPos)); break;
-                            case 2: detailsTask(reservedList.get(itemPos)); break;
-                            case 3: startPaymentActivity(paymentList.get(itemPos)); break; //detailsTask(paymentList.get(itemPos)); break;
-                        }
+                            switch (position) {
+                                case 0:
+                                    detailsTask(allTaskList.get(itemPos));
+                                    break;
+                                case 1:
+                                    detailsTask(inprogressList.get(itemPos));
+                                    break;
+                                case 2:
+                                    detailsTask(reservedList.get(itemPos));
+                                    break;
+                                case 3:
+                                    startPaymentActivity(paymentList.get(itemPos));
+                                    break; //detailsTask(paymentList.get(itemPos)); break;
+                            }
                     }
 
-                    @Override public void onLongItemClick(View view, int itemPos) {
-                        switch (position){
-                            case 0: detailsTask(allTaskList.get(itemPos)); break;
-                            case 1: detailsTask(inprogressList.get(itemPos)); break;
-                            case 2: detailsTask(reservedList.get(itemPos)); break;
-                            case 3: startPaymentActivity(paymentList.get(itemPos)); break;
+                        @Override public void onLongItemClick (View view,int itemPos){
+                            switch (position) {
+                                case 0:
+                                    detailsTask(allTaskList.get(itemPos));
+                                    break;
+                                case 1:
+                                    detailsTask(inprogressList.get(itemPos));
+                                    break;
+                                case 2:
+                                    detailsTask(reservedList.get(itemPos));
+                                    break;
+                                case 3:
+                                    startPaymentActivity(paymentList.get(itemPos));
+                                    break;
+                            }
                         }
-                    }
                 })
 
-        );
+        );*/
 
         loadRefresher(view);
     }

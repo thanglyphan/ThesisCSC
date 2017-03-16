@@ -2,9 +2,11 @@ package thesiscsc.thesiscsc.other;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,6 +43,7 @@ import SicsWsDomainSearchEntryPoint.Input;
 import SicsWsDomainSearchEntryPoint.SicsGenericInput;
 import SicsWsDomainSearchEntryPoint.SicsWsDomainSearchEntryPointBinding;
 
+import thesiscsc.thesiscsc.PaymentActivity;
 import thesiscsc.thesiscsc.R;
 import thesiscsc.thesiscsc.model.Task;
 import thesiscsc.thesiscsc.model.User;
@@ -57,6 +60,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     Queue<Task> taskQueue;
     private RecyclerView mRecyclerView;
     Context context;
+    Context context1;
     View colorView;
 
     static List<User> userList;
@@ -79,6 +83,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public TestRecyclerViewAdapter(List<Task> contents, Queue<Task> taskQueue, Context mContext) {
         this.contents = contents;
         this.taskQueue = taskQueue;
+        this.context1 = mContext;
 
         userList = new ArrayList<>();
 
@@ -122,6 +127,19 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 status_txt = (TextView) view.findViewById(R.id.task_status);
                 btn_big = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
 
+                CardView cardView = (CardView) view.findViewById(R.id.card_view);
+                cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                            if (contents.get(0).getStartActionType().equals("OPENWKS")) {
+                                System.out.println("Payment Task");
+                                startPaymentActivity(contents.get(0));
+                            } else {
+                                detailsTask(contents.get(0));
+                            }
+                        }
+                });
+
                 btn_big.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -136,7 +154,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         colorView.setBackgroundColor(Color.rgb(146, 227, 132));
                     }
                 }
-
                 name_txt_big.setText(contents.get(0).getTaskName());
                 actualOwner_txt.setText(contents.get(0).getActualOwner());
                 PID_txt.setText(contents.get(0).getPID());
@@ -155,6 +172,19 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 PID_txt = (TextView) view.findViewById(R.id.task_PID);
                 status_txt = (TextView) view.findViewById(R.id.task_status);
                 btn_small = (ImageButton) view.findViewById(R.id.task_menu_btn_small);
+
+                CardView cardView = (CardView) view.findViewById(R.id.card_view);
+                cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (task.getStartActionType().equals("OPENWKS")) {
+                            System.out.println("Payment Task");
+                            startPaymentActivity(task);
+                        } else {
+                            detailsTask(task);
+                        }
+                    }
+                });
 
                 btn_small.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -341,6 +371,11 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 + task.priority + "\nSub Process: " + task.subProcess + "\nActual owner: " + task.actualOwner.userId);
 
         dialog.show();
+    }
+    private void startPaymentActivity(Task a) {
+        Intent intent = new Intent(context1, PaymentActivity.class);
+        intent.putExtra("task", a);
+        context1.startActivity(intent);
     }
 
     /*
