@@ -98,7 +98,7 @@ public class PaymentActivity extends AppCompatActivity {
             Log.d("idOffer", idOffer);
             text.setText("Remittance ID: " + idOffer);
         } else {
-            idOffer = "R41";
+            idOffer = "R55";
             text.setText("Remittance ID: " + idOffer);
             Log.d("idOffer", "doesn't work");
             Log.d("idOffer", idOffer);
@@ -121,8 +121,8 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         /////////
-        String r = "P212";
-        idOffer = "R49";
+        String r = "P227";
+        idOffer = "R55";
         /////////
 
         final ExcecuteChangeStatusRemittanceBalanceService excec = new ExcecuteChangeStatusRemittanceBalanceService(this,idOffer);
@@ -135,10 +135,11 @@ public class PaymentActivity extends AppCompatActivity {
                 try{
                     Boolean a = excec.execute().get();
                     Boolean b = excec2.execute("Y", comment.getText().toString()).get();
-                    //Boolean c = excec3.execute("COMPLETED").get();
-                  //  Log.d("paymentlog", a + " " + b + " " + c);
+                    Boolean c = excec3.execute("COMPLETED").get();
+                    Toast.makeText(getBaseContext(), "Payment was succesfully authorized.", Toast.LENGTH_SHORT).show();
+                    finish();
+                    //  Log.d("paymentlog", a + " " + b + " " + c);
                 } catch (Exception e){
-
                     Log.d("paymentlog", Log.getStackTraceString(e));
                 }
             }
@@ -150,8 +151,9 @@ public class PaymentActivity extends AppCompatActivity {
                     Boolean b = excec2.execute("N",comment.getText().toString()).get();
                    // Boolean c = excec3.execute("COMPLETED").get();
                    // Log.d("paymentlog", a + " " + b + " " + c);
+                    Toast.makeText(getBaseContext(), "Payment was succesfully denied.", Toast.LENGTH_SHORT).show();
+                    finish();
                 } catch (Exception e){
-
                     Log.d("paymentlog", Log.getStackTraceString(e));
                 }
             }

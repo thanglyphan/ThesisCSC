@@ -64,8 +64,8 @@ public class SettingsFragment extends Fragment {
         btnSetIPHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prefs.edit().putString("ip", "10.0.0.60:8325").apply();
-                Toast.makeText(getActivity(), "'" + "10.0.0.60:8325" + "' set as new server IP.", Toast.LENGTH_LONG).show();
+                prefs.edit().putString("ip", "10.0.0.60:8080").apply();
+                Toast.makeText(getActivity(), "'" + "10.0.0.60:8080" + "' set as new server IP.", Toast.LENGTH_LONG).show();
                 ip.setText(prefs.getString("ip",""));
             }
         });
@@ -73,8 +73,8 @@ public class SettingsFragment extends Fragment {
         btnSetIPHotspot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prefs.edit().putString("ip", "192.168.43.197:8325").apply();
-                Toast.makeText(getActivity(), "'" + "192.168.43.197:8325" + "' set as new server IP.", Toast.LENGTH_LONG).show();
+                prefs.edit().putString("ip", "192.168.43.197:8080").apply();
+                Toast.makeText(getActivity(), "'" + "192.168.43.197:8080" + "' set as new server IP.", Toast.LENGTH_LONG).show();
                 ip.setText(prefs.getString("ip",""));
             }
         });
@@ -82,8 +82,8 @@ public class SettingsFragment extends Fragment {
         btnSetGlobalIP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prefs.edit().putString("ip", "88.89.219.196:8325").apply();
-                Toast.makeText(getActivity(), "'" + "88.89.219.196:8325" + "' set as new server IP.", Toast.LENGTH_LONG).show();
+                prefs.edit().putString("ip", "88.89.219.196:8080").apply();
+                Toast.makeText(getActivity(), "'" + "88.89.219.196:8080" + "' set as new server IP.", Toast.LENGTH_LONG).show();
                 ip.setText(prefs.getString("ip",""));
             }
         });

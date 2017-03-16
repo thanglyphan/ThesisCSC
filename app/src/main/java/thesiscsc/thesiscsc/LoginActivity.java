@@ -37,9 +37,9 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences prefs;
 
     //---------------
-    String ip = "192.168.43.197:8325";
-    //String ip = "10.0.0.60:8325";
-    //String ip = "88.89.219.196:8325";
+    String ip = "192.168.43.197:8080";
+    //String ip = "10.0.0.60:8080";
+    //String ip = "88.89.219.196:8080";
     //---------------
 
     String address = "http://" + ip + "/SwanLake/SicsWSServlet";
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         _settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prefs.edit().putString("ip", spinner.getSelectedItem().toString() + ":8325").apply();
+                prefs.edit().putString("ip", spinner.getSelectedItem().toString() + ":8080").apply();
                 Toast.makeText(getBaseContext(), "'" + spinner.getSelectedItem().toString() + "' set as new server IP.", Toast.LENGTH_SHORT).show();
             }
         });
