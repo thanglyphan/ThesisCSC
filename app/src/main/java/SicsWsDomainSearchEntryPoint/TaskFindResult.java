@@ -326,7 +326,7 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
         }
         if(propertyIndex==3)
         {
-            info.type = PropertyInfo.INTEGER_CLASS;
+            info.type = PropertyInfo.STRING_CLASS;
             info.name = "internalName";
             info.namespace= "";
         }

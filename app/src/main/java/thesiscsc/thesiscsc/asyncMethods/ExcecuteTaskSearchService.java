@@ -15,6 +15,7 @@ import SicsWsDomainSearchEntryPoint.TaskProperties;
 import SicsWsDomainSearchEntryPoint.TaskSearchCriteria;
 import SicsWsDomainSearchEntryPoint.TaskSearchResultOutput;
 import SicsWsDomainSearchEntryPoint.TaskUserList;
+import thesiscsc.thesiscsc.model.Task;
 
 /**
  * Created by Adam on 15.03.2017.
@@ -61,18 +62,22 @@ public class ExcecuteTaskSearchService extends AsyncTask<String, Void, String> {
         param1.criteria = taskcrit;
 
         SicsWsDomainSearchEntryPointBinding service = new SicsWsDomainSearchEntryPointBinding(null,"http://"+ prefs.getString("ip", "") + "/SwanLake/SicsWSServlet");
-
+        Log.d("showme", params[0]);
         try{
             TaskSearchResultOutput res = service.executeTaskSearch(param0,param1);
 
             for(SicsWsDomainSearchEntryPoint.TaskFindResult a: res.taskSearchResultList) {
-                if (a.displayDiscriminator == params[0]){
+
+                Log.d("showmediscrim",a.processIdentifier);
+                if (a.displayDiscriminator != null && a.displayDiscriminator.equals(params[0])){
+                    Log.d("showme",a.displayDiscriminator);
+                    Log.d("showme",a.processIdentifier);
                     return a.processIdentifier;
                 }
             }
             return null;
         }catch (Exception e){
-            Log.d("nothing", "wut");
+            Log.d("showme", Log.getStackTraceString(e));
             return null;
         }
     }

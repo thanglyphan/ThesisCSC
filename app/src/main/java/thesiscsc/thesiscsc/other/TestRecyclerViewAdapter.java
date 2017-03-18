@@ -368,7 +368,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
         });
         detailText.setText("Name: " + task.nlsName + "\nStatus: " + task.status.code + "\nLast Updated : " + task.lastUpdatedTimeStamp + "\nPriority: "
-                + task.priority + "\nSub Process: " + task.subProcess + "\nActual owner: " + task.actualOwner.userId);
+                + task.priority + "\nSub Process: " + task.subProcess + "\nActual owner: " + task.actualOwner.userId + "\ndisplayDiscriminator: " + task.displayDiscriminator);
 
         dialog.show();
     }

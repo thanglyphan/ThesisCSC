@@ -1,6 +1,7 @@
 package thesiscsc.thesiscsc;
 
 import android.content.Intent;
+
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 
@@ -38,31 +39,25 @@ import thesiscsc.thesiscsc.other.CallIsAvailable;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
-/**
- * Created by thang on 07.02.2017.
- */
-
 public class PaymentActivity extends AppCompatActivity {
     Button buttonApprove, buttonDeny;
-    String idOffer;
+    String displayDiscriminator;
     EditText comment;
-
     Task task;
-
-    TextView text, moneyText, dateText, text2,text3,text4,text5;
-
+    TextView text, moneyText, dateText, text2, text3, text4, text5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        this.task = (Task) getIntent().getSerializableExtra("task");
+
         try {
             String reply = new CallIsAvailable().CallIsAvailable(getBaseContext());
         } catch (Exception e) {
-            Log.d("ÆØÅ",Log.getStackTraceString(e));
+            Log.d("ÆØÅ", Log.getStackTraceString(e));
         }
 
+        task = (Task) getIntent().getSerializableExtra("task");
         comment = (EditText) findViewById(R.id.comment);
         text = (TextView) findViewById(R.id.textView);
         text2 = (TextView) findViewById(R.id.textView2);
@@ -76,71 +71,46 @@ public class PaymentActivity extends AppCompatActivity {
         buttonApprove = (Button) findViewById(R.id.buttonApprove);
         buttonDeny = (Button) findViewById(R.id.buttonDeny);
 
-        Intent intent = getIntent();
-
-
-        idOffer = "";
-
-        Intent startingIntent = getIntent();
-        if (startingIntent != null) {
-            idOffer = startingIntent.getStringExtra("remittance_id"); // Retrieve the id
-        }
-
-
-
-        String message = intent.getStringExtra(MenuActivity.EXTRA_MESSAGE);
-
-        if (message != null) {
-            text.setText(message);
-        }
-
-        text.setText(message);
-        if (idOffer != null) {
-            Log.d("idOffer", idOffer);
-            text.setText("Remittance ID: " + idOffer);
+        displayDiscriminator = "";
+        if (getIntent().getStringExtra("remittance_id") != null) {
+            displayDiscriminator = getIntent().getStringExtra("remittance_id"); // Retrieve the id
         } else {
-            idOffer = "R55";
-            text.setText("Remittance ID: " + idOffer);
-            Log.d("idOffer", "doesn't work");
-            Log.d("idOffer", idOffer);
+            displayDiscriminator = task.displayDiscriminator;
         }
+
 
         LedgerRemittanceBalance ledgerRemittanceBalance;
         ExcecuteRetrieveObjectService excecuteRetrieveObjectService = new ExcecuteRetrieveObjectService(this);
+
         try {
-            ledgerRemittanceBalance = excecuteRetrieveObjectService.execute(idOffer).get();
-            moneyText.setText(ledgerRemittanceBalance.currency.isoAlpha + " " + ledgerRemittanceBalance.originalAmount );
+            ledgerRemittanceBalance = excecuteRetrieveObjectService.execute(displayDiscriminator).get();
+            text.setText("Remittance ID: " + displayDiscriminator);
+            moneyText.setText(ledgerRemittanceBalance.currency.isoAlpha + " " + ledgerRemittanceBalance.originalAmount);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             dateText.setText(formatter.format(ledgerRemittanceBalance.dateOfBooking));
-
             text4.setText(ledgerRemittanceBalance.baseCompany.identifier);
-           // text5.setText(ledgerRemittanceBalance.paymentPartnersAddress.partnerAddressIdentifier);
+            // text5.setText(ledgerRemittanceBalance.paymentPartnersAddress.partnerAddressIdentifier);
 
         } catch (Exception e) {
             Log.d("paymentlog", Log.getStackTraceString(e));
         }
 
-
-        /////////
-        String r = "P229";
-        idOffer = "R57";
-        /////////
-
         final ExcecuteTaskSearchService getProcessIdentifierForDisplayDiscriminator = new ExcecuteTaskSearchService(this);
         String processID;
-        try{
-            processID =  getProcessIdentifierForDisplayDiscriminator.execute(idOffer).get();
-        }catch(Exception e){
-
+        try {
+            processID = getProcessIdentifierForDisplayDiscriminator.execute(displayDiscriminator).get();
+            Log.d("processID", "processID: " + processID);
+        } catch (Exception e) {
+            processID = null;
         }
 
-        final ExcecuteChangeStatusRemittanceBalanceService excec = new ExcecuteChangeStatusRemittanceBalanceService(this,idOffer);
-        final ExcecuteUpdateActivityService excec2 = new ExcecuteUpdateActivityService(this,r);
-        final ExcecuteChangeTaskStatusService excec3 = new ExcecuteChangeTaskStatusService(this,r,1146);
+        final ExcecuteChangeStatusRemittanceBalanceService excec = new ExcecuteChangeStatusRemittanceBalanceService(this, displayDiscriminator);
+        final ExcecuteUpdateActivityService excec2 = new ExcecuteUpdateActivityService(this, processID);
+        final ExcecuteChangeTaskStatusService excec3 = new ExcecuteChangeTaskStatusService(this, processID, 1146);
 
         buttonApprove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                try{
+                try {
 
                     Boolean a = excec.execute().get();
                     Boolean b = excec2.execute("Y", comment.getText().toString()).get();
@@ -148,21 +118,21 @@ public class PaymentActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Payment was succesfully authorized.", Toast.LENGTH_SHORT).show();
                     finish();
                     //  Log.d("paymentlog", a + " " + b + " " + c);
-                } catch (Exception e){
+                } catch (Exception e) {
                     Log.d("paymentlog", Log.getStackTraceString(e));
                 }
             }
         });
         buttonDeny.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                try{
+                try {
                     Boolean a = excec.execute().get();
-                    Boolean b = excec2.execute("N",comment.getText().toString()).get();
-                   // Boolean c = excec3.execute("COMPLETED").get();
-                   // Log.d("paymentlog", a + " " + b + " " + c);
+                    Boolean b = excec2.execute("N", comment.getText().toString()).get();
+                    // Boolean c = excec3.execute("COMPLETED").get();
+                    // Log.d("paymentlog", a + " " + b + " " + c);
                     Toast.makeText(getBaseContext(), "Payment was succesfully denied.", Toast.LENGTH_SHORT).show();
                     finish();
-                } catch (Exception e){
+                } catch (Exception e) {
                     Log.d("paymentlog", Log.getStackTraceString(e));
                 }
             }
