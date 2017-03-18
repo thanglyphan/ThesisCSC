@@ -27,6 +27,7 @@ public class Task extends SicsWsDomainSearchEntryPoint.TaskFindResult {
         super.subProcess = task.subProcess;
         super.status = task.status;
         super.lastUpdatedTimeStamp = task.lastUpdatedTimeStamp;
+        super.displayDiscriminator = task.displayDiscriminator;
 
         this.position = position;
     }
@@ -42,6 +43,14 @@ public class Task extends SicsWsDomainSearchEntryPoint.TaskFindResult {
     public String getStartActionType(){
         if (super.startActionType != null){
             return super.startActionType.code;
+        } else {
+            return noStatus;
+        }
+    }
+
+    public String getDisplayDiscriminator(){
+        if (super.displayDiscriminator != null){
+            return super.displayDiscriminator;
         } else {
             return noStatus;
         }

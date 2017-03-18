@@ -121,8 +121,8 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         /////////
-        String r = "P227";
-        idOffer = "R55";
+        String r = "P229";
+        idOffer = "R57";
         /////////
 
         final ExcecuteChangeStatusRemittanceBalanceService excec = new ExcecuteChangeStatusRemittanceBalanceService(this,idOffer);
