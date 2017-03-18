@@ -128,7 +128,7 @@ public class PaymentActivity extends AppCompatActivity {
                 try {
                     Boolean a = excec.execute().get();
                     Boolean b = excec2.execute("N", comment.getText().toString()).get();
-                    // Boolean c = excec3.execute("COMPLETED").get();
+                    Boolean c = excec3.execute("COMPLETED").get();
                     // Log.d("paymentlog", a + " " + b + " " + c);
                     Toast.makeText(getBaseContext(), "Payment was succesfully denied.", Toast.LENGTH_SHORT).show();
                     finish();
