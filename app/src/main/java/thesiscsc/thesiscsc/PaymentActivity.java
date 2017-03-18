@@ -29,6 +29,7 @@ import SicsWsDomainRetrievalEntryPoint.LedgerRemittanceBalance;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteChangeStatusRemittanceBalanceService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteChangeTaskStatusService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteRetrieveObjectService;
+import thesiscsc.thesiscsc.asyncMethods.ExcecuteTaskSearchService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteUpdateActivityService;
 import thesiscsc.thesiscsc.asyncMethods.ExecuteSearchService;
 import thesiscsc.thesiscsc.fragment.AdminPanelFragment;
@@ -125,14 +126,22 @@ public class PaymentActivity extends AppCompatActivity {
         idOffer = "R57";
         /////////
 
+        final ExcecuteTaskSearchService getProcessIdentifierForDisplayDiscriminator = new ExcecuteTaskSearchService(this);
+        String processID;
+        try{
+            processID =  getProcessIdentifierForDisplayDiscriminator.execute(idOffer).get();
+        }catch(Exception e){
+
+        }
+
         final ExcecuteChangeStatusRemittanceBalanceService excec = new ExcecuteChangeStatusRemittanceBalanceService(this,idOffer);
         final ExcecuteUpdateActivityService excec2 = new ExcecuteUpdateActivityService(this,r);
         final ExcecuteChangeTaskStatusService excec3 = new ExcecuteChangeTaskStatusService(this,r,1146);
 
-
         buttonApprove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try{
+
                     Boolean a = excec.execute().get();
                     Boolean b = excec2.execute("Y", comment.getText().toString()).get();
                     Boolean c = excec3.execute("COMPLETED").get();
