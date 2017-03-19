@@ -3,9 +3,13 @@ package thesiscsc.thesiscsc.asyncMethods;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.text.format.DateUtils;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import SicsWsTaskManagementEntryPoint.ActivityCommentCreate;
 import SicsWsTaskManagementEntryPoint.ActivityCommentList;
@@ -67,7 +71,14 @@ public class ExcecuteUpdateActivityService extends AsyncTask<String, Void, Boole
         SicsUserReference sicsUserReference = new SicsUserReference();
         sicsUserReference.userId = prefs.getString("username", "");
         activityCommentCreate.addedBy = sicsUserReference;
-        activityCommentCreate.addedTime = new Date();
+
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.HOUR, 1);
+        now = calendar.getTime();
+
+        activityCommentCreate.addedTime = now;
         activityCommentCreate.text = params[1];
         activityCommentList.add(0,activityCommentCreate);
 
