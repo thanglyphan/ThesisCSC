@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import SicsWsDomainRetrievalEntryPoint.LedgerRemittanceBalance;
 import SicsWsPcAccountingEntryPoint.AuthenticationToken;
@@ -67,8 +68,16 @@ public class ExcecuteChangeStatusRemittanceBalanceService extends AsyncTask<Stri
         ledgerRemittanceBalanceChangeStatus.status = sicsReferenceDataReference;
 
 
-        ledgerRemittanceBalanceChangeStatus.valueDate = new Date();
-        ledgerRemittanceBalanceChangeStatus.dateOfBooking = new Date();
+
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.HOUR, 1);
+        now = calendar.getTime();
+
+        ledgerRemittanceBalanceChangeStatus.valueDate = now;
+        ledgerRemittanceBalanceChangeStatus.dateOfBooking = now;
+        Log.d("remstatus", ledgerRemittanceBalanceChangeStatus.dateOfBooking.toString());
 
         param1.ledgerRemittanceBalanceReference = sicsLedgerRemittanceBalanceReference;
         param1.ledgerRemittanceBalance = ledgerRemittanceBalanceChangeStatus;

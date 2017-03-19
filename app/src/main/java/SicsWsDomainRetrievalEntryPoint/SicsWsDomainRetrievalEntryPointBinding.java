@@ -189,7 +189,6 @@ public class SicsWsDomainRetrievalEntryPointBinding
     {
         org.ksoap2.transport.Transport __httpTransport=createTransport();
         __httpTransport.debug=enableLogging;
-        __httpTransport.debug=true;
         ExtendedSoapSerializationEnvelope __envelope=wcfMethod.CreateSoapEnvelope();
         try
         {

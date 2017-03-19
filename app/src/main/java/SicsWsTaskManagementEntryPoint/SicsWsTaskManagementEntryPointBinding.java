@@ -337,7 +337,10 @@ public class SicsWsTaskManagementEntryPointBinding
                 __envelope.addMapping("","changeTaskStatusInput",new ChangeTaskStatusInput().getClass());
                 SoapObject __soapReq = new SoapObject("urn:SicsWsTaskManagementEntryPoint", "changeTaskStatus");
                 __envelope.setOutputSoapObject(__soapReq);
-                
+
+                __soapReq.addAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
+                __soapReq.addAttribute("xmlns:ns4","http://www.SicsNt.com/ReferenceItems");
+
                 PropertyInfo __info=null;
                 __info = new PropertyInfo();
                 __info.namespace="";

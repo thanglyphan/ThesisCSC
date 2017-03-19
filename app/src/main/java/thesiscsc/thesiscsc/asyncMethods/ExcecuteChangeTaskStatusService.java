@@ -49,7 +49,6 @@ public class ExcecuteChangeTaskStatusService extends AsyncTask<String, Void, Boo
         SicsTaskManagementProcessReference processReference = new SicsTaskManagementProcessReference();
         processReference.processIdentifier = identifier;
 
-
         SicsWsTaskManagementEntryPoint.SicsReferenceDataReference sicsReferenceData = new SicsWsTaskManagementEntryPoint.SicsReferenceDataReference();
         sicsReferenceData.code = params[0];
         sicsReferenceData.subclassNumber = subclassNumber;
@@ -59,8 +58,8 @@ public class ExcecuteChangeTaskStatusService extends AsyncTask<String, Void, Boo
 
         SicsUserReference sicsUserReference = new SicsUserReference();
 
-        //param1.suggestedActualOwner = sicsUserReference;
 
+        param1.suggestedActualOwner = sicsUserReference;
 
         SicsWsTaskManagementEntryPointBinding service = new SicsWsTaskManagementEntryPointBinding(null, "http://" + prefs.getString("ip", "") + "/SwanLake/SicsWSServlet");
 

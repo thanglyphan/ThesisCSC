@@ -20,6 +20,8 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
     /**
      * Process Id
      */
+    public String displayDiscriminator;
+
     public String processIdentifier;
 
     /**
@@ -220,6 +222,25 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
                     }
                     continue;
                 }
+                if (info.name.equals("displayDiscriminator"))
+                {
+                    if(obj!=null)
+                    {
+
+                        if (obj.getClass().equals(SoapPrimitive.class))
+                        {
+                            SoapPrimitive j =(SoapPrimitive) obj;
+                            if(j.toString()!=null)
+                            {
+                                this.displayDiscriminator = j.toString();
+                            }
+                        }
+                        else if (obj instanceof String){
+                            this.displayDiscriminator = (String)obj;
+                        }
+                    }
+                    continue;
+                }
 
             }
 
@@ -269,13 +290,17 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
         {
             return this.lastUpdatedTimeStamp!=null?Helper.getDateTimeFormat().format(this.lastUpdatedTimeStamp):SoapPrimitive.NullSkip;
         }
+        if(propertyIndex==9)
+        {
+            return this.displayDiscriminator!=null?this.displayDiscriminator:SoapPrimitive.NullSkip;
+        }
         return null;
     }
 
 
     @Override
     public int getPropertyCount() {
-        return 7;
+        return 10;
     }
 
     @Override
@@ -301,7 +326,7 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
         }
         if(propertyIndex==3)
         {
-            info.type = PropertyInfo.INTEGER_CLASS;
+            info.type = PropertyInfo.STRING_CLASS;
             info.name = "internalName";
             info.namespace= "";
         }
@@ -333,6 +358,12 @@ public class TaskFindResult extends AttributeContainer implements KvmSerializabl
         {
             info.type = PropertyInfo.STRING_CLASS;
             info.name = "lastUpdatedTimeStamp";
+            info.namespace= "";
+        }
+        if(propertyIndex==9)
+        {
+            info.type = PropertyInfo.STRING_CLASS;
+            info.name = "displayDiscriminator";
             info.namespace= "";
         }
     }
