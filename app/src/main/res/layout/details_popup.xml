@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:weightSum="1">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        android:layout_height="199dp"
+        android:layout_width="300dp"
+        android:layout_height="246dp"
         android:layout_marginBottom="@dimen/cardMarginVertical"
         android:layout_marginLeft="@dimen/cardMarginHorizontal"
         android:layout_marginRight="@dimen/cardMarginHorizontal"
@@ -16,37 +17,75 @@ android:layout_height="match_parent"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:contentPadding="0dp"
-        android:layout_width="300dp">
+        android:layout_weight="0.10">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="197dp">
+            android:layout_height="244dp">
+
+            <Button
+                android:id="@+id/details_ok_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:text="@string/popup_detailsButton"
+                android:textColor="@color/CornflowerBlue" />
 
             <TextView
-                android:id="@+id/task_details_text"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:id="@+id/textView_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="15dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/popup_details"
-                android:textAppearance="@style/TextAppearance.AppCompat.Notification.Title"
-                android:textSize="16sp"
-                android:layout_alignParentBottom="true" />
+                android:layout_marginTop="23dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
-            <Button
-                android:text="@string/popup_detailsButton"
+            <TextView
+                android:id="@+id/textView_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="?android:attr/borderlessButtonStyle"
-                android:id="@+id/details_ok_btn"
-                android:textColor="@color/CornflowerBlue"
-                android:layout_marginTop="150dp"
+                android:text="TextView"
+                android:textSize="14sp"
+                android:layout_marginEnd="39dp"
+                android:layout_alignBaseline="@+id/textView_owner"
+                android:layout_alignBottom="@+id/textView_owner"
                 android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/textView_lastUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_below="@+id/textView_process"
+                android:layout_alignStart="@+id/textView_process"
+                android:layout_marginTop="23dp"
+                android:layout_alignEnd="@+id/textView_status" />
+
+            <TextView
+                android:id="@+id/textView_owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:text="TextView"
+                android:layout_below="@+id/textView_name"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="25dp" />
+
+            <TextView
+                android:id="@+id/textView_process"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginTop="25dp"
+                android:layout_below="@+id/textView_owner"
+                android:layout_alignStart="@+id/textView_owner" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

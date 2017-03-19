@@ -154,6 +154,9 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         colorView.setBackgroundColor(Color.rgb(146, 227, 132));
                     }
                 }
+                if (contents.get(0).getStartActionType().equals("OPENWKS")) {
+                    colorView.setBackgroundColor(Color.rgb(71, 129, 255));
+                }
                 name_txt_big.setText(contents.get(0).getTaskName());
                 actualOwner_txt.setText(contents.get(0).getActualOwner());
                 PID_txt.setText(contents.get(0).getPID());
@@ -197,6 +200,9 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     colorView.setBackgroundColor(Color.rgb(255,140,0));
                 } else if (task.getStatus().equals("INPROGRESS")){
                     colorView.setBackgroundColor(Color.rgb(146, 227, 132));
+                }
+                if (task.getStartActionType().equals("OPENWKS")) {
+                    colorView.setBackgroundColor(Color.rgb(71, 129, 255));
                 }
 
                 if (task != null) {
@@ -301,7 +307,14 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         for(int i = 0; i < userList.size(); i++){
             listItems[i] = userList.get(i);
         }
-        ArrayAdapter adapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_list_item_1, listItems);
+        ArrayAdapter adapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_list_item_1, listItems) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                textView.setTextColor(Color.BLACK);
+                return textView;
+            }
+        };
         delegateList.setAdapter(adapter);
         dialog.show();
     }
@@ -359,7 +372,11 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.details_popup);
         Button btnOk = (Button) dialog.findViewById(R.id.details_ok_btn);
-        TextView detailText = (TextView) dialog.findViewById(R.id.task_details_text);
+        TextView detailText = (TextView) dialog.findViewById(R.id.textView_name);
+        TextView updateText = (TextView) dialog.findViewById(R.id.textView_lastUpdate);
+        TextView statusText = (TextView) dialog.findViewById(R.id.textView_status);
+        TextView ownerText = (TextView) dialog.findViewById(R.id.textView_owner);
+        TextView processText = (TextView) dialog.findViewById(R.id.textView_process);
         final Task finalTask = task;
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -367,8 +384,11 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 dialog.dismiss();
             }
         });
-        detailText.setText("Name: " + task.nlsName + "\nStatus: " + task.status.code + "\nLast Updated : " + task.lastUpdatedTimeStamp + "\nPriority: "
-                + task.priority + "\nSub Process: " + task.subProcess + "\nActual owner: " + task.actualOwner.userId);
+        detailText.setText(task.nlsName);
+        updateText.setText(task.lastUpdatedTimeStamp + "");
+        statusText.setText(task.status.code);
+        ownerText.setText(task.actualOwner.userId);
+        processText.setText("Process: " + task.subProcess);
 
         dialog.show();
     }

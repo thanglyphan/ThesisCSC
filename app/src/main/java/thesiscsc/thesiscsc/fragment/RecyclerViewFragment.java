@@ -356,28 +356,4 @@ public class RecyclerViewFragment extends Fragment {
         this.loginToken = token;
         this.exp_token = exp_date;
     }
-
-    private void detailsTask(Task task) {
-        final Dialog dialog = new Dialog(this.getContext());
-        dialog.setContentView(R.layout.details_popup);
-        Button btnOk = (Button) dialog.findViewById(R.id.details_ok_btn);
-        TextView detailText = (TextView) dialog.findViewById(R.id.task_details_text);
-        final Task finalTask = task;
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        detailText.setText("Name: " + task.nlsName + "\nStatus: " + task.status.code + "\nLast Updated : " + task.lastUpdatedTimeStamp + "\nPriority: "
-                + task.priority + "\nSub Process: " + task.subProcess + "\nActual owner: " + task.actualOwner.userId);
-
-        dialog.show();
-    }
-
-    private void startPaymentActivity(Task a) {
-        Intent intent = new Intent(getActivity(), PaymentActivity.class);
-        intent.putExtra("task", a);
-        startActivity(intent);
-    }
 }
