@@ -29,6 +29,7 @@ import SicsWsDomainRetrievalEntryPoint.DomainObject;
 import SicsWsDomainRetrievalEntryPoint.LedgerRemittanceBalance;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteChangeStatusRemittanceBalanceService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteChangeTaskStatusService;
+import thesiscsc.thesiscsc.asyncMethods.ExcecuteGetPartnerService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteRetrieveObjectService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteTaskSearchService;
 import thesiscsc.thesiscsc.asyncMethods.ExcecuteUpdateActivityService;
@@ -82,14 +83,22 @@ public class PaymentActivity extends AppCompatActivity {
         LedgerRemittanceBalance ledgerRemittanceBalance;
         ExcecuteRetrieveObjectService excecuteRetrieveObjectService = new ExcecuteRetrieveObjectService(this);
 
+        LedgerRemittanceBalance names;
+        ExcecuteGetPartnerService excecuteGetPartnerService = new ExcecuteGetPartnerService(this);
         try {
             ledgerRemittanceBalance = excecuteRetrieveObjectService.execute(displayDiscriminator).get();
             text.setText("Remittance ID: " + displayDiscriminator);
-            moneyText.setText(ledgerRemittanceBalance.currency.isoAlpha + " " + ledgerRemittanceBalance.originalAmount);
+            moneyText.setText("Sum: \n" + ledgerRemittanceBalance.originalAmount + " " + ledgerRemittanceBalance.currency.isoAlpha);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             dateText.setText(formatter.format(ledgerRemittanceBalance.dateOfBooking));
-            text4.setText(ledgerRemittanceBalance.baseCompany.identifier);
-            // text5.setText(ledgerRemittanceBalance.paymentPartnersAddress.partnerAddressIdentifier);
+
+            names = excecuteGetPartnerService.execute(displayDiscriminator).get();
+            text4.setText(names.checkNumber);
+            text5.setText(names.lmmReference);
+
+
+            Log.d("eyyy", names.checkNumber + " " + names.lmmReference);
+
 
         } catch (Exception e) {
             Log.d("paymentlog", Log.getStackTraceString(e));

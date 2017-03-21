@@ -191,7 +191,7 @@ public class LedgerRemittanceBalance extends DomainObject implements KvmSerializ
                     }
                     continue;
                 }
-                if (info.name.equals("lmmReference"))
+                if (info.name.equals("lmmReference")||info.name.equals("businessPartnerName"))
                 {
                     if(obj!=null)
                     {
@@ -350,7 +350,7 @@ public class LedgerRemittanceBalance extends DomainObject implements KvmSerializ
                     }
                     continue;
                 }
-                if (info.name.equals("checkNumber"))
+                if (info.name.equals("checkNumber")||info.name.equals("baseCompanyName"))
                 {
                     if(obj!=null)
                     {
