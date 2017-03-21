@@ -88,7 +88,7 @@ public class PaymentActivity extends AppCompatActivity {
         try {
             ledgerRemittanceBalance = excecuteRetrieveObjectService.execute(displayDiscriminator).get();
             text.setText("Remittance ID: " + displayDiscriminator);
-            moneyText.setText("Sum: \n" + ledgerRemittanceBalance.originalAmount + " " + ledgerRemittanceBalance.currency.isoAlpha);
+            moneyText.setText(ledgerRemittanceBalance.originalAmount + " " + ledgerRemittanceBalance.currency.isoAlpha);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             dateText.setText(formatter.format(ledgerRemittanceBalance.dateOfBooking));
 
