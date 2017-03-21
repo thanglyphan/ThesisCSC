@@ -78,23 +78,12 @@
         android:layout_alignParentStart="true" />
 
     <Switch
-        android:id="@+id/switchText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/SetIPButton"
-        android:layout_alignStart="@+id/SetIPHotspotButton"
-        android:layout_below="@+id/SetIPButton"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="24dp"
-        android:text="Increase Text Size" />
-
-    <Switch
         android:id="@+id/switchColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="61dp"
         android:text="Color Blind Mode"
-        android:layout_below="@+id/switchText"
-        android:layout_alignStart="@+id/switchText"
-        android:layout_alignEnd="@+id/switchText" />
+        android:layout_below="@+id/SetIPButton"
+        android:layout_alignStart="@+id/btnHomeGlobalIp"
+        android:layout_alignEnd="@+id/IPEditText" />
 </RelativeLayout>

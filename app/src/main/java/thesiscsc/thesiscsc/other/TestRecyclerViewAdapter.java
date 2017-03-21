@@ -49,6 +49,9 @@ import thesiscsc.thesiscsc.model.Task;
 import thesiscsc.thesiscsc.model.User;
 import thesiscsc.thesiscsc.asyncMethods.*;
 
+import static android.content.Context.MODE_PRIVATE;
+import static java.security.AccessController.getContext;
+
 
 /**
  * Created by thang on 24.01.2017.
@@ -147,15 +150,25 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
 
-                if (contents.get(0).getStatus() != null) {
+                SharedPreferences prefs = context.getSharedPreferences("colorBlindMode", MODE_PRIVATE);
+                if (prefs.getBoolean("isColorBlind", true)) {
+                    if (contents.get(0).getStatus().equals("RESERVED")) {
+                        colorView.setBackgroundColor(Color.rgb(255,0,0));
+                    } else if (contents.get(0).getStatus().equals("INPROGRESS")) {
+                        colorView.setBackgroundColor(Color.rgb(0, 255, 0));
+                    }
+                    if (contents.get(0).getStartActionType().equals("OPENWKS") && contents.get(0).nlsName.equals("Authorize and Close Remittance")) {
+                        colorView.setBackgroundColor(Color.rgb(0, 0, 255));
+                    }
+                } else {
                     if (contents.get(0).getStatus().equals("RESERVED")) {
                         colorView.setBackgroundColor(Color.rgb(255,140,0));
                     } else if (contents.get(0).getStatus().equals("INPROGRESS")) {
                         colorView.setBackgroundColor(Color.rgb(146, 227, 132));
                     }
-                }
-                if (contents.get(0).getStartActionType().equals("OPENWKS") && contents.get(0).nlsName.equals("Authorize and Close Remittance")) {
-                    colorView.setBackgroundColor(Color.rgb(71, 129, 255));
+                    if (contents.get(0).getStartActionType().equals("OPENWKS") && contents.get(0).nlsName.equals("Authorize and Close Remittance")) {
+                        colorView.setBackgroundColor(Color.rgb(71, 129, 255));
+                    }
                 }
                 name_txt_big.setText(contents.get(0).getTaskName());
                 actualOwner_txt.setText(contents.get(0).getActualOwner());
@@ -195,16 +208,26 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         showPopup(v, task.getPosition());
                     }
                 });
-
-                if (task.getStatus().equals("RESERVED")){
-                    colorView.setBackgroundColor(Color.rgb(255,140,0));
-                } else if (task.getStatus().equals("INPROGRESS")){
-                    colorView.setBackgroundColor(Color.rgb(146, 227, 132));
+                SharedPreferences prefs = context.getSharedPreferences("colorBlindMode", MODE_PRIVATE);
+                if (prefs.getBoolean("isColorBlind", true)) {
+                    if (task.getStatus().equals("RESERVED")) {
+                        colorView.setBackgroundColor(Color.rgb(255, 0, 0));
+                    } else if (task.getStatus().equals("INPROGRESS")) {
+                        colorView.setBackgroundColor(Color.rgb(0, 255, 0));
+                    }
+                    if (task.getStartActionType().equals("OPENWKS") && task.nlsName.equals("Authorize and Close Remittance")) {
+                        colorView.setBackgroundColor(Color.rgb(0, 0, 255));
+                    }
+                } else {
+                    if (task.getStatus().equals("RESERVED")) {
+                        colorView.setBackgroundColor(Color.rgb(255, 140, 0));
+                    } else if (task.getStatus().equals("INPROGRESS")) {
+                        colorView.setBackgroundColor(Color.rgb(146, 227, 132));
+                    }
+                    if (task.getStartActionType().equals("OPENWKS") && task.nlsName.equals("Authorize and Close Remittance")) {
+                        colorView.setBackgroundColor(Color.rgb(71, 129, 255));
+                    }
                 }
-                if (task.getStartActionType().equals("OPENWKS") && task.nlsName.equals("Authorize and Close Remittance")) {
-                    colorView.setBackgroundColor(Color.rgb(71, 129, 255));
-                }
-
                 if (task != null) {
                     name_txt_small.setText(task.getTaskName());
                     actualOwner_txt.setText(task.getActualOwner());
@@ -378,6 +401,28 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         TextView ownerText = (TextView) dialog.findViewById(R.id.textView_owner);
         TextView processText = (TextView) dialog.findViewById(R.id.textView_process);
         final Task finalTask = task;
+        View colorView2 = (View) dialog.findViewById(R.id.detailsStatusColor);
+
+        SharedPreferences prefs = context.getSharedPreferences("colorBlindMode", MODE_PRIVATE);
+        if (prefs.getBoolean("isColorBlind", true)){
+            if (task.getStatus().equals("RESERVED")){
+                colorView2.setBackgroundColor(Color.rgb(255,0,0));
+            } else if (task.getStatus().equals("INPROGRESS")){
+                colorView2.setBackgroundColor(Color.rgb(0, 255, 0));
+            }
+            if (task.getStartActionType().equals("OPENWKS") && task.nlsName.equals("Authorize and Close Remittance")) {
+                colorView2.setBackgroundColor(Color.rgb(0, 0, 255));
+            }
+        } else {
+            if (task.getStatus().equals("RESERVED")){
+                colorView2.setBackgroundColor(Color.rgb(255,140,0));
+            } else if (task.getStatus().equals("INPROGRESS")){
+                colorView2.setBackgroundColor(Color.rgb(146, 227, 132));
+            }
+            if (task.getStartActionType().equals("OPENWKS") && task.nlsName.equals("Authorize and Close Remittance")) {
+                colorView2.setBackgroundColor(Color.rgb(71, 129, 255));
+            }
+        }
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

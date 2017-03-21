@@ -13,12 +13,18 @@
         android:layout_marginLeft="@dimen/cardMarginHorizontal"
         android:layout_marginRight="@dimen/cardMarginHorizontal"
         android:layout_marginTop="@dimen/cardMarginVertical"
-        app:cardCornerRadius="14dp"
+        app:cardCornerRadius="2dp"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:contentPadding="0dp"
         android:layout_weight="0.10">
 
+        <View
+            android:id="@+id/detailsStatusColor"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#92E384"
+            app:cardCornerRadius="4dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -51,41 +57,41 @@
                 android:id="@+id/textView_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="14sp"
-                android:layout_marginEnd="39dp"
                 android:layout_alignBaseline="@+id/textView_owner"
                 android:layout_alignBottom="@+id/textView_owner"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="39dp"
+                android:text="TextView"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textView_lastUpdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:layout_below="@+id/textView_process"
+                android:layout_alignEnd="@+id/textView_status"
                 android:layout_alignStart="@+id/textView_process"
+                android:layout_below="@+id/textView_process"
                 android:layout_marginTop="23dp"
-                android:layout_alignEnd="@+id/textView_status" />
+                android:text="TextView" />
 
             <TextView
                 android:id="@+id/textView_owner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="33dp"
-                android:text="TextView"
-                android:layout_below="@+id/textView_name"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="25dp" />
+                android:layout_below="@+id/textView_name"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="25dp"
+                android:text="TextView" />
 
             <TextView
                 android:id="@+id/textView_process"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:layout_marginTop="25dp"
+                android:layout_alignStart="@+id/textView_owner"
                 android:layout_below="@+id/textView_owner"
-                android:layout_alignStart="@+id/textView_owner" />
+                android:layout_marginTop="25dp"
+                android:text="TextView" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

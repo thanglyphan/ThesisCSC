@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import thesiscsc.thesiscsc.R;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Adam on 05.03.2017.
  */
@@ -29,7 +31,8 @@ import thesiscsc.thesiscsc.R;
 public class SettingsFragment extends Fragment {
     private ListView lv;
     private TextView title,serverIP;
-    private Switch colorSwitch, textSwitch;
+    View colorView;
+    private Switch colorSwitch;
     private EditText ip;
     private Button btnSetIP, btnSetIPHome, btnSetIPHotspot, btnSetGlobalIP;
     private NavigationView navigationView;
@@ -39,6 +42,8 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        View view2 = inflater.inflate(R.layout.list_item_card_small, container, false);
+        colorView = view2.findViewById(R.id.taskStatusColor);
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         title = (TextView) view.findViewById(R.id.settingsTitleTextView);
         serverIP = (TextView) view.findViewById(R.id.setServerIPTextView);
@@ -47,7 +52,7 @@ public class SettingsFragment extends Fragment {
         btnSetIPHome = (Button) view.findViewById(R.id.SetIPHomeButton);
         btnSetIPHotspot = (Button) view.findViewById(R.id.SetIPHotspotButton);
         btnSetGlobalIP = (Button) view.findViewById(R.id.btnHomeGlobalIp);
-        prefs = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        prefs = getActivity().getSharedPreferences("credentials", MODE_PRIVATE);
         ip.setText(prefs.getString("ip",""));
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Settings");
@@ -88,11 +93,10 @@ public class SettingsFragment extends Fragment {
             }
         });
         colorSwitch = (Switch) view.findViewById(R.id.switchColor);
-        textSwitch = (Switch) view.findViewById(R.id.switchText);
 
         //set the switch to Off
-        colorSwitch.setChecked(false);
-        textSwitch.setChecked(false);
+        SharedPreferences prefs = getContext().getSharedPreferences("colorBlindMode", MODE_PRIVATE);
+        colorSwitch.setChecked(prefs.getBoolean("isColorBlind", true));
         //attach a listener to check for changes in state
         colorSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -101,19 +105,15 @@ public class SettingsFragment extends Fragment {
 
                 if(isChecked){
                     System.out.println("Color Switch On");
+                    SharedPreferences.Editor editor = getContext().getSharedPreferences("colorBlindMode", MODE_PRIVATE).edit();
+                    editor.putBoolean("isColorBlind", true);
+                    editor.apply();
+
                 }else{
                     System.out.println("Color Switch Off");
-                }
-            }
-        });
-        textSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    System.out.println("Text Switch On");
-                }else{
-                    System.out.println("Text Switch Off");
+                    SharedPreferences.Editor editor = getContext().getSharedPreferences("colorBlindMode", MODE_PRIVATE).edit();
+                    editor.putBoolean("isColorBlind", false);
+                    editor.apply();
                 }
             }
         });
