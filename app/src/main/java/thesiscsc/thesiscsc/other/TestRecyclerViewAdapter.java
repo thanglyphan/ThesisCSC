@@ -131,7 +131,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                            if (contents.get(0).getStartActionType().equals("OPENWKS")) {
+                            if (contents.get(0).getStartActionType().equals("OPENWKS") && contents.get(0).nlsName.equals("Authorize and Close Remittance")) {
                                 System.out.println("Payment Task");
                                 startPaymentActivity(contents.get(0));
                             } else {
@@ -154,7 +154,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         colorView.setBackgroundColor(Color.rgb(146, 227, 132));
                     }
                 }
-                if (contents.get(0).getStartActionType().equals("OPENWKS")) {
+                if (contents.get(0).getStartActionType().equals("OPENWKS") && contents.get(0).nlsName.equals("Authorize and Close Remittance")) {
                     colorView.setBackgroundColor(Color.rgb(71, 129, 255));
                 }
                 name_txt_big.setText(contents.get(0).getTaskName());
@@ -180,7 +180,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (task.getStartActionType().equals("OPENWKS")) {
+                        if (task.getStartActionType().equals("OPENWKS") && task.nlsName.equals("Authorize and Close Remittance")) {
                             System.out.println("Payment Task");
                             startPaymentActivity(task);
                         } else {
@@ -201,7 +201,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 } else if (task.getStatus().equals("INPROGRESS")){
                     colorView.setBackgroundColor(Color.rgb(146, 227, 132));
                 }
-                if (task.getStartActionType().equals("OPENWKS")) {
+                if (task.getStartActionType().equals("OPENWKS") && task.nlsName.equals("Authorize and Close Remittance")) {
                     colorView.setBackgroundColor(Color.rgb(71, 129, 255));
                 }
 
