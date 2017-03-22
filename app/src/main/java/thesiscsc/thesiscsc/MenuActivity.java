@@ -243,15 +243,9 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                 );
                 return taskFragment;
             case 1:
-                TestOneFragment homeFragment = new TestOneFragment();
-                return homeFragment;
-            case 2:
-                PaymentFragment paymentFragment = new PaymentFragment();
-                return paymentFragment;
-            case 3:
                 AdminPanelFragment adminPanelFragment = new AdminPanelFragment();
                 return adminPanelFragment;
-            case 4:
+            case 2:
                 SettingsFragment settingsFragment = new SettingsFragment();
                 return settingsFragment;
             default:
@@ -279,20 +273,16 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.nav_home:
-                        navItemIndex = 0;
-                        CURRENT_TAG = TAG_HOME;
-                        break;
                     case R.id.tasks:
-                        navItemIndex = 1;
+                        navItemIndex = 0;
                         CURRENT_TAG = TAG_TASK;
                         break;
                     case R.id.nav_adminPanel:
-                        navItemIndex = 3;
+                        navItemIndex = 1;
                         CURRENT_TAG = TAG_ADMINPANEL;
                         break;
                     case R.id.nav_settings:
-                        navItemIndex = 4;
+                        navItemIndex = 2;
                         CURRENT_TAG = TAG_SETTINGS;
                         break;
                     default:
@@ -398,7 +388,7 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
         if (shouldLoadHomeFragOnBackPress) {
             if (navItemIndex != 0) {
                 navItemIndex = 0;
-                CURRENT_TAG = TAG_HOME;
+                CURRENT_TAG = TAG_TASK;
                 loadHomeFragment();
                 return;
             }
