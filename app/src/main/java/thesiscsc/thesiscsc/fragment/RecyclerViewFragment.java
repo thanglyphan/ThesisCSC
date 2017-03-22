@@ -238,6 +238,7 @@ public class RecyclerViewFragment extends Fragment {
                     allTask.add(task);
 
                     if(task.getStartActionType().equals("OPENWKS")) {
+                        if (task.nlsName.equals("Authorize and Close Remittance")||task.nlsName.equals("Update Remittance"))
                         listPayment.add(task);
                     } else {
                         switch (task.getStatus()){
