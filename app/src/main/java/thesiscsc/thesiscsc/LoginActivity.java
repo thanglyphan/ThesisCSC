@@ -37,9 +37,9 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences prefs;
 
     //---------------
-    //String ip = "192.168.43.197:8080";
+    String ip = "192.168.43.197:8080";
     //String ip = "10.0.0.60:8080";
-    String ip = "88.89.0.48:8080";
+    //String ip = "88.89.0.48:8080";
     //---------------
 
     String address = "http://" + ip + "/SwanLake/SicsWSServlet";

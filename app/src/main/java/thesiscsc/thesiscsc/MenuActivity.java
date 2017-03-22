@@ -229,15 +229,12 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
         drawer.closeDrawers();
 
         // refresh toolbar menu
-        invalidateOptionsMenu();
+        //invalidateOptionsMenu();
     }
 
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case 0:
-                TestOneFragment homeFragment = new TestOneFragment();
-                return homeFragment;
-            case 1:
                 TaskFragment taskFragment = new TaskFragment();
                 taskFragment.loadInfo(
                         prefs.getString("username", ""),
@@ -245,6 +242,9 @@ public class MenuActivity extends DrawerActivity implements ActionBar.TabListene
                         prefs.getLong("exp", 0)
                 );
                 return taskFragment;
+            case 1:
+                TestOneFragment homeFragment = new TestOneFragment();
+                return homeFragment;
             case 2:
                 PaymentFragment paymentFragment = new PaymentFragment();
                 return paymentFragment;
