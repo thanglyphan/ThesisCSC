@@ -12,5 +12,5 @@
 - 4. Finn mappen du har klonet prosjektet ned til med Android Studio.
 - 5. La applikasjonen bygge seg opp, og deretter trykk "Run"(play-knappen) på Android Studio.
 - 6. Neste steg er å velge om du skal bruke en emulator eller en android-telefon.
-- 6a. Bruker du en android-telefon? Koble til telefonen til PCen(må ha aktivert utvikler instillinger på telefonen) og velg telefonen under lista.
-- 6b. Bruker du en emulator? Last ned en emulator via android studio, velg emulatoren under lista.
+- 7. Bruker du en android-telefon? Koble til telefonen til PCen(må ha aktivert utvikler instillinger på telefonen) og velg telefonen under lista.
+- 8. Bruker du en emulator? Last ned en emulator via android studio, velg emulatoren under lista.
