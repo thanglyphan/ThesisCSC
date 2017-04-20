@@ -13,6 +13,6 @@
 - 5. La applikasjonen bygge seg opp, og deretter trykk "Run"(play-knappen) på Android Studio.
 - 6. Neste steg er å velge om du skal bruke en emulator eller en android-telefon.
 - 7. Bruker du en android-telefon? Koble til telefonen til PCen(må ha aktivert utvikler instillinger på telefonen) og velg telefonen under lista.
-- 8. Bruker du en emulator? Last ned en emulator via android studio, velg emulatoren under lista.
+- 8. Bruker du en emulator? Last ned en emulator via android studio, trykk på "Create New Virtual Device" og velg den mobilen du ønsker. Deretter velger du Marshmallow API level 23, next og finish. Velg deretter emulatoren fra listen.
 ![alt tag](https://github.com/thanglyphan/ThesisCSC/blob/master/img/create.png)
 
