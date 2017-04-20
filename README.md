@@ -5,9 +5,9 @@
      - Enten ved å trykke clone or download
      - Eller ved å gjøre det med commands.
      - Gjør du det med commands, gjør du følgende:
-     - * Åpne terminal/CMD
-     - * Naviger deg til dit du vil lagre prosjektet
-     - * git clone https://github.com/thanglyphan/ThesisCSC.git
+          * Åpne terminal/CMD
+          * Naviger deg til dit du vil lagre prosjektet
+          * git clone https://github.com/thanglyphan/ThesisCSC.git
 - 3. Åpne Andoid Studio
 - 4. Finn mappen du har klonet prosjektet ned til med Android Studio.
 - 5. La applikasjonen bygge seg opp, og deretter trykk "Run"(play-knappen) på Android Studio.
