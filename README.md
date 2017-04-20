@@ -14,3 +14,5 @@
 - 6. Neste steg er å velge om du skal bruke en emulator eller en android-telefon.
 - 7. Bruker du en android-telefon? Koble til telefonen til PCen(må ha aktivert utvikler instillinger på telefonen) og velg telefonen under lista.
 - 8. Bruker du en emulator? Last ned en emulator via android studio, velg emulatoren under lista.
+![alt tag](https://github.com/thanglyphan/ThesisCSC/blob/master/img/create.png)
+
