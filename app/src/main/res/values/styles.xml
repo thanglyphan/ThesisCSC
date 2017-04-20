@@ -8,11 +8,10 @@
         <item name="colorAccent">@color/CornflowerBlue</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorControlNormal">@color/AliceBlue</item>
         <item name="actionBarTheme">@style/MVP_AppTheme.ActionBarTheme</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="actionMenuTextColor">@color/Black</item>
-        <item name="android:textColorPrimary">@color/AliceBlue</item>
+        <item name="android:textColorPrimary">@color/Black</item>
         <item name="android:itemTextAppearance">@style/myCustomMenuTextApearance</item></style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
@@ -27,5 +26,10 @@
 
     <style name="myCustomMenuTextApearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@android:color/black</item>
+    </style>
+    
+    <style name="toolbarStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/AliceBlue</item>
+        <item name="colorControlNormal">@color/AliceBlue</item>
     </style>
 </resources>

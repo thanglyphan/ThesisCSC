@@ -25,6 +25,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/ActionBarRed"
             android:contextClickable="false"
+            android:theme="@style/toolbarStyle"
             app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"
             />
 

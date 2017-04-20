@@ -12,6 +12,7 @@
     app:pstsPaddingMiddle="false"
     app:pstsDividerPadding="20dp"
     app:pstsIndicatorColor="@color/AliceBlue"
+    app:pstsTabTextColor="@color/AliceBlue"
     app:pstsIndicatorHeight="4dp"
     app:pstsShouldExpand="false"
     app:pstsTabPaddingLeftRight="13dp"
