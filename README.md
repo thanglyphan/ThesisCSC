@@ -22,10 +22,11 @@
 - 11. You can now click "Continue" and then "Finish" on the Firebase website.
 - 12. The Server key needs to be added to the SICS Workstation template for it to send notifications.
 - 13. Click the cog next to "Overview" in the upper left-hand corner of the site, and click "Project settings"
-- 14. Navigate to the "CLOUD MESSAGING" tab and copy the token under "Server key".
-- 15. Consult with Harald on how to replace the existing key in the remittance template.
 
 ![alt tag](https://github.com/thanglyphan/ThesisCSC/blob/master/img/projectsettings.PNG)
+
+- 14. Navigate to the "CLOUD MESSAGING" tab and copy the token under "Server key".
+- 15. Consult with Harald on how to replace the existing key in the remittance template.
      
 - 16. You can now click the "Run"(play) button in Android Studio.
 - 17. You must now choose between using a physical Android smartphone, or the built in emulator.
