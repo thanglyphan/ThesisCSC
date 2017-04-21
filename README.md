@@ -40,3 +40,5 @@
 - 21. You can find the user's "Notification ID" by starting the app, logging in and then opening up the "Android Monitor" tool in Android Studio, selecting "Verbose" and filtering for "FIREBASETOKEN". It should now be the only thing visible in the logcat field.
 
 ![alt tag](https://github.com/thanglyphan/ThesisCSC/blob/master/img/Firebasetoken.PNG)
+
+When a remittance is created and sent to the authorizor for approval, it should also send a clickable notifcation to the smartphone running the application in the background. You will not recieve a notification if the app is open.
