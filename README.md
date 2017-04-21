@@ -34,7 +34,6 @@
 - 18. To use a physical phone, activate developer settings and connect it to the computer. It should show up in the list.
 - 19. To use and emulator you must download one via Android Studio. Click "Create New Virtual Device" and select your device of choice. You then select "Marshmallow API level 23", click "next" and then "finish". You should now be able to select the newly created virtual device from the list.
 
-
 ![alt tag](https://github.com/thanglyphan/ThesisCSC/blob/master/img/create.PNG)
 
 - 20. The last steps are to add the user to the list of potential owners of the "Authorize and Close Remittance" step of the remittance template, and to add the user's "Mobile Phone Notification ID" to the database SICS Workstation is using. (Consult Harald)
