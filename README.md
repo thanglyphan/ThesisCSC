@@ -25,7 +25,7 @@
 - 14. Navigate to the "CLOUD MESSAGING" tab and copy the token under "Server key".
 - 15. Consult with Harald on how to replace the existing key in the remittance template.
 
-![alt tag](https://github.com/thanglyphan/ThesisCSC/blob/master/img/project settings.PNG)
+![alt tag](https://github.com/thanglyphan/ThesisCSC/blob/master/img/projectsettings.PNG)
      
 - 16. You can now click the "Run"(play) button in Android Studio.
 - 17. You must now choose between using a physical Android smartphone, or the built in emulator.
