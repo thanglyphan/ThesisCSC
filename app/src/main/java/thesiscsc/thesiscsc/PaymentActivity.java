@@ -46,7 +46,7 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class PaymentActivity extends AppCompatActivity {
     Button buttonApprove, buttonDeny, buttonDate;
-    String displayDiscriminator;
+    String displayDiscriminator, tempDateStore;
     EditText comment;
     Task task;
     TextView text, moneyText, dateText, text2, text3, text4, text5;
@@ -84,7 +84,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         buttonApprove = (Button) findViewById(R.id.buttonApprove);
         buttonDeny = (Button) findViewById(R.id.buttonDeny);
-        buttonDate = (Button) findViewById(R.id.buttonDate);
+        //buttonDate = (Button) findViewById(R.id.buttonDate);
 
         displayDiscriminator = "";
         if (getIntent().getStringExtra("remittance_id") != null) {
@@ -161,7 +161,10 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
     }
-    @SuppressWarnings("deprecation")
+
+    //Datepicker for payment authorization
+
+    /*@SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
         Toast.makeText(getApplicationContext(), "ca",
@@ -195,6 +198,12 @@ public class PaymentActivity extends AppCompatActivity {
     private void showDate(int year, int month, int day) {
         buttonDate.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
-    }
+
+        tempDateStore = new StringBuilder().append(year).append("-")
+                .append(month).append("-").append(day).toString();
+
+        System.out.println(tempDateStore);
+
+    }*/
 
 }
