@@ -150,45 +150,6 @@ public class RecyclerViewFragment extends Fragment {
         mAdapter = new TestRecyclerViewAdapter(mContentItems, taskQueue, this.getContext());
         mRecyclerView.setAdapter(mAdapter);
 
-        /*mRecyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int itemPos) {
-                            switch (position) {
-                                case 0:
-                                    detailsTask(allTaskList.get(itemPos));
-                                    break;
-                                case 1:
-                                    detailsTask(inprogressList.get(itemPos));
-                                    break;
-                                case 2:
-                                    detailsTask(reservedList.get(itemPos));
-                                    break;
-                                case 3:
-                                    startPaymentActivity(paymentList.get(itemPos));
-                                    break; //detailsTask(paymentList.get(itemPos)); break;
-                            }
-                    }
-
-                        @Override public void onLongItemClick (View view,int itemPos){
-                            switch (position) {
-                                case 0:
-                                    detailsTask(allTaskList.get(itemPos));
-                                    break;
-                                case 1:
-                                    detailsTask(inprogressList.get(itemPos));
-                                    break;
-                                case 2:
-                                    detailsTask(reservedList.get(itemPos));
-                                    break;
-                                case 3:
-                                    startPaymentActivity(paymentList.get(itemPos));
-                                    break;
-                            }
-                        }
-                })
-
-        );*/
-
         loadRefresher(view);
     }
 

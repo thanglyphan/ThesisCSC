@@ -31,13 +31,6 @@ public class PaymentFragment extends Fragment {
         } catch (Exception e) {
             Log.d("ÆØÅ",Log.getStackTraceString(e));
         }
-        /*ExcecuteRetrieveObjectService excecuteRetrieveObjectService = new ExcecuteRetrieveObjectService(this.getContext());
-        try {
-            String hei = excecuteRetrieveObjectService.execute().get();
-        } catch (Exception e){
-            Log.d("exception", e.toString());
-        }
-        */
 
         return view;
     }

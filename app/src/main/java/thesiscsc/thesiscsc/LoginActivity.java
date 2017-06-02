@@ -89,25 +89,6 @@ public class LoginActivity extends AppCompatActivity {
         String password = prefs.getString("password", "");
         System.out.println(username);
 
-/*
-        String firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d("firebaseToken", firebaseToken);
-
-        prefs.edit().putString("firebaseToken", firebaseToken).apply();
-
-        if (getIntent().getExtras() != null) {
-            Log.d("intent",getIntent().getExtras().get("body").toString());
-            Intent intent = new Intent(LoginActivity.this, PaymentActivity.class);
-
-            String message = getIntent().getExtras().get("body").toString();
-            intent.putExtra(EXTRA_MESSAGE, message);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        } else {
-            Log.d("intent", "empty");
-        }
-        */
-
         _usernameText.setText("SICSPC");
         _passwordText.setText("SICSPC");
 
